@@ -1,0 +1,21 @@
+{
+  "name": "ppm-map",
+  "version": "0.0.1",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "http://elem-gitlab.elem.ru/maps/ppm-map.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "async": "^2.0.1",
+    "body-parser": "^1.15.2",
+    "express": "^4.14.0",
+    "request": "^2.74.0"
+  }
+}
