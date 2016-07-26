@@ -1,32 +1,44 @@
-var koa = require('koa');
-var app = koa();
+/*
+npm install --prefix ./public bootstrap
+npm install --prefix ./public angular
+*/
 
-// x-response-time
+//зависимости
+/*
+var ActiveDirectory = require('activedirectory');
+var jwt             = require('jsonwebtoken');
+var multiparty      = require('connect-multiparty');
+*/
+var fs              = require('fs');
+var https           = require('https');
+var http            = require('http');
+var express 	    = require('express');
+var bodyParser      = require('body-parser');
+var config          = require('./config');
+var request         = require('request');
+var async           = require('async');
 
-app.use(function *(next){
-  var start = new Date;
-    console.log(next, this.method, this.url, ms);
-    yield next;
-    var ms = new Date - start;
-    this.set('X-Response-Time', ms + '1ms');
-    console.log(3, this.method, this.url, ms);
+var app             = express();
+
+app.set('portHttp', config.portHttp);
+
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+
+app.use(express.static('public')); //папка со статическими файлами
+
+var apiRoutes = express.Router(); //объявление роутера
+
+//точка входа в роутер
+apiRoutes.get('/', function(req, res) {
+    res.status(403).send('API входа и получения данных');
 });
 
-// logger
-
-app.use(function *(next){
-        var start = new Date;
-        console.log(2, this.method, this.url, ms);
-        yield next;
-        var ms = new Date - start;
-        console.log(4, this.method, this.url, ms);
-
+//проводим авторизацию
+apiRoutes.post('/authenticate', function(req, res) {
+    res.status(200).send('ok');
 });
 
-// response
+app.use('/api', apiRoutes);
 
-app.use(function *(){
-  this.body = 'Hello World';
-});
-
-app.listen(7000);
+app.listen(app.get('portHttp'));
