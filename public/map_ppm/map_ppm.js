@@ -5,7 +5,7 @@ angular.module('map_ppmController', ['ngRoute', 'ngMaterial'])
     .controller('map_svgController', function($scope, $http, $location, User) {
     })
     .controller('diagramController', function($scope, $http, $location, User) {
-        console.log(123);
+        console.log(123222);
     })
     .directive('ghVisualization', ['$location', function (location) {
         return {
