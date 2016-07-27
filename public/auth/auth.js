@@ -31,7 +31,6 @@ angular.module('authController', ['ngRoute'])
                         $location.path('/map_ppm')
                     }
                     else {
-                        $scope.entering = false;
                         $scope.user.password = '';
                         $scope.message = data.message;
                     }
