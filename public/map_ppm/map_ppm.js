@@ -4,6 +4,12 @@ angular.module('map_ppmController', ['ngRoute', 'ngMaterial'])
     })
     .controller('map_svgController', function($scope, $http, $location, User) {
     })
+    .controller('tableController', function($scope, $http, $location, User, $routeParams) {
+        if (!$routeParams.place) {
+            return;
+        }
+
+    })
     .controller('diagramController', function($scope, $http, $location, User, $routeParams) {
         if (!$routeParams.zone) {
             return;
@@ -13,7 +19,6 @@ angular.module('map_ppmController', ['ngRoute', 'ngMaterial'])
             url: '/api/get_diagram/',
             data: {zone: $routeParams.zone}
         }).then(function successCallback(response) {
-            console.log(response)
             $(function () {
                 $('#ppm_diagram').highcharts({
                     chart: {
@@ -23,20 +28,27 @@ angular.module('map_ppmController', ['ngRoute', 'ngMaterial'])
                         text: response.data.zone_name
                     },
                     xAxis: {
-                        categories: response.data.zones
+                        categories: response.data.zones,
                     },
                     yAxis: {
                         min: 0,
                         title: {
                             text: 'Распределение сырья'
-                        }
+                        },
                     },
-                    legend: {
-                        enabled: false
-                    },
+                    // legend: {
+                    //     enabled: true
+                    // },
                     plotOptions: {
                         series: {
-                            stacking: 'normal'
+                            stacking: 'normal',
+                            events: {
+                                click: function (event) {
+                                    $location.search("place="+event.point.category);
+                                    $scope.$apply();
+
+                                }
+                            }
                         }
                     },
                     series: response.data.data

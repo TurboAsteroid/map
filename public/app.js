@@ -18,10 +18,6 @@ appMAP.config(function($routeProvider) {
             templateUrl: 'map_ppm/map_ppm.html',
             controller: 'map_ppmController'
         })
-        .when('/map_ppm/:zone/:id', {
-            templateUrl: 'map_ppm/map_ppm.html',
-            controller: 'map_ppmController'
-        })
         .otherwise({ redirectTo: '/' });
 });
 
