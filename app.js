@@ -165,16 +165,58 @@ apiRoutes.post('/authenticate', function(req, res) {
 
     res.status(200).send({success: true, tokenUser: "TUUUUUUUUUUUUUUUU", tokenPassword: "Tpppppppppppppppp"});
     /*
-    async.waterfall([ //последовательно проверяем (водопадом)
-        async.apply(auth, { username: req.headers['username'], password: req.headers['password']}),//входит ли в группу
-        checkGroup, //входит ли в группу
-        createTokens //создаем токен
-    ], function (err, result) { //отправляем результат
-        if(err)
-            res.status(400).send(result);
-        else
-            res.status(200).send(result);
-    });*/
+     async.waterfall([ //последовательно проверяем (водопадом)
+     async.apply(auth, { username: req.headers['username'], password: req.headers['password']}),//входит ли в группу
+     checkGroup, //входит ли в группу
+     createTokens //создаем токен
+     ], function (err, result) { //отправляем результат
+     if(err)
+     res.status(400).send(result);
+     else
+     res.status(200).send(result);
+     });*/
+});
+
+//Получение данных диаграмы
+apiRoutes.post('/get_diagram', function(req, res) {
+    var fs = require('fs');
+
+    fs.readFile('./public/ppm.json', 'utf8', function(err, contents) {
+        if (err) throw err;
+        data = JSON.parse(contents);
+
+        var places = [];
+        var tmp_data = {};
+        for (place in data) {
+            var pl = data[place];
+            for (raw in pl.raws) {
+                var rw = pl.raws[raw];
+                places.push(pl.place);
+                if (!tmp_data[rw.raw]) {tmp_data[rw.raw] = {};}
+                if (!tmp_data[rw.raw][pl.place]) {tmp_data[rw.raw][pl.place] = 0;}
+                tmp_data[rw.raw][pl.place] += rw.balance_at_start;
+            }
+        }
+        places = places.filter(function(elem, pos) {
+            return places.indexOf(elem) == pos;
+        })
+        var new_data = [];
+
+        for(i in tmp_data) {
+            tmp = [];
+            for(k in places) {
+                tmp.push(tmp_data[i][places[k]] || 0);
+            }
+            new_data.push({name: i, data: tmp});
+        }
+
+        res.status(200).send({
+            success: true,
+            zone_name: req.body.zone,
+            zones: places,
+            data: new_data
+        });
+    });
 });
 
 /*
