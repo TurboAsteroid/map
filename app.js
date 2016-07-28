@@ -3,7 +3,8 @@ npm install --prefix ./public angular
 npm install --prefix ./public angular-route
 npm install --prefix ./public angular-material
 npm install --prefix ./public d3
-npm i --prefix ./public angular-nvd3
+npm install --prefix ./public highcharts
+npm install --prefix ./public jquery
 */
 
 //зависимости
