@@ -1,3 +1,32 @@
 <div ng-controller="tableController">
-    table
+    <h3>{{table_name}}</h3>
+    <md-button class="md-primary md-raised" ng-click="showPrerenderedDialog($event)">
+        Настройка колонок
+    </md-button>
+    <div id="place_datatable">
+        <table>
+            <thead>
+            <tr>
+                <th ng-repeat="item in items" ng-show="item.show">{{item.name}}</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="row in table_data">
+                <td ng-repeat="(key, item) in items" ng-show="item.show">{{row[key]}}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div style="visibility: hidden">
+        <div class="md-dialog-container" id="myDialogColums">
+            <md-dialog layout-padding="20">
+                <div ng-repeat="item in items">
+                    <md-checkbox ng-checked="item.show" ng-click="toggle(item)">
+                        {{ item.name }}
+                    </md-checkbox>
+                </div>
+            </md-dialog>
+        </div>
+    </div>
 </div>
