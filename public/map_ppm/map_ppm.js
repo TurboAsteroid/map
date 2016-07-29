@@ -81,6 +81,9 @@ angular.module('map_ppmController', ['ngRoute', 'ngMaterial'])
                 data: {zone: zone}
             }).then(function successCallback(response) {
                 $(function () {
+                    for (var i = 0; i < response.data.zones.length; i++) {
+                        response.data.zones[i] = "Место " + response.data.zones[i];
+                    }
                     $('#ppm_diagram').highcharts({
                         chart: {
                             type: 'bar'
@@ -125,6 +128,9 @@ angular.module('map_ppmController', ['ngRoute', 'ngMaterial'])
                 data: {zone: zone}
             }).then(function successCallback(response) {
                 $(function () {
+                    for (var i = 0; i < response.data.zones.length; i++) {
+                        response.data.zones[i] = "Место " + response.data.zones[i];
+                    }
                     $('#ppm_diagram2').highcharts({
                         chart: {
                             type: 'bar'
@@ -171,7 +177,7 @@ angular.module('map_ppmController', ['ngRoute', 'ngMaterial'])
                 var parent = d3.select(element[0]);
                 var polygon = parent.selectAll('polygon');
                 polygon.each(function() {
-                    this.id = Math.random();
+                    this.id = "Склад " + (Math.floor((Math.random() * 100) + 1));
                 });
                 var tooltip = d3.select("body")
                     .append("div")
@@ -181,7 +187,7 @@ angular.module('map_ppmController', ['ngRoute', 'ngMaterial'])
                     .style("padding", "10px")
                     .style("background", "#fff")
                     .style("border", "1px solid #ccc")
-                    .style("border-radius", "7px")
+                    .style("border-radius", "7px");
                 polygon
                     .on("mouseover", function(){
                         tooltip.text(this.id);
