@@ -6,29 +6,27 @@
     </div>
 </md-toolbar>
 <md-content>
-    <div class="md-padding" layout-xs="column" layout="row">
-        <div flex-xs="" flex-gt-xs="50" layout="column">
+    <div class="md-padding" layout-md="column" layout="row">
+        <div flex layout="column">
             <md-card>
                 <md-content>
                     <div flex ng-include="'/map_ppm/map_svg/map_svg.html'"></div>
                 </md-content>
             </md-card>
         </div>
-        <div flex-xs="" flex-gt-xs="50" layout="column">
+        <div flex layout="column">
             <md-card>
                 <md-content>
                     <div flex ng-include="'/map_ppm/diagram/diagram.html'"></div>
                 </md-content>
             </md-card>
         </div>
-            </div>
-            <div class="md-padding" layout-xs="column" layout="row">
-        <div flex-xs="" flex-gt-xs="100" layout="column">
-            <md-card>
-                <md-content>
-                    <div flex ng-include="'/map_ppm/table/table.html'"></div>
-                </md-content>
-            </md-card>
-        </div>
+    </div>
+    <div layout="column">
+        <md-card>
+            <md-content>
+                <div flex ng-include="'/map_ppm/table/table.html'"></div>
+            </md-content>
+        </md-card>
     </div>
 </md-content>
