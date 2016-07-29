@@ -23,14 +23,11 @@
       <script src="map_ppm/map_ppm.js"></script>
   </head>
   <body ng-app="appMAP">
-  <div layout="row" layout-wrap layout-margin>
-      <div flex="10"></div>
-      <div flex="80">
-          <md-content class="md-padding">
-              <ng-view></ng-view>
-          </md-content>
-      </div>
-      <div flex="10" class="md-caption">v. 0.0.1</div>
+  <div layout="row" layout-wrap  layout-align="center start">
+      <md-content class="md-padding">
+          <ng-view></ng-view>
+      </md-content>
   </div>
+  <div class="md-caption">v. 0.0.1</div>
   </body>
 </html>
