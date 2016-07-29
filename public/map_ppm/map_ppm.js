@@ -122,6 +122,29 @@ angular.module('map_ppmController', ['ngRoute', 'ngMaterial'])
                         },
                         series: response.data.data
                     });
+                    $('#ppm_diagram_raws').highcharts({
+                        chart: {
+                            type: 'bar'
+                        },
+                        title: {
+                            text: response.data.zone_name
+                        },
+                        xAxis: {
+                            categories: response.data.raws
+                        },
+                        yAxis: {
+                            min: 0,
+                            title: {
+                                text: 'Распределение сырья, тонны'
+                            }
+                        },
+                        plotOptions: {
+                            series: {
+                                stacking: 'normal'
+                            }
+                        },
+                        series: response.data.data_raws
+                    })
                 });
                 $scope.ppm_diagram_checkbox_show = true;
             }, function errorCallback(response) {
@@ -209,7 +232,7 @@ angular.module('map_ppmController', ['ngRoute', 'ngMaterial'])
                         tooltip.style("visibility", "hidden");
                         history.pushState({}, d3.select(this).attr('id'), '#/map_ppm/'+d3.select(this).attr('id'));
                         $rootScope.$broadcast("zone_click", {zone:d3.select(this).attr('id')});
-                });
+                    });
             }
         }
     });
