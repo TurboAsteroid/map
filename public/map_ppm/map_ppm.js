@@ -1,7 +1,14 @@
 'use strict';
 angular.module('map_ppmController', ['ngRoute', 'ngMaterial'])
     .controller('map_ppmController', function($scope, $http, $location, User, $routeParams, $rootScope) {})
-    .controller('map_svgController', function($scope, $location, $element, $rootScope) {})
+    .controller('map_svgController', function($scope, $location, $element, $rootScope) {
+        $scope.getWidth = function () {
+            return $($element).width();
+        };
+        $scope.$watch($scope.getWidth, function (width) {
+            $($element).height(width);
+        });
+    })
     .controller('tableController', function($scope, $http, $location, User, $routeParams, $mdDialog, localStorageService) {
         $scope.place = $routeParams.place || false;
         $scope.$on('place_click', function (event, data) {
@@ -27,9 +34,6 @@ angular.module('map_ppmController', ['ngRoute', 'ngMaterial'])
             }, function errorCallback(response) {
                 console.log('table request error');
             });
-
-            localStorageService.set('a', 3);
-            console.log();
 
             $scope.items = {
                 incoming: "Приход/расход",
@@ -66,13 +70,15 @@ angular.module('map_ppmController', ['ngRoute', 'ngMaterial'])
 
         $scope.zone = $routeParams.zone || false;
         $scope.$on('zone_click', function (event, data) {
-            load_zone(data.zone);
+            if (data.zone!=$scope.zone) {
+                load_zone(data.zone);
+            }
         });
         if (!$routeParams.zone) {
             return;
         }
-
         load_zone($routeParams.zone);
+
         function load_zone (zone) {
             $scope.zone = zone;
             $http({
