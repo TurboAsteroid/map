@@ -172,7 +172,10 @@ angular.module('map_ppmController', ['ngRoute', 'ngMaterial'])
                     .style("position", "absolute")
                     .style("z-index", "10")
                     .style("visibility", "hidden")
-                    .text("a simple tooltip");
+                    .style("padding", "10px")
+                    .style("background", "#fff")
+                    .style("border", "1px solid #ccc")
+                    .style("border-radius", "7px")
                 polygon
                     .on("mouseover", function(){
                         tooltip.text(this.id);
