@@ -259,105 +259,63 @@ apiRoutes.post('/get_table', function (req, res) {
     });
 });
 
-/*
- //получаем листы
- apiRoutes.get('/list', function(req, res) {
- //создадим алиасы (для удобства и передачи после водопада)
- var tu = req.headers['tokenuser'],
- tp = req.headers['tokenpassword'],
- c = req.headers['ckeckpoint'],
- g = req.headers['give'],
- l = req.headers['list'];
- try { //переданы ли какие-нибудь вообще данные
- tu.length;
- tp.length;
- c.length;
- l.length;
- if(g == null || g == undefined)
- throw g;
- }
- catch (err) { //если длина одного из алиасов кривая
- return res.status(403).send({success: false, message: 'Доступ запрещен. Ошибка передачи параметра', err: err});
- }
- async.waterfall([ //водопадом
- async.apply(decodeTokens, { tokenuser: tu, tokenpassword: tp}), //декодируем токены
- auth,//входит ли в группу
- checkGroup, //входит ли в группу
- createTokens //создаем токен
- ], function (err, result) {
- var url_sap = '';
- if(err)
- res.status(400).send(result); //отправляем ошибку
- try { //повторная проверка (избыточно, но все же) переданы ли какие-нибудь вообще данные
- tu.length;
- tp.length;
- c.length;
- l.length;
- if(g == null || g == undefined)
- throw g;
- }
- catch (err2) {
- return res.status(403).send({success: false, message: 'Доступ запрещен. Ошибка передачи параметра', err: err2});
- } //ниже проверки на все
- if (!err && c.toString() === (result.ckeckpoint).toString() && g.toString() === (result.give).toString() &&
- (l).toString() === '57') { //если статус 57 (согласованы) - выдавать всем двум группам
- url_sap = app.get('url') + //формирование ссылки до сапа
- '/list?status=' + l +
- '&ckeckpoint=' + c +
- '&sap-user=' + app.get('sapUser') +
- '&sap-password=' + app.get('sapPassword');
- request.get({ //формирование запроса и получение данных с сервера сапа
- url: url_sap,
- headers: {
- 'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.102 Safari/537.36'
- }
- }, function (error, response, body) {
- try {//обработка полученных данных
- if (response.body == 'Login Error' || response.body == undefined) //если пришла ошибка
- res.status(403).send({success: false, message: 'Доступ запрещен (SAP)'}); //отправляем ошибку
- else if (!error && response.statusCode == 200) //если проишла не ошибка
- res.status(200).send({ //отправляем список пропусков
- success: true,
- message: 'Список пропусков предоставлен. Статус пропусков ' + l,
- data: body
- });
- } catch (error) { //отправляем ошибку сервера
- res.status(500).send({success: false, message: 'Доступ запрещен. Ошибка сервера'});
- }
- });
- }
- else if (!err && c.toString() === (result.ckeckpoint).toString() && //только для охраны
- (g.toString() === (false).toString() && g.toString() === (result.give).toString()) &&
- ((l).toString() === '51' || (l).toString() === '53' )) { //если статус 53 и 51 (на территории и на согласовании) - выдавать всем двум группам
- url_sap = app.get('url') + //формирование ссылки до сапа
- '/list?status=' + l +
- '&ckeckpoint=' + c +
- '&sap-user=' + app.get('sapUser') +
- '&sap-password=' + app.get('sapPassword');
- request.get({ //формирование запроса и получение данных с сервера сапа
- url: url_sap,
- headers: { 'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.102 Safari/537.36' }
- }, function (error, response, body) {
- try { //обработка полученных данных
- if (response.body == 'Login Error' || response.body == undefined) //если пришла ошибка
- res.status(403).send({success: false, message: 'Доступ запрещен (SAP)'}); //отправляем ошибку
- else if (!error && response.statusCode == 200)
- res.status(200).send({ //если проишла не ошибка
- success: true,
- message: 'Список пропусков предоставлен. Статус пропусков ' + l,
- data: body
- });
- } catch (error) { //отправляем ошибку сервера
- res.status(500).send({success: false, message: 'Доступ запрещен. Ошибка сервера'});
- }
- });
- }
- else //отправляем ошибку
- res.status(400).send({success: false, message: 'Доступ запрещен'});
- });
- });
+//Получение данных диаграмы
+apiRoutes.post('/get_diagram2', function(req, res) {
+    var fs = require('fs');
 
- */
+    fs.readFile('./public/ppm.json', 'utf8', function(err, contents) {
+        if (err) throw err;
+        data = JSON.parse(contents);
+
+        var places = [];
+        var tmp_data = {};
+        for (place in data) {
+            var pl = data[place];
+            for (raw in pl.raws) {
+                var rw = pl.raws[raw];
+                places.push(pl.place);
+                if (!tmp_data[rw.raw]) {tmp_data[rw.raw] = {};}
+                if (!tmp_data[rw.raw][pl.place]) {tmp_data[rw.raw][pl.place] = 0;}
+                tmp_data[rw.raw][pl.place] += rw.balance_at_start;
+            }
+        }
+        places = places.filter(function(elem, pos) {
+            return places.indexOf(elem) == pos;
+        });
+        var new_data = [];
+
+        for(i in tmp_data) {
+            tmp = [];
+            for(k in places) {
+                tmp.push(tmp_data[i][places[k]] || 0);
+            }
+            new_data.push({name: i, data: tmp});
+        }
+
+        var new_data_sum = [];
+        for(var iii = 0; iii < new_data.length; iii++) {
+            new_data_sum[iii] = 0;
+        }
+        for(var i = 0; i < new_data.length; i++) {
+            for(var j = 0; j < new_data[i].data.length; j++) {
+                new_data_sum[j] = new_data_sum[j] + new_data[i].data[j];
+            }
+        }
+
+        for(var i = 0; i < new_data.length;i++) {
+            for(var j = 0; j < new_data[i].data.length; j++) {
+                new_data[i].data[j] = new_data[i].data[j]/new_data_sum[j]*100;
+            }
+        }
+
+        res.status(200).send({
+            success: true,
+            zone_name: req.body.zone,
+            zones: places,
+            data: new_data
+        });
+    });
+});
 
 app.use('/api', apiRoutes);
 

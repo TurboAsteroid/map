@@ -82,13 +82,13 @@ angular.module('map_ppmController', ['ngRoute', 'ngMaterial'])
                         text: response.data.zone_name
                     },
                     xAxis: {
-                        categories: response.data.zones,
+                        categories: response.data.zones
                     },
                     yAxis: {
                         min: 0,
                         title: {
-                            text: 'Распределение сырья'
-                        },
+                            text: 'Распределение сырья, тонны'
+                        }
                     },
                     // legend: {
                     //     enabled: true
@@ -103,6 +103,43 @@ angular.module('map_ppmController', ['ngRoute', 'ngMaterial'])
 
                                 }
                             }
+                        }
+                    },
+                    series: response.data.data
+                });
+            });
+        }, function errorCallback(response) {
+            console.log('diagram request error');
+        });
+
+        $http({
+            method: 'POST',
+            url: '/api/get_diagram2/',
+            data: {zone: $routeParams.zone}
+        }).then(function successCallback(response) {
+            $(function () {
+                $('#ppm_diagram2').highcharts({
+                    chart: {
+                        type: 'bar'
+                    },
+                    title: {
+                        text: response.data.zone_name
+                    },
+                    xAxis: {
+                        categories: response.data.zones
+                    },
+                    yAxis: {
+                        min: 0,
+                        title: {
+                            text: 'Распределение сырья, проценты'
+                        }
+                    },
+                    legend: {
+                        enabled: true
+                    },
+                    plotOptions: {
+                        series: {
+                            stacking: 'normal'
                         }
                     },
                     series: response.data.data
