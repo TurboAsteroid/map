@@ -146,7 +146,13 @@ angular.module('map_ppmController', ['ngRoute', 'ngMaterial'])
                         },
                         plotOptions: {
                             series: {
-                                stacking: 'normal'
+                                stacking: 'normal',
+                                events: {
+                                    click: function (event) {
+                                        history.pushState({}, event.point.category, '#'+$location.path()+'?place='+event.point.category);
+                                        $rootScope.$broadcast("place_click", {zone: zone, place: event.point.category});
+                                    }
+                                }
                             }
                         },
                         series: response.data.data
