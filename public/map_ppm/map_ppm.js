@@ -4,11 +4,65 @@ angular.module('map_ppmController', ['ngRoute', 'ngMaterial'])
     })
     .controller('map_svgController', function($scope, $http, $location, User) {
     })
-    .controller('tableController', function($scope, $http, $location, User, $routeParams) {
+    .controller('tableController', function($scope, $http, $location, User, $routeParams, $mdDialog) {
         if (!$routeParams.place) {
             return;
         }
+        $http({
+            method: 'POST',
+            url: '/api/get_table/',
+            data: {zone: $routeParams.zone, place: $routeParams.place}
+        }).then(function successCallback(response) {
+            $scope.table_name = response.data.place_name;
+            $scope.table_data = response.data.data;
+        }, function errorCallback(response) {
+            console.log('table request error');
+        });
 
+        $scope.items = {
+            incoming: {
+                name: "Приход/расход",
+                show: true
+            },
+            act: {
+                name: "Акт",
+                show: true
+            },
+            place: {
+                name: "место",
+                show: true
+            },
+            balance_at_start: {
+                name: "количестно на начало",
+                show: true
+            },
+            balance_at_start_OX: {
+                name: "количество на начало ОХ",
+                show: true
+            },
+            balance_at_start_work: {
+                name: "количество на начало в работу",
+                show: true
+            },
+            ei: {
+                name: "Единицы измерения",
+                show: true
+            }
+        };
+
+        $scope.toggle = function (item) {
+           item.show = item.show ? false : true;
+        };
+
+        $scope.showPrerenderedDialog = function(ev) {
+            $mdDialog.show({
+                controller: DialogController,
+                contentElement: '#myDialogColums',
+                parent: angular.element(document.body),
+                targetEvent: ev,
+                clickOutsideToClose: true
+            });
+        };
     })
     .controller('diagramController', function($scope, $http, $location, User, $routeParams) {
         if (!$routeParams.zone) {
@@ -81,3 +135,18 @@ angular.module('map_ppmController', ['ngRoute', 'ngMaterial'])
             }
         }
     }]);
+
+
+function DialogController($scope, $mdDialog) {
+    $scope.hide = function() {
+        $mdDialog.hide();
+    };
+
+    $scope.cancel = function() {
+        $mdDialog.cancel();
+    };
+
+    $scope.answer = function(answer) {
+        $mdDialog.hide(answer);
+    };
+}
