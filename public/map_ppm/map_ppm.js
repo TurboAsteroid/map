@@ -66,9 +66,7 @@ angular.module('map_ppmController', ['ngRoute', 'ngMaterial'])
 
         $scope.zone = $routeParams.zone || false;
         $scope.$on('zone_click', function (event, data) {
-            if ($scope.zone != data.zone) {
-                load_zone(data.zone);
-            }
+            load_zone(data.zone);
         });
         if (!$routeParams.zone) {
             return;
