@@ -1,0 +1,23 @@
+{
+  "name": "public_dir_map",
+  "version": "0.0.1",
+  "description": "",
+  "main": "app.js",
+  "dependencies": {
+    "angular": "^1.5.8",
+    "angular-animate": "^1.5.8",
+    "angular-aria": "^1.5.8",
+    "angular-local-storage": "^0.2.7",
+    "angular-material": "^1.1.0-rc.5",
+    "angular-route": "^1.5.8",
+    "d3": "^4.1.1",
+    "highcharts": "^4.2.5",
+    "jquery": "^3.1.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
