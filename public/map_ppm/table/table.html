@@ -1,10 +1,18 @@
 <div ng-show="table_name" ng-controller="tableController">
-    <h3>{{table_name}}</h3>
-    <md-button class="md-primary md-raised" ng-click="showPrerenderedDialog($event)">
-        Настройка колонок
-    </md-button>
+    <md-toolbar>
+        <div class="md-toolbar-tools">
+            <h3>
+                <span>{{table_name}}</span>
+            </h3>
+        </div>
+    </md-toolbar>
+    <div layout="row" layout-align="end center">
+        <md-button class="md-primary md-raised" ng-click="showPrerenderedDialog($event)">
+            Настройка колонок
+        </md-button>
+    </div>
     <div id="place_datatable">
-        <table>
+        <table style="width: 100%">
             <thead>
             <tr>
                 <th ng-repeat="item in items" ng-show="item.show">{{item.name}}</th>

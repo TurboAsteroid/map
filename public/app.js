@@ -22,9 +22,7 @@ appMAP.config(function($routeProvider) {
 });
 
 appMAP.config(function($mdThemingProvider) {
-    $mdThemingProvider.theme('default')
-        .primaryPalette('blue-grey')
-        .warnPalette('red');
+    $mdThemingProvider.theme('default');
 });
 
 appMAP.controller('navigationController', function ($scope, $location, User) {
