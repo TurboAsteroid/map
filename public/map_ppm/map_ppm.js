@@ -1,9 +1,8 @@
 'use strict';
 angular.module('map_ppmController', ['ngRoute', 'ngMaterial'])
     .controller('map_ppmController', function($scope, $http, $location, User, $routeParams, $rootScope) {})
-    .controller('map_svgController', function($scope, $location, $element, $rootScope) {
-    })
-    .controller('tableController', function($scope, $http, $location, User, $routeParams, $mdDialog) {
+    .controller('map_svgController', function($scope, $location, $element, $rootScope) {})
+    .controller('tableController', function($scope, $http, $location, User, $routeParams, $mdDialog, localStorageService) {
         $scope.place = $routeParams.place || false;
         $scope.$on('place_click', function (event, data) {
             if ($scope.place != data.place) {
@@ -29,40 +28,25 @@ angular.module('map_ppmController', ['ngRoute', 'ngMaterial'])
                 console.log('table request error');
             });
 
+            localStorageService.set('a', 3);
+            console.log();
+
             $scope.items = {
-                incoming: {
-                    name: "Приход/расход",
-                    show: true
-                },
-                act: {
-                    name: "Акт",
-                    show: true
-                },
-                place: {
-                    name: "место",
-                    show: true
-                },
-                balance_at_start: {
-                    name: "количестно на начало",
-                    show: true
-                },
-                balance_at_start_OX: {
-                    name: "количество на начало ОХ",
-                    show: true
-                },
-                balance_at_start_work: {
-                    name: "количество на начало в работу",
-                    show: true
-                },
-                ei: {
-                    name: "Единицы измерения",
-                    show: true
-                }
+                incoming: "Приход/расход",
+                act: "Акт",
+                place: "место",
+                balance_at_start: "количестно на начало",
+                balance_at_start_OX: "количество на начало ОХ",
+                balance_at_start_work: "количество на начало в работу",
+                ei: "Единицы измерения"
             };
         }
 
-        $scope.toggle = function (item) {
-           item.show = item.show ? false : true;
+        $scope.toggle = function (key) {
+            localStorageService.set(key, $scope.checkVisible(key) ? 'false' : 'true');
+        };
+        $scope.checkVisible = function (key) {
+            return localStorageService.get(key) === 'false' ? false : true;
         };
 
         $scope.showPrerenderedDialog = function(ev) {
