@@ -2,6 +2,11 @@
     color: #F44336;
 }
 
+#svg_map polygon:hover {
+    fill: #7b776b;
+    cursor: pointer;
+}
+
 #place_datatable {
     width: 100%;
     overflow: auto;
