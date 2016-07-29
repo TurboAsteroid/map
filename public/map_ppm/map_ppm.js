@@ -164,9 +164,30 @@ angular.module('map_ppmController', ['ngRoute', 'ngMaterial'])
             link: function (scope, element, attrs) {
                 var parent = d3.select(element[0]);
                 var polygon = parent.selectAll('polygon');
-                polygon.on("click", function(){
-                    history.pushState({}, d3.select(this).attr('id'), '#/map_ppm/'+d3.select(this).attr('id'));
-                    $rootScope.$broadcast("zone_click", {zone:d3.select(this).attr('id')});
+                polygon.each(function() {
+                    this.id = Math.random();
+                });
+                var tooltip = d3.select("body")
+                    .append("div")
+                    .style("position", "absolute")
+                    .style("z-index", "10")
+                    .style("visibility", "hidden")
+                    .text("a simple tooltip");
+                polygon
+                    .on("mouseover", function(){
+                        tooltip.text(this.id);
+                        return tooltip.style("visibility", "visible");
+                    })
+                    .on("mousemove", function(){
+                        return tooltip.style("top", (event.pageY-10)+"px").style("left",(event.pageX+10)+"px");
+                    })
+                    .on("mouseout", function(){
+                        return tooltip.style("visibility", "hidden");
+                    })
+                    .on("click", function(){
+                        tooltip.style("visibility", "hidden");
+                        history.pushState({}, d3.select(this).attr('id'), '#/map_ppm/'+d3.select(this).attr('id'));
+                        $rootScope.$broadcast("zone_click", {zone:d3.select(this).attr('id')});
                 });
             }
         }
