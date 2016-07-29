@@ -5,6 +5,7 @@
  npm install --prefix ./public d3
  npm install --prefix ./public highcharts
  npm install --prefix ./public jquery
+ npm install --prefix ./public angular-local-storage
  */
 
 //зависимости

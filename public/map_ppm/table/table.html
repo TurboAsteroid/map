@@ -15,12 +15,12 @@
         <table style="width: 100%">
             <thead>
             <tr>
-                <th ng-repeat="item in items" ng-show="item.show">{{item.name}}</th>
+                <th ng-repeat="(key, item) in items" ng-show="checkVisible(key)">{{item}}</th>
             </tr>
             </thead>
             <tbody>
             <tr ng-repeat="row in table_data">
-                <td ng-repeat="(key, item) in items" ng-show="item.show">{{row[key]}}</td>
+                <td ng-repeat="(key, item) in items" ng-show="checkVisible(key)">{{row[key]}}</td>
             </tr>
             </tbody>
         </table>
@@ -29,9 +29,9 @@
     <div style="visibility: hidden">
         <div class="md-dialog-container" id="myDialogColums">
             <md-dialog layout-padding="20">
-                <div ng-repeat="item in items">
-                    <md-checkbox ng-checked="item.show" ng-click="toggle(item)">
-                        {{ item.name }}
+                <div ng-repeat="(key, item) in items">
+                    <md-checkbox ng-checked="checkVisible(key)" ng-click="toggle(key)">
+                        {{ item }}
                     </md-checkbox>
                 </div>
             </md-dialog>

@@ -2,7 +2,8 @@
 var appMAP = angular.module('appMAP', ['ngRoute',
                                         'ngMaterial',
                                         'authController',
-                                        'map_ppmController']);
+                                        'map_ppmController',
+                                        'LocalStorageModule']);
 
 appMAP.config(function($routeProvider) {
     $routeProvider
