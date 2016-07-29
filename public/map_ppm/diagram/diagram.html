@@ -1,4 +1,14 @@
 <div ng-controller="diagramController">
-    <div id="ppm_diagram" style="min-width: 310px; max-width: 800px; height: 400px; margin: 0 auto"></div>
-    <div id="ppm_diagram2" style="min-width: 310px; max-width: 800px; height: 400px; margin: 0 auto"></div>
+    <md-toolbar ng-show="ppm_diagram_checkbox_show">
+        <div class="md-toolbar-tools">
+            <md-checkbox ng-model="ppm_diagram_show" aria-label="Диаграмма 1">
+                Диаграмма 1
+            </md-checkbox>
+            <md-checkbox ng-model="ppm_diagram2_show" aria-label="Диаграмма 2">
+                Диаграмма 2
+            </md-checkbox>
+        </div>
+    </md-toolbar>
+    <div id="ppm_diagram" ng-show="ppm_diagram_show"></div>
+    <div id="ppm_diagram2" ng-show="ppm_diagram2_show"></div>
 </div>

@@ -80,6 +80,10 @@ angular.module('map_ppmController', ['ngRoute', 'ngMaterial'])
         };
     })
     .controller('diagramController', function($scope, $http, $location, User, $routeParams) {
+        $scope.ppm_diagram_checkbox_show = false;
+        $scope.ppm_diagram_show = true;
+        $scope.ppm_diagram2_show = true;
+
         if (!$routeParams.zone) {
             return;
         }
@@ -123,6 +127,7 @@ angular.module('map_ppmController', ['ngRoute', 'ngMaterial'])
                     series: response.data.data
                 });
             });
+            $scope.ppm_diagram_checkbox_show = true;
         }, function errorCallback(response) {
             console.log('diagram request error');
         });
@@ -160,6 +165,7 @@ angular.module('map_ppmController', ['ngRoute', 'ngMaterial'])
                     series: response.data.data
                 });
             });
+            $scope.ppm_diagram_checkbox_show = true;
         }, function errorCallback(response) {
             console.log('diagram request error');
         });
