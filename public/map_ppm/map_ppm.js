@@ -90,9 +90,7 @@ angular.module('map_ppmController', ['ngRoute', 'ngMaterial'])
     .controller('diagramController', function($scope, $http, $location, User, $routeParams, $rootScope) {
         $scope.ppm_diagram_checkbox_show = false;
         $scope.ppm_diagram_show = true;
-        $scope.ppm_diagram2_show = true;
-
-        $scope.zone = $routeParams.zone || false;
+        $scope.ppm_diagram2_show = false;
         $scope.$on('zone_click', function (event, data) {
             load_zone(data.zone);
         });
@@ -124,9 +122,6 @@ angular.module('map_ppmController', ['ngRoute', 'ngMaterial'])
                                 text: 'Распределение сырья, тонны'
                             }
                         },
-                        // legend: {
-                        //     enabled: true
-                        // },
                         plotOptions: {
                             series: {
                                 stacking: 'normal',
