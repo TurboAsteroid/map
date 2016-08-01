@@ -1,5 +1,5 @@
 'use strict';
-angular.module('authController', ['ngRoute'])
+angular.module('authModule', ['ngRoute'])
 
     .controller('authController', function($scope, $http, $location, User) {
         $scope.user = User.get();
