@@ -20,7 +20,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr ng-repeat="row in table_data">
+                <tr ng-repeat="row in table_data" on-last-repeat>
                     <td ng-repeat="(key, item) in items" ng-show="checkVisible(key)">{{row[key]}}</td>
                 </tr>
             </tbody>
