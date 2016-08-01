@@ -93,7 +93,6 @@ angular.module('map_ppmController', ['ngRoute', 'ngMaterial'])
                                 stacking: 'normal',
                                 events: {
                                     click: function (event) {
-                                        // history.pushState({}, event.point.category, '#'+$location.path()+'?place='+event.point.category);
                                         $rootScope.$broadcast("place_click", {zone: zone, place: event.point.category});
                                     }
                                 }
@@ -122,7 +121,6 @@ angular.module('map_ppmController', ['ngRoute', 'ngMaterial'])
                                 stacking: 'normal',
                                 events: {
                                     click: function (event) {
-                                        // history.pushState({}, event.point.category, '#'+$location.path()+'?raw='+event.point.category);
                                         $rootScope.$broadcast("place_click", {zone: zone, raw: event.point.category});
                                     }
                                 }
@@ -169,7 +167,6 @@ angular.module('map_ppmController', ['ngRoute', 'ngMaterial'])
                                 stacking: 'normal',
                                 events: {
                                     click: function (event) {
-                                        // history.pushState({}, event.point.category, '#'+$location.path()+'?place='+event.point.category);
                                         $rootScope.$broadcast("place_click", {zone: zone, place: event.point.category});
                                     }
                                 }
@@ -222,7 +219,6 @@ angular.module('map_ppmController', ['ngRoute', 'ngMaterial'])
                     })
                     .on("click", function(){
                         tooltip.style("visibility", "hidden");
-                        // history.pushState({}, d3.select(this).attr('id'), '#/map_ppm/'+d3.select(this).attr('id'));
                         $rootScope.$broadcast("zone_click", {zone:d3.select(this).attr('id')});
                     });
             }
