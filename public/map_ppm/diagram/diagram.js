@@ -8,6 +8,37 @@ angular.module('diagramModule', ['ngRoute'])
             load_zone(data.zone);
         });
 
+        function highcharts_opts(title, categories, desc, data, event_func) {
+            return {
+                chart: {
+                    type: 'bar'
+                },
+                title: {
+                    text: title
+                },
+                xAxis: {
+                    categories: categories
+                },
+                yAxis: {
+                    min: 0,
+                    title: {
+                        text: desc
+                    }
+                },
+                legend: {
+                    maxHeight: 60
+                },
+                plotOptions: {
+                    series: {
+                        stacking: 'normal',
+                        events: {
+                            click: event_func
+                        }
+                    }
+                },
+                series: data
+            };
+        }
         function load_zone (zone) {
             $scope.zone = zone;
             $http({
@@ -19,62 +50,16 @@ angular.module('diagramModule', ['ngRoute'])
                     for (var i = 0; i < response.data.zones.length; i++) {
                         response.data.zones[i] = "Место " + response.data.zones[i];
                     }
-                    $('#ppm_diagram').highcharts({
-                        chart: {
-                            type: 'bar'
-                        },
-                        title: {
-                            text: response.data.zone_name
-                        },
-                        xAxis: {
-                            categories: response.data.zones
-                        },
-                        yAxis: {
-                            min: 0,
-                            title: {
-                                text: 'Распределение сырья, тонны'
-                            }
-                        },
-                        plotOptions: {
-                            series: {
-                                stacking: 'normal',
-                                events: {
-                                    click: function (event) {
-                                        $rootScope.$broadcast("place_click", {zone: zone, place: event.point.category});
-                                    }
-                                }
-                            }
-                        },
-                        series: response.data.data
-                    });
-                    $('#ppm_diagram_raws').highcharts({
-                        chart: {
-                            type: 'bar'
-                        },
-                        title: {
-                            text: response.data.zone_name
-                        },
-                        xAxis: {
-                            categories: response.data.raws
-                        },
-                        yAxis: {
-                            min: 0,
-                            title: {
-                                text: 'Распределение сырья, тонны'
-                            }
-                        },
-                        plotOptions: {
-                            series: {
-                                stacking: 'normal',
-                                events: {
-                                    click: function (event) {
-                                        $rootScope.$broadcast("place_click", {zone: zone, raw: event.point.category});
-                                    }
-                                }
-                            }
-                        },
-                        series: response.data.data_raws
-                    })
+                    $('#ppm_diagram').highcharts(
+                        highcharts_opts(response.data.zone_name, response.data.zones, 'Распределение сырья, тонны', response.data.data, function (event) {
+                            $rootScope.$broadcast("place_click", {zone: zone, place: event.point.category});
+                        })
+                    );
+                    $('#ppm_diagram_raws').highcharts(
+                        highcharts_opts(response.data.zone_name, response.data.raws, 'Распределение сырья, тонны', response.data.data_raws, function (event) {
+                            $rootScope.$broadcast("place_click", {zone: zone, raw: event.point.category});
+                        })
+                    )
                 });
                 $scope.ppm_diagram_checkbox_show = true;
             }, function errorCallback(response) {
@@ -90,37 +75,11 @@ angular.module('diagramModule', ['ngRoute'])
                     for (var i = 0; i < response.data.zones.length; i++) {
                         response.data.zones[i] = "Место " + response.data.zones[i];
                     }
-                    $('#ppm_diagram2').highcharts({
-                        chart: {
-                            type: 'bar'
-                        },
-                        title: {
-                            text: response.data.zone_name
-                        },
-                        xAxis: {
-                            categories: response.data.zones
-                        },
-                        yAxis: {
-                            min: 0,
-                            title: {
-                                text: 'Распределение сырья, проценты'
-                            }
-                        },
-                        legend: {
-                            enabled: true
-                        },
-                        plotOptions: {
-                            series: {
-                                stacking: 'normal',
-                                events: {
-                                    click: function (event) {
-                                        $rootScope.$broadcast("place_click", {zone: zone, place: event.point.category});
-                                    }
-                                }
-                            }
-                        },
-                        series: response.data.data
-                    });
+                    $('#ppm_diagram2').highcharts(
+                        highcharts_opts(response.data.zone_name, response.data.zones, 'Распределение сырья, тонны', response.data.data, function (event) {
+                            $rootScope.$broadcast("place_click", {zone: zone, place: event.point.category});
+                        })
+                    );
                 });
                 $scope.ppm_diagram_checkbox_show = true;
             }, function errorCallback(response) {

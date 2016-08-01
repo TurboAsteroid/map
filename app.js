@@ -256,10 +256,14 @@ apiRoutes.post('/get_table', function (req, res) {
     fs.readFile('./public/ppm.json', 'utf8', function (err, contents) {
         if (err) throw err;
         data = JSON.parse(contents);
+        var new_data = [];
+        for (d in data) {
+            new_data = new_data.concat(data[d].raws);
+        }
         res.status(200).send({
             success: true,
             place_name: req.body.place || req.body.raw,
-            data: data
+            data: new_data
         });
     });
 });

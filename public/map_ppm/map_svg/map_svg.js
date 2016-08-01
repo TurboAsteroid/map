@@ -10,8 +10,8 @@ angular.module('map_svgModule', ['ngRoute'])
         $scope.zoom_map = function (increase) {
             var transform = Zoom.get('transform');
             transform = {
-                x : (increase ? -1 : 1) * 100,
-                y : (increase ? -1 : 1) * 100,
+                x : (increase ? -1 : 1) * 105,
+                y : (increase ? -1 : 1) * 105,
                 k : transform.k + (increase ? 1 : -1) * 0.148698354997035
             };
             var elem = d3.select("#svg_map").select("svg");
