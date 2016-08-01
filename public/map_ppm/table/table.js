@@ -1,6 +1,12 @@
 'use strict';
 angular.module('tableModule', ['ngRoute'])
     .controller('tableController', function($scope, $http, $location, User, $routeParams, $mdDialog, localStorageService) {
+        $scope.$on('onRepeatLast', function(scope, element, attrs){
+            $('html,body').animate({
+                scrollTop: $("#datatable_anchor").offset().top
+            }, 1000);
+        });
+
         $scope.$on('place_click', function (event, data) {
             load_place(data.zone, data.place, data.raw);
         });
