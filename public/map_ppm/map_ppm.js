@@ -44,40 +44,30 @@ angular.module('map_ppmController', ['ngRoute', 'ngMaterial'])
         };
     })
     .controller('tableController', function($scope, $http, $location, User, $routeParams, $mdDialog, localStorageService) {
-        $scope.place = $routeParams.place || false;
         $scope.$on('place_click', function (event, data) {
-            if ($scope.place != data.place) {
-                load_place(data.zone, data.place);
-            }
+            load_place(data.zone, data.place, data.raw);
         });
+        $scope.items = {
+            incoming: "Приход/расход",
+            act: "Акт",
+            place: "место",
+            balance_at_start: "количестно на начало",
+            balance_at_start_OX: "количество на начало ОХ",
+            balance_at_start_work: "количество на начало в работу",
+            ei: "Единицы измерения"
+        };
 
-        if (!$routeParams.place) {
-            return;
-        }
-
-        load_place($routeParams.place, $routeParams.place);
-
-        function load_place (zone, place) {
+        function load_place (zone, place, raw) {
             $http({
                 method: 'POST',
                 url: '/api/get_table/',
-                data: {zone: zone, place: place}
+                data: {zone: zone, place: place, raw: raw}
             }).then(function successCallback(response) {
                 $scope.table_name = response.data.place_name;
                 $scope.table_data = response.data.data;
             }, function errorCallback(response) {
                 console.log('table request error');
             });
-
-            $scope.items = {
-                incoming: "Приход/расход",
-                act: "Акт",
-                place: "место",
-                balance_at_start: "количестно на начало",
-                balance_at_start_OX: "количество на начало ОХ",
-                balance_at_start_work: "количество на начало в работу",
-                ei: "Единицы измерения"
-            };
         }
 
         $scope.toggle = function (key) {
@@ -104,14 +94,8 @@ angular.module('map_ppmController', ['ngRoute', 'ngMaterial'])
 
         $scope.zone = $routeParams.zone || false;
         $scope.$on('zone_click', function (event, data) {
-            if (data.zone!=$scope.zone) {
-                load_zone(data.zone);
-            }
+            load_zone(data.zone);
         });
-        if (!$routeParams.zone) {
-            return;
-        }
-        load_zone($routeParams.zone);
 
         function load_zone (zone) {
             $scope.zone = zone;
@@ -148,7 +132,6 @@ angular.module('map_ppmController', ['ngRoute', 'ngMaterial'])
                                 stacking: 'normal',
                                 events: {
                                     click: function (event) {
-                                        history.pushState({}, event.point.category, '#'+$location.path()+'?place='+event.point.category);
                                         $rootScope.$broadcast("place_click", {zone: zone, place: event.point.category});
                                     }
                                 }
@@ -156,6 +139,34 @@ angular.module('map_ppmController', ['ngRoute', 'ngMaterial'])
                         },
                         series: response.data.data
                     });
+                    $('#ppm_diagram_raws').highcharts({
+                        chart: {
+                            type: 'bar'
+                        },
+                        title: {
+                            text: response.data.zone_name
+                        },
+                        xAxis: {
+                            categories: response.data.raws
+                        },
+                        yAxis: {
+                            min: 0,
+                            title: {
+                                text: 'Распределение сырья, тонны'
+                            }
+                        },
+                        plotOptions: {
+                            series: {
+                                stacking: 'normal',
+                                events: {
+                                    click: function (event) {
+                                        $rootScope.$broadcast("place_click", {zone: zone, raw: event.point.category});
+                                    }
+                                }
+                            }
+                        },
+                        series: response.data.data_raws
+                    })
                 });
                 $scope.ppm_diagram_checkbox_show = true;
             }, function errorCallback(response) {
@@ -195,7 +206,6 @@ angular.module('map_ppmController', ['ngRoute', 'ngMaterial'])
                                 stacking: 'normal',
                                 events: {
                                     click: function (event) {
-                                        history.pushState({}, event.point.category, '#'+$location.path()+'?place='+event.point.category);
                                         $rootScope.$broadcast("place_click", {zone: zone, place: event.point.category});
                                     }
                                 }
@@ -242,7 +252,6 @@ angular.module('map_ppmController', ['ngRoute', 'ngMaterial'])
                     })
                     .on("click", function(){
                         tooltip.style("visibility", "hidden");
-                        history.pushState({}, d3.select(this).attr('id'), '#/map_ppm/'+d3.select(this).attr('id'));
                         $rootScope.$broadcast("zone_click", {zone:d3.select(this).attr('id')});
                     });
                 var svg_group = parent.select('g');
