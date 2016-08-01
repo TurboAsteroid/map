@@ -20,6 +20,7 @@ appMAP.config(function($routeProvider) {
             controller: 'map_ppmController'
         })
         .otherwise({ redirectTo: '/' });
+
 });
 
 appMAP.config(function($mdThemingProvider) {
