@@ -258,7 +258,7 @@ apiRoutes.post('/get_table', function (req, res) {
         data = JSON.parse(contents);
         res.status(200).send({
             success: true,
-            place_name: req.body.place,
+            place_name: req.body.place || req.body.raw,
             data: data
         });
     });
