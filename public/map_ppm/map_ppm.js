@@ -40,8 +40,6 @@ angular.module('map_ppmController', ['ngRoute', 'ngMaterial'])
             localStorageService.set(key, $scope.checkVisible(key) ? 'false' : 'true');
         };
         $scope.checkVisible = function (key) {
-
-            console.log(key, localStorageService.get(key));
             return localStorageService.get(key) === 'false' ? false : true;
         };
 
@@ -59,7 +57,6 @@ angular.module('map_ppmController', ['ngRoute', 'ngMaterial'])
         $scope.ppm_diagram_checkbox_show = false;
         $scope.ppm_diagram_show = true;
         $scope.ppm_diagram2_show = false;
-
         $scope.$on('zone_click', function (event, data) {
             load_zone(data.zone);
         });
