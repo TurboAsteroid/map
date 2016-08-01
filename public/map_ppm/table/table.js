@@ -6,7 +6,6 @@ angular.module('tableModule', ['ngRoute'])
                 scrollTop: $("#datatable_anchor").offset().top
             }, 1000);
         });
-
         $scope.$on('place_click', function (event, data) {
             load_place(data.zone, data.place, data.raw);
         });
@@ -19,6 +18,10 @@ angular.module('tableModule', ['ngRoute'])
             balance_at_start_work: "количество на начало в работу",
             ei: "Единицы измерения"
         };
+
+        if($routeParams.diagram) {
+            load_place($routeParams.svg_zone, $routeParams.place, $routeParams.raw);
+        }
 
         function load_place (zone, place, raw) {
             $http({

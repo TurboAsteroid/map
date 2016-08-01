@@ -7,7 +7,9 @@ angular.module('diagramModule', ['ngRoute'])
         $scope.$on('zone_click', function (event, data) {
             load_zone(data.zone);
         });
-
+        if($routeParams.svg_zone) {
+            load_zone($routeParams.svg_zone);
+        }
         function highcharts_opts(title, categories, desc, data, event_func) {
             return {
                 chart: {
@@ -52,11 +54,13 @@ angular.module('diagramModule', ['ngRoute'])
                     }
                     $('#ppm_diagram').highcharts(
                         highcharts_opts(response.data.zone_name, response.data.zones, 'Распределение сырья, тонны', response.data.data, function (event) {
+                            $location.search('place', event.point.category);
                             $rootScope.$broadcast("place_click", {zone: zone, place: event.point.category});
                         })
                     );
                     $('#ppm_diagram_raws').highcharts(
                         highcharts_opts(response.data.zone_name, response.data.raws, 'Распределение сырья, тонны', response.data.data_raws, function (event) {
+                            $location.search('raw', event.point.category);
                             $rootScope.$broadcast("place_click", {zone: zone, raw: event.point.category});
                         })
                     )
