@@ -1,6 +1,6 @@
 'use strict';
 angular.module('directivesModule', [])
-    .directive('ghVisualization', function ($location, $rootScope) {
+    .directive('ghVisualization', function ($location, $rootScope, Zoom) {
         return {
             restrict: 'E', // the directive can be invoked only by using <my-directive> tag in the template
             link: function (scope, element, attrs) {
@@ -35,7 +35,9 @@ angular.module('directivesModule', [])
                         $rootScope.$broadcast("zone_click", {zone:d3.select(this).attr('id')});
                     });
                 var svg_group = parent.select('g');
-                parent.select("svg").call(d3.zoom().on("zoom", function() {
+                Zoom.set({zoom_obj: d3.zoom()});
+                parent.select("svg").call(Zoom.get('zoom_obj').on("zoom", function() {
+                    Zoom.set({transform: d3.event.transform});
                     svg_group.attr("transform", d3.event.transform);
                 }));
             }

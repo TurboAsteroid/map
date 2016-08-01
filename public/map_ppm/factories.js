@@ -1,16 +1,19 @@
 angular.module('factoriesModule', [])
-    .factory('Transform', function() {
-        var transform_var = {
-            x : 0,
-            y : 0,
-            k : 1
+    .factory('Zoom', function() {
+        var zoom = {
+            zoom_obj: false,
+            transform: {
+                x: 0,
+                y: 0,
+                k: 1
+            }
         };
         return {
-            set: function(new_transform_var) {
-                transform_var = new_transform_var;
+            set: function(tmp) {
+                zoom = $.extend(zoom, tmp);
             },
-            get: function() {
-                return transform_var;
+            get: function(key) {
+                return key ? zoom[key] : zoom;
             }
         };
     })
