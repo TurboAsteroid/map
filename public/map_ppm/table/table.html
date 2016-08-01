@@ -14,14 +14,14 @@
     <div id="place_datatable">
         <table style="width: 100%">
             <thead>
-            <tr>
-                <th ng-repeat="(key, item) in items" ng-show="checkVisible(key)">{{item}}</th>
-            </tr>
+                <tr>
+                    <th ng-repeat="(key, item) in items" ng-show="checkVisible(key)">{{item}}</th>
+                </tr>
             </thead>
             <tbody>
-            <tr ng-repeat="row in table_data">
-                <td ng-repeat="(key, item) in items" ng-show="checkVisible(key)">{{row[key]}}</td>
-            </tr>
+                <tr ng-repeat="row in table_data">
+                    <td ng-repeat="(key, item) in items" ng-show="checkVisible(key)">{{row[key]}}</td>
+                </tr>
             </tbody>
         </table>
     </div>
