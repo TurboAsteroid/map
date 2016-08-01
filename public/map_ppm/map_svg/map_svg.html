@@ -1,5 +1,7 @@
 <div  id="svg_map" ng-controller="map_svgController">
-    <md-button class="md-raised" ng-click="zoom_in()">+</md-button>
-    <md-button class="md-raised" ng-click="zoom_out()">-</md-button>
+    <div id="map_buttons">
+        <md-button class="md-raised" ng-click="zoom_in()">+</md-button>
+        <md-button class="md-raised" ng-click="zoom_out()">-</md-button>
+    </div>
     <gh-visualization ng-include="'/resourses/ppm.svg'"></gh-visualization>
 </div>

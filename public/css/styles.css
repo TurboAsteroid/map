@@ -7,6 +7,15 @@
     cursor: pointer;
 }
 
+#svg_map {
+    overflow: hidden;
+    position:relative;
+}
+#map_buttons {
+    position: absolute;
+    left:20px;
+    top:20px;
+}
 #place_datatable {
     width: 100%;
     overflow: auto;
