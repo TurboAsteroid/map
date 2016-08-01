@@ -4,8 +4,9 @@ angular.module('map_svgModule', ['ngRoute'])
         $scope.getWidth = function () {
             return $($element).width();
         };
-        $scope.$watch($scope.getWidth, function (width) {
-            $($element).height(width);
+        $('#svg_map').height($('#svg_map').width());
+        $(window).resize(function(){
+            $('#svg_map').height($('#svg_map').width());
         });
         $scope.zoom_map = function (increase) {
             var transform = Zoom.get('transform');
