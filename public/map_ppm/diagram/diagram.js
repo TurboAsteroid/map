@@ -4,12 +4,6 @@ angular.module('diagramModule', ['ngRoute'])
         $scope.ppm_diagram_checkbox_show = false;
         $scope.ppm_diagram_show = true;
         $scope.ppm_diagram2_show = false;
-        $scope.$on('zone_click', function (event, data) {
-            load_zone(data.zone);
-        });
-        // if($routeParams.svg_zone) {
-        //     load_zone($routeParams.svg_zone);
-        // }
         $scope.$watch(function(){
             return $rootScope.zone;
         }, function(zone) {
@@ -49,13 +43,14 @@ angular.module('diagramModule', ['ngRoute'])
             };
         }
         function load_zone (zone) {
-            $scope.zone = zone;
+            $rootScope.load = true;
             $http({
                 method: 'POST',
                 url: '/api/get_diagram/',
                 data: {zone: zone}
             }).then(function successCallback(response) {
                 $rootScope.zone = $routeParams.svg_zone;
+                $rootScope.load = false;
                 $(function () {
                     for (var i = 0; i < response.data.zones.length; i++) {
                         response.data.zones[i] = "Место " + response.data.zones[i];
@@ -63,7 +58,7 @@ angular.module('diagramModule', ['ngRoute'])
                     $('#ppm_diagram').highcharts(
                         highcharts_opts(response.data.zone_name, response.data.zones, 'Распределение сырья, тонны', response.data.data, function (event) {
                             $location.search({'svg_zone': zone, 'place': event.point.category, 'raw': null});
-                            $rootScope.$broadcast("place_click", {zone: zone, place: event.point.category});
+                            $scope.$apply();
                         })
                     );
                     for (i in response.data.data_raws) {
@@ -71,13 +66,14 @@ angular.module('diagramModule', ['ngRoute'])
                     }
                     $('#ppm_diagram_raws').highcharts(
                         highcharts_opts(response.data.zone_name, response.data.raws, 'Распределение сырья, тонны', response.data.data_raws, function (event) {
-                            $location.search({'svg_zone': zone, 'raw': event.point.category, 'place': null});
-                            $rootScope.$broadcast("place_click", {zone: zone, raw: event.point.category});
+                            $location.search({'svg_zone': zone,'raw': event.point.category, 'place': null});
+                            $scope.$apply();
                         })
                     )
                 });
                 $scope.ppm_diagram_checkbox_show = true;
             }, function errorCallback(response) {
+                $rootScope.load = false;
                 console.log('diagram request error');
             });
 
@@ -93,7 +89,7 @@ angular.module('diagramModule', ['ngRoute'])
                     $('#ppm_diagram2').highcharts(
                         highcharts_opts(response.data.zone_name, response.data.zones, 'Распределение сырья, тонны', response.data.data, function (event) {
                             $location.search({'zone': zone, 'place': event.point.category, 'raw': null});
-                            $rootScope.$broadcast("place_click", {zone: zone, place: event.point.category});
+                            $scope.$apply();
                         })
                     );
                 });
