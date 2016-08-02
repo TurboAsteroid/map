@@ -1,6 +1,6 @@
 'use strict';
 angular.module('tableModule', ['ngRoute'])
-    .controller('tableController', function($scope, $http, $location, User, $routeParams, $mdDialog, localStorageService) {
+    .controller('tableController', function($scope, $http, $location, User, $routeParams, $mdDialog, localStorageService, $rootScope) {
         $scope.$on('onRepeatLast', function(scope, element, attrs){
             $('html,body').animate({
                 scrollTop: $("#datatable_anchor").offset().top
@@ -19,9 +19,17 @@ angular.module('tableModule', ['ngRoute'])
             ei: "Единицы измерения"
         };
 
-        if($routeParams.diagram) {
-            load_place($routeParams.svg_zone, $routeParams.place, $routeParams.raw);
-        }
+        // if($routeParams.place || $routeParams.raw) {
+        //     load_place($routeParams.svg_zone, $routeParams.place, $routeParams.raw);
+        // }
+
+        $scope.$watch(function(){
+            return $rootScope.table;
+        }, function(table) {
+            if($routeParams.place || $routeParams.raw) {
+                load_place($routeParams.svg_zone, $routeParams.place, $routeParams.raw);
+            }
+        });
 
         function load_place (zone, place, raw) {
             $http({
@@ -29,7 +37,7 @@ angular.module('tableModule', ['ngRoute'])
                 url: '/api/get_table/',
                 data: {zone: zone, place: place, raw: raw}
             }).then(function successCallback(response) {
-                $scope.table_name = response.data.place_name;
+                $rootScope.table = response.data.place_name;
                 $scope.table_data = response.data.data;
             }, function errorCallback(response) {
                 console.log('table request error');

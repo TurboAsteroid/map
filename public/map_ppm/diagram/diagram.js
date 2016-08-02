@@ -7,10 +7,16 @@ angular.module('diagramModule', ['ngRoute'])
         $scope.$on('zone_click', function (event, data) {
             load_zone(data.zone);
         });
-        if($routeParams.svg_zone) {
-            load_zone($routeParams.svg_zone);
-        }
-
+        // if($routeParams.svg_zone) {
+        //     load_zone($routeParams.svg_zone);
+        // }
+        $scope.$watch(function(){
+            return $rootScope.zone;
+        }, function(zone) {
+            if($routeParams.svg_zone) {
+                load_zone($routeParams.svg_zone);
+            }
+        });
         function highcharts_opts(title, categories, desc, data, event_func) {
             return {
                 chart: {
@@ -49,6 +55,7 @@ angular.module('diagramModule', ['ngRoute'])
                 url: '/api/get_diagram/',
                 data: {zone: zone}
             }).then(function successCallback(response) {
+                $rootScope.zone = $routeParams.svg_zone;
                 $(function () {
                     for (var i = 0; i < response.data.zones.length; i++) {
                         response.data.zones[i] = "Место " + response.data.zones[i];
