@@ -10,6 +10,7 @@ angular.module('diagramModule', ['ngRoute'])
         if($routeParams.svg_zone) {
             load_zone($routeParams.svg_zone);
         }
+
         function highcharts_opts(title, categories, desc, data, event_func) {
             return {
                 chart: {
@@ -54,13 +55,16 @@ angular.module('diagramModule', ['ngRoute'])
                     }
                     $('#ppm_diagram').highcharts(
                         highcharts_opts(response.data.zone_name, response.data.zones, 'Распределение сырья, тонны', response.data.data, function (event) {
-                            $location.search('place', event.point.category);
+                            $location.search({'svg_zone': zone, 'place': event.point.category, 'raw': null});
                             $rootScope.$broadcast("place_click", {zone: zone, place: event.point.category});
                         })
                     );
+                    for (i in response.data.data_raws) {
+                        response.data.data_raws[i].name = 'Место '+response.data.data_raws[i].name;
+                    }
                     $('#ppm_diagram_raws').highcharts(
                         highcharts_opts(response.data.zone_name, response.data.raws, 'Распределение сырья, тонны', response.data.data_raws, function (event) {
-                            $location.search('raw', event.point.category);
+                            $location.search({'svg_zone': zone, 'raw': event.point.category, 'place': null});
                             $rootScope.$broadcast("place_click", {zone: zone, raw: event.point.category});
                         })
                     )
@@ -81,6 +85,7 @@ angular.module('diagramModule', ['ngRoute'])
                     }
                     $('#ppm_diagram2').highcharts(
                         highcharts_opts(response.data.zone_name, response.data.zones, 'Распределение сырья, тонны', response.data.data, function (event) {
+                            $location.search({'zone': zone, 'place': event.point.category, 'raw': null});
                             $rootScope.$broadcast("place_click", {zone: zone, place: event.point.category});
                         })
                     );
