@@ -32,8 +32,8 @@ angular.module('directivesModule', [])
                     })
                     .on("click", function(){
                         tooltip.style("visibility", "hidden");
-                        $rootScope.$broadcast("zone_click", {zone:d3.select(this).attr('id')});
                         $location.search({'svg_zone': d3.select(this).attr('id'), 'place': null, 'raw': null});
+                        scope.$apply();
                     });
                 var svg_group = parent.select('g');
                 Zoom.set({zoom_obj: d3.zoom()});
