@@ -4,7 +4,7 @@ angular.module('tableModule', ['ngRoute'])
         $scope.$on('onRepeatLast', function(scope, element, attrs){
             $('html,body').animate({
                 scrollTop: $("#datatable_anchor").offset().top
-            }, 1000);
+            }, 500);
         });
         $scope.items = {
             incoming: "Приход/расход",
