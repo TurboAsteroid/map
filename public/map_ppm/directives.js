@@ -43,8 +43,6 @@ angular.module('directivesModule', [])
                 parent.select("svg").call(Zoom.get('zoom_obj').on("zoom", function() {
                     Zoom.set({transform: d3.event.transform});
                     svg_group.attr("transform", d3.event.transform);
-
-                    console.log(Zoom.get('zoom_obj'));
                 }));
             }
         }

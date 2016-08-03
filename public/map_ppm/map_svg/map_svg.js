@@ -6,6 +6,7 @@ angular.module('map_svgModule', ['ngRoute'])
             'paths': '',
             'circles': ''
         };
+
         var btnhtml = '<md-button class="{{activePolygons}}" ng-click="show_legend_items(\'polygons\')">Полигоны</md-button>' +
             '<md-button class="{{activePaths}}" ng-click="show_legend_items(\'paths\')">Пути</md-button>' +
             '<md-button class="{{activeCircles}}" ng-click="show_legend_items(\'circles\')">Окружности</md-button>';
@@ -86,17 +87,29 @@ angular.module('map_svgModule', ['ngRoute'])
         $(window).resize(function(){
             $('#svg_map').height($('#svg_map').width());
         });
-        $scope.zoom_map = function (increase) {
+
+
+        $scope.zoom_map = function (new_zoom) {
             var transform = Zoom.get('transform');
             transform = {
-                x : (increase ? -1 : 1) * 105,
-                y : (increase ? -1 : 1) * 105,
-                k : transform.k + (increase ? 1 : -1) * 0.148698354997035
+                x : transform.x,
+                y : transform.y,
+                k : new_zoom
             };
 
             var elem = d3.select("#svg_map").select("svg");
+            if (!Zoom.get('zoom_obj')) {
+                Zoom.set({zoom_obj: d3.zoom()});
+            }
             Zoom.get('zoom_obj').scaleTo(elem, transform.k);
-            Zoom.get('zoom_obj').translateBy(elem, transform.x, transform.y);
             Zoom.set({transform: transform});
-        };
+        }
+
+        $scope.zoom_lvl = 1;
+
+        $scope.$watch(function(){
+            return $scope.zoom_lvl;
+        }, function(zone) {
+            $scope.zoom_map($scope.zoom_lvl);
+        });
     });
