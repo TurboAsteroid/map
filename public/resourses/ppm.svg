@@ -21,8 +21,8 @@ viewBox="0 0 3508 4961"
     .str2 {stroke:#CCCCCC;stroke-width:0.900032;stroke-linecap:round;stroke-linejoin:round}
     .str7 {stroke:black;stroke-width:0.999248;stroke-dasharray:9.992485 2.997745}
     .str10 {stroke:black;stroke-width:0.999248;stroke-dasharray:9.992485 4.996242}
-    .fil0 {fill:none}
-    .fil4 {fill:none;fill-rule:nonzero}
+    .fil0 {fill:transparent;}
+    .fil4 {fill:transparent;fill-rule:nonzero}
     .fil2 {fill:black}
     .fil3 {fill:#4D4D4D}
     .fil5 {fill:#666666}
