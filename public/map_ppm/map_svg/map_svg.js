@@ -6,9 +6,9 @@ angular.module('map_svgModule', ['ngRoute'])
             'paths': '',
             'circles': ''
         };
-        var btnhtml = '<md-button ng-click="show_legend_items(\'polygons\')">Полигоны</md-button>' +
-            '<md-button ng-click="show_legend_items(\'paths\')">Пути</md-button>' +
-            '<md-button ng-click="show_legend_items(\'circles\')">Окружности</md-button>';
+        var btnhtml = '<md-button class="{{activePolygons}}" ng-click="show_legend_items(\'polygons\')">Полигоны</md-button>' +
+            '<md-button class="{{activePaths}}" ng-click="show_legend_items(\'paths\')">Пути</md-button>' +
+            '<md-button class="{{activeCircles}}" ng-click="show_legend_items(\'circles\')">Окружности</md-button>';
         var temp = $compile(btnhtml)($scope);
         angular.element(document.getElementById('legend_card_controller')).append(temp);
         $scope.show_legend = function(isTemplate){
@@ -16,9 +16,9 @@ angular.module('map_svgModule', ['ngRoute'])
                 $scope.showLegend = !localStorageService.get("showLegend");
                 localStorageService.set("showLegend", $scope.showLegend);
                 if ($scope.showLegend)
-                    $scope.action_legend_name = "Свернуть";
+                    $scope.action_legend_name = "Свернуть легенду";
                 else
-                    $scope.action_legend_name = "Развернуть";
+                    $scope.action_legend_name = "Развернуть легенду";
             }
             else
                 $scope.showLegend = localStorageService.get("showLegend");
@@ -29,30 +29,36 @@ angular.module('map_svgModule', ['ngRoute'])
                     if($scope.colors.polygons == '') {
                         d3.select("svg").selectAll("polygon").style("fill", "red");
                         $scope.colors.polygons = 'red';
+                        $scope.activePolygons = 'md-raised md-primary';
                     }
                     else {
                         d3.select("svg").selectAll("polygon").style("fill", "");
                         $scope.colors.polygons = '';
+                        $scope.activePolygons = '';
                     }
                     break;
                 case 'paths':
                     if($scope.colors.paths == '') {
                         d3.select("svg").selectAll("path").style("fill", "yellow");
                         $scope.colors.paths = 'yellow';
+                        $scope.activePaths = 'md-raised md-primary';
                     }
                     else {
                         d3.select("svg").selectAll("path").style("fill", "");
                         $scope.colors.paths = '';
+                        $scope.activePaths = '';
                     }
                     break;
                 case 'circles':
                     if($scope.colors.circles == '') {
                         d3.select("svg").selectAll("circle").style("fill", "blue");
                         $scope.colors.circles = 'blue';
+                        $scope.activeCircles = 'md-raised md-primary';
                     }
                     else {
                         d3.select("svg").selectAll("circle").style("fill", "");
                         $scope.colors.circles = '';
+                        $scope.activeCircles = '';
                     }
                     break;
                 default:
@@ -61,13 +67,13 @@ angular.module('map_svgModule', ['ngRoute'])
         };
         if(localStorageService.get("showLegend") == undefined) {
             $scope.showLegend = false;
-            $scope.action_legend_name = "Развернуть";
+            $scope.action_legend_name = "Развернуть легенду";
         }
         else if(localStorageService.get("showLegend") == false) {
-            $scope.action_legend_name = "Развернуть";
+            $scope.action_legend_name = "Развернуть  легенду";
         }
         else if(localStorageService.get("showLegend") == true){
-            $scope.action_legend_name = "Свернуть";
+            $scope.action_legend_name = "Свернуть легенду";
             $scope.show_legend(false);
         }
         else {
