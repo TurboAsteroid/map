@@ -43,3 +43,13 @@
     top: 0;
     left: 0;
 }
+
+.polygons_All {
+    background: hotpink !important;
+}
+.paths_All {
+    background: lightblue !important;
+}
+.circles_All {
+    background: coral !important;
+}
