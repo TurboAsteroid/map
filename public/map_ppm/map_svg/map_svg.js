@@ -1,11 +1,9 @@
 'use strict';
 angular.module('map_svgModule', ['ngRoute'])
     .controller('map_svgController', function($scope, $location, $element, Zoom, localStorageService, $compile) {
-        $scope.colors = {
-            'polygons' : '',
-            'paths': '',
-            'circles': ''
-        };
+        $scope.activePolygons = '';
+        $scope.activePaths = '';
+        $scope.activeCircles = '';
 
         var btnhtml = '<md-button class="{{activePolygons}}" ng-click="show_legend_items(\'polygons\')">Полигоны</md-button>' +
             '<md-button class="{{activePaths}}" ng-click="show_legend_items(\'paths\')">Пути</md-button>' +
@@ -27,38 +25,32 @@ angular.module('map_svgModule', ['ngRoute'])
         $scope.show_legend_items = function(item_name) {
             switch(item_name) {
                 case 'polygons':
-                    if($scope.colors.polygons == '') {
-                        d3.select("svg").selectAll("polygon").style("fill", "red");
-                        $scope.colors.polygons = 'red';
-                        $scope.activePolygons = 'md-raised md-primary';
+                    if($scope.activePolygons == '') {
+                        d3.select("svg").selectAll("polygon").style("fill", "hotpink");
+                        $scope.activePolygons = 'md-raised polygons_All';
                     }
                     else {
                         d3.select("svg").selectAll("polygon").style("fill", "");
-                        $scope.colors.polygons = '';
                         $scope.activePolygons = '';
                     }
                     break;
                 case 'paths':
-                    if($scope.colors.paths == '') {
-                        d3.select("svg").selectAll("path").style("fill", "yellow");
-                        $scope.colors.paths = 'yellow';
-                        $scope.activePaths = 'md-raised md-primary';
+                    if($scope.activePaths == '') {
+                        d3.select("svg").selectAll("path").style("fill", "lightblue");
+                        $scope.activePaths = 'md-raised paths_All';
                     }
                     else {
                         d3.select("svg").selectAll("path").style("fill", "");
-                        $scope.colors.paths = '';
                         $scope.activePaths = '';
                     }
                     break;
                 case 'circles':
-                    if($scope.colors.circles == '') {
-                        d3.select("svg").selectAll("circle").style("fill", "blue");
-                        $scope.colors.circles = 'blue';
-                        $scope.activeCircles = 'md-raised md-primary';
+                    if($scope.activeCircles == '') {
+                        d3.select("svg").selectAll("circle").style("fill", "coral");
+                        $scope.activeCircles = 'md-raised circles_All';
                     }
                     else {
                         d3.select("svg").selectAll("circle").style("fill", "");
-                        $scope.colors.circles = '';
                         $scope.activeCircles = '';
                     }
                     break;
