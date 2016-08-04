@@ -1,13 +1,24 @@
 'use strict';
 angular.module('tableModule', ['ngRoute'])
-    .controller('tableController', function($scope, $http, $location, User, $routeParams, $mdDialog, localStorageService, $rootScope) {
+    .controller('tableController', function($scope, $http, $location, User, $routeParams, $mdDialog, localStorageService, $rootScope, $compile) {
         $scope.sortType     = false;
         $scope.sortReverse  = false;
         $scope.$on('onRepeatLast', function(scope, element, attrs){
             $('html,body').animate({
                 scrollTop: $("#datatable_anchor").offset().top
             }, 500);
+            var old_thead = $('#place_datatable thead:not(.duplicate_thead)');
+            var new_thead = $('#place_datatable thead.duplicate_thead');
+            old_thead.find('th').each(function () {
+                var ind = old_thead.find('th').index(this);
+                new_thead.find('th').filter(':eq('+ind+')').css({width: $(this).width()})
+            });
         });
+
+        $('#place_datatable').scroll(function () {
+            $(this).find('thead.duplicate_thead').show().css('top', $(this).scrollTop());
+        });
+
         $scope.items = {
             act: "Акт",
             place: "место",
