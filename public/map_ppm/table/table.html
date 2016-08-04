@@ -12,6 +12,27 @@
             </h3>
         </div>
     </md-toolbar>
+
+    <div layout="row" layout-align="end center">
+        <md-button class="md-primary md-raised" ng-click="showPrerenderedDialog($event)">
+            Настройка колонок
+        </md-button>
+    </div>
+    <div id="place_datatable">
+        <table style="width: 100%" autoscroll="place_datatable">
+            <thead>
+                <tr>
+                    <th ng-repeat="(key, item) in items" ng-show="checkVisible(key)">{{item}}</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="row in table_data" on-last-repeat>
+                    <td ng-repeat="(key, item) in items" ng-show="checkVisible(key)">{{row[key]}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
     <div style="visibility: hidden">
         <div class="md-dialog-container" id="myDialogColums">
             <md-dialog layout-padding="20">
