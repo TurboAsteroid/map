@@ -1,6 +1,8 @@
 'use strict';
 angular.module('tableModule', ['ngRoute'])
     .controller('tableController', function($scope, $http, $location, User, $routeParams, $mdDialog, localStorageService, $rootScope) {
+        $scope.sortType     = false;
+        $scope.sortReverse  = false;
         $scope.$on('onRepeatLast', function(scope, element, attrs){
             $('html,body').animate({
                 scrollTop: $("#datatable_anchor").offset().top
@@ -38,6 +40,22 @@ angular.module('tableModule', ['ngRoute'])
             });
         }
 
+        $scope.theadClick = function (key) {
+            $scope.sortType = key;
+            $scope.sortReverse = !$scope.sortReverse;
+
+            var k = 1 * ($scope.sortReverse ? 1 : -1);
+
+            $scope.table_data.sort(function(a, b) {
+                if (a[key] > b[key]) {
+                    return k;
+                }
+                if (a[key] < b[key]) {
+                    return -k;
+                }
+                return 0;
+            });
+        }
         $scope.toggle = function (key) {
             localStorageService.set(key, $scope.checkVisible(key) ? 'false' : 'true');
         };

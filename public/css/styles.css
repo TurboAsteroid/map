@@ -28,6 +28,11 @@
 #place_datatable th {
     padding: 5px 10px 10px;
     border-bottom: 1px solid #ccc;
+    cursor:pointer;
+}
+#place_datatable th span{
+    display:inline-block;
+    width:20px;
 }
 #place_datatable td {
     padding: 5px 10px;
