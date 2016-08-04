@@ -1,5 +1,10 @@
 <div id="datatable_anchor" />
 <div ng-show="$root.table" ng-controller="tableController">
+    <div layout="row" layout-align="end center">
+        <md-button class="md-primary md-raised" ng-click="showPrerenderedDialog($event)">
+            Настройка колонок
+        </md-button>
+    </div>
     <md-toolbar>
         <div class="md-toolbar-tools">
             <h3>
@@ -7,26 +12,6 @@
             </h3>
         </div>
     </md-toolbar>
-    <div layout="row" layout-align="end center">
-        <md-button class="md-primary md-raised" ng-click="showPrerenderedDialog($event)">
-            Настройка колонок
-        </md-button>
-    </div>
-    <div id="place_datatable">
-        <table style="width: 100%" autoscroll="place_datatable">
-            <thead>
-                <tr>
-                    <th ng-repeat="(key, item) in items" ng-show="checkVisible(key)">{{item}}</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr ng-repeat="row in table_data" on-last-repeat>
-                    <td ng-repeat="(key, item) in items" ng-show="checkVisible(key)">{{row[key]}}</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-
     <div style="visibility: hidden">
         <div class="md-dialog-container" id="myDialogColums">
             <md-dialog layout-padding="20">
@@ -37,5 +22,14 @@
                 </div>
             </md-dialog>
         </div>
+    </div>
+    <div id="place_datatable">
+        <dtable options="options" rows="table_data" class="material dt" autoscroll="place_datatable">
+            <column name="Место" flex>{{$row.place}}</column>
+            <column name="Остаток на начало" flex>{{$row.balance_at_start}}</column>
+            <column name="Остаток на начало ОХ" flex>{{$row.balance_at_start_OX}}</column>
+            <column name="Остаток на начало в работу" flex>{{$row.balance_at_start_work}}</column>
+            <column name="Единицы измерения" flex>{{$row.ei}}</column>
+        </dtable>
     </div>
 </div>

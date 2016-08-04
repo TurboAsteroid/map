@@ -1,18 +1,28 @@
 'use strict';
-angular.module('tableModule', ['ngRoute'])
+angular.module('tableModule', ['ngRoute', 'data-table'])
 .controller('tableController', function($scope, $http, $location, User, $routeParams, $mdDialog, localStorageService, $rootScope) {
         $scope.$on('onRepeatLast', function(scope, element, attrs){
             $('html,body').animate({
                 scrollTop: $("#datatable_anchor").offset().top
             }, 500);
         });
+        $scope.options = {
+            rowHeight: 40,
+            headerHeight: 40,
+            footerHeight: 40,
+            scrollbarV: true,
+            columnMode: 'force',
+            paging: {
+                externalPaging: false
+            }
+        };
         $scope.items = {
             incoming: "Приход/расход",
             act: "Акт",
-            place: "место",
-            balance_at_start: "количестно на начало",
-            balance_at_start_OX: "количество на начало ОХ",
-            balance_at_start_work: "количество на начало в работу",
+            place: "Место",
+            balance_at_start: "Количестно на начало",
+            balance_at_start_OX: "Количество на начало ОХ",
+            balance_at_start_work: "Количество на начало в работу",
             ei: "Единицы измерения"
         };
         $scope.$watch(function(){
