@@ -7,14 +7,17 @@ angular.module('tableModule', ['ngRoute'])
             $('html,body').animate({
                 scrollTop: $("#datatable_anchor").offset().top
             }, 500);
+            calculate_thead();
+        });
+
+        function calculate_thead() {
             var old_thead = $('#place_datatable thead:not(.duplicate_thead)');
             var new_thead = $('#place_datatable thead.duplicate_thead');
             old_thead.find('th').each(function () {
                 var ind = old_thead.find('th').index(this);
                 new_thead.find('th').filter(':eq('+ind+')').css({width: $(this).width()})
             });
-        });
-
+        }
         $('#place_datatable').scroll(function () {
             $(this).find('thead.duplicate_thead').show().css('top', $(this).scrollTop());
         });
@@ -69,6 +72,7 @@ angular.module('tableModule', ['ngRoute'])
         }
         $scope.toggle = function (key) {
             localStorageService.set(key, $scope.checkVisible(key) ? 'false' : 'true');
+            calculate_thead()
         };
         $scope.checkVisible = function (key) {
             return localStorageService.get(key) === 'false' ? false : true;
