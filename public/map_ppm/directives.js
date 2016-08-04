@@ -1,6 +1,6 @@
 'use strict';
 angular.module('directivesModule', [])
-    .directive('ghVisualization', function ($location, $rootScope, Zoom) {
+    .directive('ghVisualization', function ($location, Zoom) {
         return {
             restrict: 'E', // the directive can be invoked only by using <my-directive> tag in the template
             link: function (scope, element, attrs) {

@@ -15,21 +15,15 @@
     <div style="visibility: hidden">
         <div class="md-dialog-container" id="myDialogColums">
             <md-dialog layout-padding="20">
-                <div ng-repeat="(key, item) in items">
-                    <md-checkbox ng-checked="checkVisible(key)" ng-click="toggle(key)">
-                        {{ item }}
+                <div ng-repeat="item in options.columns">
+                    <md-checkbox ng-checked="checkVisible(item.prop)" ng-click="toggle(item.prop)">
+                        {{ item.name }}
                     </md-checkbox>
                 </div>
             </md-dialog>
         </div>
     </div>
     <div id="place_datatable">
-        <dtable options="options" rows="table_data" class="material dt" autoscroll="place_datatable">
-            <column name="Место" flex>{{$row.place}}</column>
-            <column name="Остаток на начало" flex>{{$row.balance_at_start}}</column>
-            <column name="Остаток на начало ОХ" flex>{{$row.balance_at_start_OX}}</column>
-            <column name="Остаток на начало в работу" flex>{{$row.balance_at_start_work}}</column>
-            <column name="Единицы измерения" flex>{{$row.ei}}</column>
-        </dtable>
+        <dtable options="options" rows="table_data" class="material dt" autoscroll="place_datatable"></dtable>
     </div>
 </div>
