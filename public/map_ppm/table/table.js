@@ -1,42 +1,18 @@
 'use strict';
-angular.module('tableModule', ['ngRoute', 'data-table'])
-.controller('tableController', function($scope, $http, $location, User, $routeParams, $mdDialog, localStorageService, $rootScope) {
+angular.module('tableModule', ['ngRoute'])
+    .controller('tableController', function($scope, $http, $location, User, $routeParams, $mdDialog, localStorageService, $rootScope) {
         $scope.$on('onRepeatLast', function(scope, element, attrs){
             $('html,body').animate({
                 scrollTop: $("#datatable_anchor").offset().top
             }, 500);
         });
-        $scope.toggle = function (key) {
-            localStorageService.set(key, !$scope.checkVisible(key));
-            var gcol = $scope.options.columns.find(function(c) {
-                return c.prop === key;
-            })
-            gcol.className = $scope.getClass(key);
-            gcol.headerClassName = $scope.getClass(key);
-        };
-         $scope.checkVisible = function (key) {
-            return localStorageService.get(key) === false ? false : true;
-        };
-        $scope.getClass = function (key) {
-            return localStorageService.get(key) === false ? 'hideCol' : '';
-        };
-        $scope.options = {
-            rowHeight: 40,
-            headerHeight: 40,
-            footerHeight: 40,
-            scrollbarV: true,
-            columnMode: 'force',
-            paging: {
-                externalPaging: false
-            },
-            columns: [
-                {name: "Место",prop: "place", className: $scope.getClass("place"), headerClassName: $scope.getClass("place")},
-                {name: "Акт",prop: "act", className: $scope.getClass("act"), headerClassName: $scope.getClass("act")},
-                {name: "Остаток на начало",prop: "balance_at_start", className: $scope.getClass("balance_at_start"), headerClassName: $scope.getClass("balance_at_start")},
-                {name: "Остаток на начало ОХ",prop: "balance_at_start_OX", className: $scope.getClass("balance_at_start_OX"), headerClassName: $scope.getClass("balance_at_start_OX")},
-                {name: "Остаток на начало в работу",prop: "balance_at_start_work", className: $scope.getClass("balance_at_start_work"), headerClassName: $scope.getClass("balance_at_start_work")},
-                {name: "Единицы измерения",prop: "ei", className: $scope.getClass("ei"), headerClassName: $scope.getClass("ei")}
-            ]
+        $scope.items = {
+            act: "Акт",
+            place: "место",
+            balance_at_start: "количестно на начало",
+            balance_at_start_OX: "количество на начало ОХ",
+            balance_at_start_work: "количество на начало в работу",
+            ei: "Единицы измерения"
         };
         $scope.$watch(function(){
             return $rootScope.table;
@@ -61,6 +37,13 @@ angular.module('tableModule', ['ngRoute', 'data-table'])
                 console.log('table request error');
             });
         }
+
+        $scope.toggle = function (key) {
+            localStorageService.set(key, $scope.checkVisible(key) ? 'false' : 'true');
+        };
+        $scope.checkVisible = function (key) {
+            return localStorageService.get(key) === 'false' ? false : true;
+        };
 
         $scope.showPrerenderedDialog = function(ev) {
             $mdDialog.show({
