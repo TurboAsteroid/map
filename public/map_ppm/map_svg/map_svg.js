@@ -101,7 +101,12 @@ angular.module('map_svgModule', ['ngRoute'])
 
         $scope.$watch(function(){
             return $scope.zoom_lvl;
-        }, function(zone) {
-            $scope.zoom_map($scope.zoom_lvl);
+        }, function(zoom) {
+            $scope.zoom_map(zoom);
         });
+        // $scope.$watch(function(){
+        //     return Zoom.get('transform').k;
+        // }, function(zoom) {
+        //     $scope.zoom_lvl = parseFloat(zoom);
+        // });
     });
