@@ -24,6 +24,7 @@
 }
 #place_datatable thead {
     background: #fff;
+    border-bottom: 1px solid #ccc;
 }
 #place_datatable .duplicate_thead {
     position: absolute;
@@ -34,7 +35,6 @@
 }
 #place_datatable th {
     padding: 5px 10px 10px;
-    border-bottom: 1px solid #ccc;
     cursor:pointer;
 }
 #place_datatable th span{
