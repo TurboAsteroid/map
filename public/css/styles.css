@@ -16,10 +16,24 @@
     top:20px;
 }
 
-#place_datatable .hideCol{
-    display: none;
+#place_datatable {
+    width: 100%;
+    overflow: auto;
+    text-align: left;
+    height: 500px;
 }
-
+#place_datatable table {
+    border-collapse: collapse;
+}
+#place_datatable th {
+    padding: 5px 10px 10px;
+    border-bottom: 1px solid #ccc;
+}
+#place_datatable td {
+    padding: 5px 10px;
+    vertical-alig: middle;
+    border-bottom: 1px solid #ccc;
+}
 
 #overlay_load {
     width: 100%;
@@ -39,8 +53,4 @@
 }
 .circles_All {
     background: coral !important;
-}
-
-.dt {
-    height: 500px;
 }
