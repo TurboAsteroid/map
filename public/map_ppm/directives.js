@@ -5,8 +5,8 @@ angular.module('directivesModule', [])
             restrict: 'E', // the directive can be invoked only by using <my-directive> tag in the template
             link: function (scope, element, attrs) {
                 var parent = d3.select(element[0]);
-                var polygon = parent.selectAll('polygon');
-                polygon.each(function() {
+                var objects = parent.selectAll('#map_objects > *');
+                objects.each(function() {
                     this.id = "Склад " + (Math.floor((Math.random() * 100) + 1));
                 });
                 var tooltip = d3.select("body")
@@ -19,7 +19,7 @@ angular.module('directivesModule', [])
                     .style("padding", "10px")
                     .style("border", "1px solid #ccc")
                     .style("border-radius", "7px");
-                polygon
+                objects
                     .on("mouseover", function(){
                         tooltip.text(this.id);
                         return tooltip.style("visibility", "visible");

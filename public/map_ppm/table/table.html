@@ -24,6 +24,16 @@
                     </th>
                 </tr>
             </thead>
+            <thead class="duplicate_thead">
+                <tr>
+                    <th ng-repeat="(key, item) in items" ng-show="checkVisible(key)" ng-click="theadClick(key)">
+                        {{item}}
+                        <span ng-show="sortType != key"></span>
+                        <span ng-show="sortType == key && !sortReverse">▲</span>
+                        <span ng-show="sortType == key && sortReverse">▼</span>
+                    </th>
+                </tr>
+            </thead>
             <tbody>
                 <tr ng-repeat="row in table_data" on-last-repeat>
                     <td ng-repeat="(key, item) in items" ng-show="checkVisible(key)">{{row[key]}}</td>

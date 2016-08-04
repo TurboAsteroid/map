@@ -2,10 +2,6 @@
     color: #F44336;
 }
 
-#svg_map polygon:hover {
-    fill: #7b776b;
-    cursor: pointer;
-}
 #svg_map {
     overflow: hidden;
     position:relative;
@@ -24,6 +20,17 @@
 }
 #place_datatable table {
     border-collapse: collapse;
+    position:relative;
+}
+#place_datatable thead {
+    background: #fff;
+}
+#place_datatable .duplicate_thead {
+    position: absolute;
+    top: 0;
+    left:0;
+    width:100%;
+    display:none;
 }
 #place_datatable th {
     padding: 5px 10px 10px;
