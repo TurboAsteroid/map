@@ -31,9 +31,9 @@
     <div style="visibility: hidden">
         <div class="md-dialog-container" id="myDialogColums">
             <md-dialog layout-padding="20">
-                <div ng-repeat="item in options.columns">
-                    <md-checkbox ng-checked="checkVisible(item.prop)" ng-click="toggle(item.prop)">
-                        {{ item.name }}
+                <div ng-repeat="(key, item) in items">
+                    <md-checkbox ng-checked="checkVisible(key)" ng-click="toggle(key)">
+                        {{ item }}
                     </md-checkbox>
                 </div>
             </md-dialog>
