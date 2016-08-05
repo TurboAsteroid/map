@@ -23,12 +23,12 @@
 #map_legend .md-button {font-size:12px;text-transform: none;min-height:20px;line-height: 20px;display: block;}
 md-card#map_legend md-card-content {padding-top:0;}
 
-.legendButton_6.active {background:rgba(51, 204, 51, 0.7);}
-.legendButton_4.active {background:rgba(153, 0, 0, 0.7);}
-.legendButton_1.active {background:rgba(201, 2, 141, 0.7);}
-.legendButton_2.active {background:rgba(0, 204, 255, 0.7);}
-.legendButton_3.active {background:rgba(235, 216, 12, 0.7);}
-.legendButton_5.active {background:rgba(53, 53, 255, 0.7);}
+.legendButton_6.active {background:rgba(53, 53, 255, 0.7);}
+.legendButton_4.active {background:rgba(0, 204, 255, 0.7);}
+.legendButton_1.active {background:rgba(51, 204, 51, 0.7);}
+.legendButton_2.active {background:rgba(153, 0, 0, 0.7);}
+.legendButton_3.active {background:rgba(201, 2, 141, 0.7);}
+.legendButton_5.active {background:rgba(235, 216, 12, 0.7);}
 .legendButton_7.active {background:rgba(237, 0, 0, 0.7);}
 
 .map_tooltip {
