@@ -9,7 +9,7 @@
 
 .md-dialog-container {position:fixed !important;top:0 !important;}
 
-#svg_map .zona {opacity: 0.5;}
+#svg_map .zona {opacity: 0.5;cursor:pointer;}
 #svg_map .zona.hovered {opacity: 1;}
 #svg_map .zona.active {opacity: 1;}
 #svg_map .zona[data-responsibility='6']  {fill:#3535ff;}
