@@ -51,7 +51,6 @@ angular.module('directivesModule', [])
                             tooltip.hide();
                         })
                         .on("mousemove", function(event){
-                            console.log(123);
                             tooltip.css({
                                 "top": (event.pageY - 10) + "px",
                                 "left": (event.pageX + 10) + "px"
@@ -68,8 +67,7 @@ angular.module('directivesModule', [])
                 var svg_group = parent.select('g');
                 Zoom.set({zoom_obj: d3.zoom()});
                 var tmp_transform = {x: 0, y: 0, k: 1};
-                Zoom.get('zoom_obj').scaleExtent([0.7, 6]);
-                // Zoom.get('zoom_obj').translateExtent([[0, 0], [3000, 4000]]);
+                Zoom.get('zoom_obj').scaleExtent([1, 6]);
                 parent.select("svg").call(Zoom.get('zoom_obj').on("zoom", function() {
                     Zoom.set({transform: d3.event.transform});
                     svg_group.attr("transform", d3.event.transform);
