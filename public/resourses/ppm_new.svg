@@ -34,17 +34,6 @@ viewBox="0 0 3508 4961"
     .fil8 {fill:white}
     .fil6 {fill:#989898;fill-rule:nonzero}
     .fil1 {fill:#DDC5AC;fill-rule:nonzero}
-
-.zona {opacity: 0.5;}
-.zona:hover {opacity: 1;}
-
-    .caerula {fill:blue;} 
-    .blue {fill:#00CCFF;}
-    .green {fill:#33CC33;}
-    .vinous {fill:#990000;}
-    .fuchsia {fill:#C9028D;}
-    .yellow {fill:#EBD80C;}
-    .red {fill:#ED0000;}
    ]]>
   </style>  
  </defs>
@@ -777,48 +766,48 @@ viewBox="0 0 3508 4961"
   <rect class="fil10 str0" transform="matrix(-0.46711 0.178349 -0.178349 -0.46711 1752.47 2043.23)" width="21.9138" height="12.6005"/>
  </g>
 <g id="map_objects">
-  <rect class="zona 1 green" transform="matrix(-0.205836 0.978586 -0.978586 -0.205836 2048.04 1306.45)" width="95.6456" height="60.262"/>
-  <rect class="zona 2 green" transform="matrix(-0.0147053 0.999892 -0.999892 -0.0147053 2078.29 1612.53)" width="106.264" height="19.2916"/>
-  <polygon class="zona 3 green" points="2003,1578 2022,1586 1984,1689 1954,1678 "/>
-  <polygon class="zona 3 green" points="1913,1958 1902,1997 1933,2009 1946,1964 "/>
-  <path class="zona 4 green" d="M2028 1650l-9 50 -17 -3 47 -170 14 3c-11,42 -31,99 -35,120z"/>
-  <rect class="zona 5 green" transform="matrix(0.186619 -0.982432 0.982432 0.186619 1881.09 1545.33)" width="36.247" height="29.7448"/>
-  <rect class="zona 5 green" transform="matrix(0.181333 -0.983422 0.983422 0.181333 1865.86 1541.82)" width="74.6791" height="12.0843"/>
-  <polygon class="zona 5 green" points="1913,1444 1888,1439 1898,1405 1921,1409 1918,1419 "/>
-  <rect class="zona 5 green" transform="matrix(0.434257 -0.900789 0.900789 0.434257 1930.2 1306.69)" width="36.6308" height="31.6405"/>  
-  <polygon class="zona 6 green" points="2917,2303 2988,2411 2843,2414 2843,2113 2725,2023 2782,1193 3052,1251 2987,1574 2982,1661 3038,1699 3087,1794 "/>
-  <polygon class="zona 7 green" points="2136,1799 2121,1832 2181,1863 2200,1827 "/>
-  <polygon class="zona 8 green" points="2303,1503 2220,1522 2204,1469 2272,1460 "/>
-  <polygon class="zona 9 green" points="1652,1578 1669,1523 1682,1523 1669,1629 1642,1627 "/>
-  <path class="zona 10 vinous" d="M1842 1153l-18 9 -19 10 -18 9 -8 4 -11 6 -18 10 -47 25 46 72c7,-4 14,-9 21,-13 6,-4 13,-9 19,-13 1,0 2,-1 3,-2 5,-3 10,-7 16,-10 6,-5 12,-9 19,-13 6,-5 12,-9 19,-13 6,-5 13,-9 19,-14 3,-2 7,-4 10,-7l8 -5c7,-5 13,-10 19,-15 7,-5 13,-10 19,-15 7,-4 13,-9 19,-14 5,-3 11,-7 16,-10 7,-5 14,-10 21,-15l-26 -39 -15 7 -7 2 -12 6 -19 10 -19 9 -18 9 -19 10z"/>
-  <path class="zona 10 vinous" d="M1492 1352l6 8 29 45c2,-1 4,-2 7,-3 1,0 2,-1 3,-1 8,-3 15,-6 22,-9 7,-3 15,-6 22,-9 7,-2 15,-5 22,-8 7,-3 15,-6 22,-8 4,-2 9,-3 13,-5 3,-1 6,-3 9,-5 7,-3 14,-7 21,-11 7,-4 14,-8 21,-12 7,-4 13,-7 20,-11 7,-5 14,-9 20,-13 7,-4 14,-8 20,-12l-46 -72 -9 4 -18 10 -19 10 -18 10 -19 10 -18 10 -17 8 -2 2 -18 10 -19 10 -18 11 -18 10 -19 10 -4 3 5 8z"/>  
-  <polygon class="zona 11 vinous" points="1701,1221 1668,1169 1458,1298 1484,1340 1489,1337 1507,1327 1526,1316 1544,1306 1562,1296 1581,1285 1583,1284 1583,1284 1599,1275 1618,1265 1636,1256 1655,1246 1673,1236 1692,1226 "/>
-  <polygon class="zona 11 vinous" points="2021,1062 1949,1094 1929,1068 2001,1034 "/>
-  <polygon class="zona 11 vinous" points="2059,914 2103,860 2073,836 2029,890 "/>
-  <path class="zona 11 vinous" d="M2133 1005l-31 -34 76 -72 37 28c-22,30 -49,57 -82,78z"/>  
-  <polygon class="zona 13 fuchsia" points="2595,994 2592,1000 2659,1032 2724,902 2657,870 2601,981 "/>
-  <polygon class="zona 14 fuchsia" points="2612,1050 2601,1045 2580,1032 2568,1029 2552,1028 2523,1037 2523,1048 2515,1050 2471,1060 2466,1067 2540,1197 2624,1062 "/>
-  <path class="zona 15 fuchsia" d="M2473 979c2,-10 3,-19 4,-26l15 -276 0 -1 2 -46 -36 0c-2,3 -3,7 -5,10 -3,7 -6,14 -10,21 -3,7 -7,15 -10,22 -3,7 -7,14 -10,21 -3,7 -6,14 -10,22 0,1 -1,2 -1,3 -2,6 -4,13 -5,19 -3,8 -5,16 -6,23 -2,8 -4,16 -5,23 -2,8 -3,15 -4,23 -2,8 -3,16 -3,23 -1,8 -2,16 -2,24 -1,8 -1,16 0,24 0,8 0,15 1,23 1,8 2,16 4,23 1,8 3,16 6,23 2,8 5,15 8,23 29,-1 43,-1 67,-1z"/>  
-  <polygon class="zona 16 fuchsia" points="2534,609 2561,544 2757,604 2747,731 2527,752 "/>
-  <polygon class="zona 17 fuchsia" points="1134,2220 1234,2159 1372,2436 1216,2514 1161,2448 "/>
-  <rect class="zona 18 fuchsia" transform="matrix(-0.0156242 0.999878 -0.999878 -0.0156242 2825.76 1452.07)" width="66.6756" height="39.7254"/>
-  <polygon class="zona 19 blue" points="2240,792 2249,782 2268,758 2276,748 2284,739 2302,754 2340,707 2321,692 2374,627 2369,623 2365,620 2360,616 2375,598 2313,548 2298,566 2294,563 2290,560 2287,557 2283,554 2278,550 2136,725 2232,803 "/>
-  <polygon class="zona 20 blue" points="2136,725 2275,553 2220,509 2081,681 "/>
-  <rect class="zona 20 blue" transform="matrix(0.628277 -0.77799 0.77799 0.628277 2296.75 499.429)" width="118.333" height="13.654"/>
-  <rect class="zona 21 blue" transform="matrix(-0.628279 0.777988 -0.777988 -0.628279 2439.1 487.86)" width="75.3452" height="62.7649"/>
-  <rect class="zona 22 blue" transform="matrix(-0.628277 0.77799 -0.77799 -0.628277 2231.91 802.841)" width="58.9651" height="123.128"/>  
-  <polygon class="zona 23 yellow" points="1725,1651 1747,1527 1728,1523 1705,1647 "/>
-  <polygon class="zona 24 yellow" points="1668,1169 1701,1221 1710,1216 1729,1206 1747,1197 1766,1187 1777,1181 1777,1181 1784,1177 1803,1168 1821,1158 1840,1149 1858,1139 1877,1130 1882,1127 1882,1127 1896,1120 1914,1111 1927,1105 1927,1105 1934,1102 1946,1097 1895,1029 "/>
-  <rect class="zona 24 yellow" transform="matrix(0.787226 -0.616665 0.616665 0.787226 1955.28 951.702)" width="79.3954" height="69.1856"/>
-  <polygon class="zona 25 yellow" points="1714,2370 1687,2383 1697,2403 1712,2432 1738,2502 1757,2495 1757,2497 1771,2492 1769,2477 "/>
-  <rect class="zona 26 yellow" transform="matrix(0.47941 0.877591 -0.877591 0.47941 2009.27 1075.46)" width="32.048" height="32.0681"/>
-  <polygon class="zona 27 caerula" points="1663,2626 1636,2671 1639,2673 1647,2678 1674,2633 "/>
-  <rect class="zona 28 red" transform="matrix(0.978585 0.205843 -0.205843 0.978585 1969.38 1387.65)" width="60.2608" height="95.6444"/>
-  <polygon class="zona 29 red" points="1969,1525 1958,1555 1988,1566 1999,1533 "/>
-  <rect class="zona 30 red" transform="matrix(0.892579 -0.450891 0.450891 0.892579 1593.02 2315.97)" width="122.176" height="23.3536"/>
-  <rect class="zona 31 red" transform="matrix(0.371403 -0.928472 0.928472 0.371403 1924.39 1746.55)" width="33.6591" height="30.9495"/>
-  <polygon class="zona 31 red" points="1910,1801 1900,1842 1918,1933 1931,1935 1954,1808 "/>
-  <polygon class="zona 32 red" points="1864,1561 1849,1639 1859,1641 1869,1585 1903,1592 1907,1570 "/>
+  <rect class="zona" data-zonaid="1" data-responsibility="1" transform="matrix(-0.205836 0.978586 -0.978586 -0.205836 2048.04 1306.45)" width="95.6456" height="60.262"/>
+  <rect class="zona" data-zonaid="2" data-responsibility="1" transform="matrix(-0.0147053 0.999892 -0.999892 -0.0147053 2078.29 1612.53)" width="106.264" height="19.2916"/>
+  <polygon class="zona" data-zonaid="3" data-responsibility="1" points="2003,1578 2022,1586 1984,1689 1954,1678 "/>
+  <polygon class="zona" data-zonaid="3" data-responsibility="1" points="1913,1958 1902,1997 1933,2009 1946,1964 "/>
+  <path class="zona" data-zonaid="4" data-responsibility="1" d="M2028 1650l-9 50 -17 -3 47 -170 14 3c-11,42 -31,99 -35,120z"/>
+  <rect class="zona" data-zonaid="5" data-responsibility="1" transform="matrix(0.186619 -0.982432 0.982432 0.186619 1881.09 1545.33)" width="36.247" height="29.7448"/>
+  <rect class="zona" data-zonaid="5" data-responsibility="1" transform="matrix(0.181333 -0.983422 0.983422 0.181333 1865.86 1541.82)" width="74.6791" height="12.0843"/>
+  <polygon class="zona" data-zonaid="5" data-responsibility="1" points="1913,1444 1888,1439 1898,1405 1921,1409 1918,1419 "/>
+  <rect class="zona" data-zonaid="5" data-responsibility="1" transform="matrix(0.434257 -0.900789 0.900789 0.434257 1930.2 1306.69)" width="36.6308" height="31.6405"/>
+  <polygon class="zona" data-zonaid="6" data-responsibility="1" points="2917,2303 2988,2411 2843,2414 2843,2113 2725,2023 2782,1193 3052,1251 2987,1574 2982,1661 3038,1699 3087,1794 "/>
+  <polygon class="zona" data-zonaid="7" data-responsibility="1" points="2136,1799 2121,1832 2181,1863 2200,1827 "/>
+  <polygon class="zona" data-zonaid="8" data-responsibility="1" points="2303,1503 2220,1522 2204,1469 2272,1460 "/>
+  <polygon class="zona" data-zonaid="9" data-responsibility="1" points="1652,1578 1669,1523 1682,1523 1669,1629 1642,1627 "/>
+  <path class="zona" data-zonaid="10" data-responsibility="2" d="M1842 1153l-18 9 -19 10 -18 9 -8 4 -11 6 -18 10 -47 25 46 72c7,-4 14,-9 21,-13 6,-4 13,-9 19,-13 1,0 2,-1 3,-2 5,-3 10,-7 16,-10 6,-5 12,-9 19,-13 6,-5 12,-9 19,-13 6,-5 13,-9 19,-14 3,-2 7,-4 10,-7l8 -5c7,-5 13,-10 19,-15 7,-5 13,-10 19,-15 7,-4 13,-9 19,-14 5,-3 11,-7 16,-10 7,-5 14,-10 21,-15l-26 -39 -15 7 -7 2 -12 6 -19 10 -19 9 -18 9 -19 10z"/>
+  <path class="zona" data-zonaid="10" data-responsibility="2" d="M1492 1352l6 8 29 45c2,-1 4,-2 7,-3 1,0 2,-1 3,-1 8,-3 15,-6 22,-9 7,-3 15,-6 22,-9 7,-2 15,-5 22,-8 7,-3 15,-6 22,-8 4,-2 9,-3 13,-5 3,-1 6,-3 9,-5 7,-3 14,-7 21,-11 7,-4 14,-8 21,-12 7,-4 13,-7 20,-11 7,-5 14,-9 20,-13 7,-4 14,-8 20,-12l-46 -72 -9 4 -18 10 -19 10 -18 10 -19 10 -18 10 -17 8 -2 2 -18 10 -19 10 -18 11 -18 10 -19 10 -4 3 5 8z"/>
+  <polygon class="zona" data-zonaid="11" data-responsibility="2" points="1701,1221 1668,1169 1458,1298 1484,1340 1489,1337 1507,1327 1526,1316 1544,1306 1562,1296 1581,1285 1583,1284 1583,1284 1599,1275 1618,1265 1636,1256 1655,1246 1673,1236 1692,1226 "/>
+  <polygon class="zona" data-zonaid="11" data-responsibility="2" points="2021,1062 1949,1094 1929,1068 2001,1034 "/>
+  <polygon class="zona" data-zonaid="11" data-responsibility="2" points="2059,914 2103,860 2073,836 2029,890 "/>
+  <path class="zona" data-zonaid="11" data-responsibility="2" d="M2133 1005l-31 -34 76 -72 37 28c-22,30 -49,57 -82,78z"/>
+  <polygon class="zona" data-zonaid="13" data-responsibility="3" points="2595,994 2592,1000 2659,1032 2724,902 2657,870 2601,981 "/>
+  <polygon class="zona" data-zonaid="14" data-responsibility="3" points="2612,1050 2601,1045 2580,1032 2568,1029 2552,1028 2523,1037 2523,1048 2515,1050 2471,1060 2466,1067 2540,1197 2624,1062 "/>
+  <path class="zona" data-zonaid="15" data-responsibility="3" d="M2473 979c2,-10 3,-19 4,-26l15 -276 0 -1 2 -46 -36 0c-2,3 -3,7 -5,10 -3,7 -6,14 -10,21 -3,7 -7,15 -10,22 -3,7 -7,14 -10,21 -3,7 -6,14 -10,22 0,1 -1,2 -1,3 -2,6 -4,13 -5,19 -3,8 -5,16 -6,23 -2,8 -4,16 -5,23 -2,8 -3,15 -4,23 -2,8 -3,16 -3,23 -1,8 -2,16 -2,24 -1,8 -1,16 0,24 0,8 0,15 1,23 1,8 2,16 4,23 1,8 3,16 6,23 2,8 5,15 8,23 29,-1 43,-1 67,-1z"/>
+  <polygon class="zona" data-zonaid="16" data-responsibility="3" points="2534,609 2561,544 2757,604 2747,731 2527,752 "/>
+  <polygon class="zona" data-zonaid="17" data-responsibility="3" points="1134,2220 1234,2159 1372,2436 1216,2514 1161,2448 "/>
+  <rect class="zona" data-zonaid="18" data-responsibility="3" transform="matrix(-0.0156242 0.999878 -0.999878 -0.0156242 2825.76 1452.07)" width="66.6756" height="39.7254"/>
+  <polygon class="zona" data-zonaid="19" data-responsibility="4" points="2240,792 2249,782 2268,758 2276,748 2284,739 2302,754 2340,707 2321,692 2374,627 2369,623 2365,620 2360,616 2375,598 2313,548 2298,566 2294,563 2290,560 2287,557 2283,554 2278,550 2136,725 2232,803 "/>
+  <polygon class="zona" data-zonaid="20" data-responsibility="4" points="2136,725 2275,553 2220,509 2081,681 "/>
+  <rect class="zona" data-zonaid="20" data-responsibility="4" transform="matrix(0.628277 -0.77799 0.77799 0.628277 2296.75 499.429)" width="118.333" height="13.654"/>
+  <rect class="zona" data-zonaid="21" data-responsibility="4" transform="matrix(-0.628279 0.777988 -0.777988 -0.628279 2439.1 487.86)" width="75.3452" height="62.7649"/>
+  <rect class="zona" data-zonaid="22" data-responsibility="4" transform="matrix(-0.628277 0.77799 -0.77799 -0.628277 2231.91 802.841)" width="58.9651" height="123.128"/>
+  <polygon class="zona" data-zonaid="23" data-responsibility="5" points="1725,1651 1747,1527 1728,1523 1705,1647 "/>
+  <polygon class="zona" data-zonaid="24" data-responsibility="5" points="1668,1169 1701,1221 1710,1216 1729,1206 1747,1197 1766,1187 1777,1181 1777,1181 1784,1177 1803,1168 1821,1158 1840,1149 1858,1139 1877,1130 1882,1127 1882,1127 1896,1120 1914,1111 1927,1105 1927,1105 1934,1102 1946,1097 1895,1029 "/>
+  <rect class="zona" data-zonaid="24" data-responsibility="5" transform="matrix(0.787226 -0.616665 0.616665 0.787226 1955.28 951.702)" width="79.3954" height="69.1856"/>
+  <polygon class="zona" data-zonaid="25" data-responsibility="5" points="1714,2370 1687,2383 1697,2403 1712,2432 1738,2502 1757,2495 1757,2497 1771,2492 1769,2477 "/>
+  <rect class="zona" data-zonaid="26" data-responsibility="5" transform="matrix(0.47941 0.877591 -0.877591 0.47941 2009.27 1075.46)" width="32.048" height="32.0681"/>
+  <polygon class="zona" data-zonaid="27" data-responsibility="6" points="1663,2626 1636,2671 1639,2673 1647,2678 1674,2633 "/>
+  <rect class="zona" data-zonaid="28" data-responsibility="7" transform="matrix(0.978585 0.205843 -0.205843 0.978585 1969.38 1387.65)" width="60.2608" height="95.6444"/>
+  <polygon class="zona" data-zonaid="29" data-responsibility="7" points="1969,1525 1958,1555 1988,1566 1999,1533 "/>
+  <rect class="zona" data-zonaid="30" data-responsibility="7" transform="matrix(0.892579 -0.450891 0.450891 0.892579 1593.02 2315.97)" width="122.176" height="23.3536"/>
+  <rect class="zona" data-zonaid="31" data-responsibility="7" transform="matrix(0.371403 -0.928472 0.928472 0.371403 1924.39 1746.55)" width="33.6591" height="30.9495"/>
+  <polygon class="zona" data-zonaid="31" data-responsibility="7" points="1910,1801 1900,1842 1918,1933 1931,1935 1954,1808 "/>
+  <polygon class="zona" data-zonaid="32" data-responsibility="7" points="1864,1561 1849,1639 1859,1641 1869,1585 1903,1592 1907,1570 "/>
 </g>
  </g>
 </svg>

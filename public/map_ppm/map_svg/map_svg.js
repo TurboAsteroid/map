@@ -1,77 +1,28 @@
 'use strict';
 angular.module('map_svgModule', ['ngRoute'])
-    .controller('map_svgController', function($scope, $location, $element, Zoom, localStorageService, $compile) {
-        $scope.activePolygons = '';
-        $scope.activePaths = '';
-        $scope.activeCircles = '';
-
-        var btnhtml = '<md-button class="{{activePolygons}}" ng-click="show_legend_items(\'polygons\')">Полигоны</md-button>' +
-            '<md-button class="{{activePaths}}" ng-click="show_legend_items(\'paths\')">Пути</md-button>' +
-            '<md-button class="{{activeCircles}}" ng-click="show_legend_items(\'circles\')">Окружности</md-button>';
-        var temp = $compile(btnhtml)($scope);
-        angular.element(document.getElementById('legend_card_controller')).append(temp);
-        $scope.show_legend = function(isTemplate){
-            if(isTemplate) {
-                $scope.showLegend = !localStorageService.get("showLegend");
-                localStorageService.set("showLegend", $scope.showLegend);
-                if ($scope.showLegend)
-                    $scope.action_legend_name = "Свернуть легенду";
-                else
-                    $scope.action_legend_name = "Развернуть легенду";
-            }
-            else
-                $scope.showLegend = localStorageService.get("showLegend");
+    .controller('map_svgController', function($scope, $location, $element, Zoom, localStorageService, $compile, MapData) {
+        MapData.getData().then(function successCallback(response) {
+            var storage_list = response.data;
+            $('#legend_card_controller').empty();
+            angular.forEach(storage_list.areas, function(value, key) {
+                var tmp = $compile('<md-button class="legendButton legendButton_'+key+'" ng-click="show_legend_items($event,'+key+')">'+value+'</md-button>')($scope);
+                $('#legend_card_controller').append(tmp);
+            });
+            $scope.action_legend_name = $scope.legend_name();
+            $scope.showLegend = localStorageService.get("showLegend");
+        });
+        $scope.show_legend = function() {
+            localStorageService.set("showLegend", !localStorageService.get("showLegend"));
+            $scope.showLegend = localStorageService.get("showLegend");
+            $scope.action_legend_name = $scope.legend_name();
         };
-        $scope.show_legend_items = function(item_name) {
-            switch(item_name) {
-                case 'polygons':
-                    if($scope.activePolygons == '') {
-                        d3.select("svg").selectAll("polygon").style("fill", "hotpink");
-                        $scope.activePolygons = 'md-raised polygons_All';
-                    }
-                    else {
-                        d3.select("svg").selectAll("polygon").style("fill", "");
-                        $scope.activePolygons = '';
-                    }
-                    break;
-                case 'paths':
-                    if($scope.activePaths == '') {
-                        d3.select("svg").selectAll("path").style("fill", "lightblue");
-                        $scope.activePaths = 'md-raised paths_All';
-                    }
-                    else {
-                        d3.select("svg").selectAll("path").style("fill", "");
-                        $scope.activePaths = '';
-                    }
-                    break;
-                case 'circles':
-                    if($scope.activeCircles == '') {
-                        d3.select("svg").selectAll("circle").style("fill", "coral");
-                        $scope.activeCircles = 'md-raised circles_All';
-                    }
-                    else {
-                        d3.select("svg").selectAll("circle").style("fill", "");
-                        $scope.activeCircles = '';
-                    }
-                    break;
-                default:
-                    break;
-            }
+        $scope.legend_name = function($event,area_id) {
+            return localStorageService.get("showLegend") === true ? "Скрыть зоны ответственности" : "Показать зоны ответственности"
         };
-        if(localStorageService.get("showLegend") == undefined) {
-            $scope.showLegend = false;
-            $scope.action_legend_name = "Развернуть легенду";
-        }
-        else if(localStorageService.get("showLegend") == false) {
-            $scope.action_legend_name = "Развернуть  легенду";
-        }
-        else if(localStorageService.get("showLegend") == true){
-            $scope.action_legend_name = "Свернуть легенду";
-            $scope.show_legend(false);
-        }
-        else {
-            console.log("showLegend err");
-        }
+        $scope.show_legend_items = function($event,area_id) {
+            $($event.currentTarget).toggleClass('active');
+            $('#map_objects').find('[data-responsibility="'+area_id+'"]').toggleClass('active');
+        };
         $scope.getWidth = function () {
             return $($element).width();
         };
