@@ -6,6 +6,9 @@
     overflow: hidden;
     position:relative;
 }
+
+.md-dialog-container {position:fixed !important;top:0 !important;}
+
 #svg_map .zona {opacity: 0.5;}
 #svg_map .zona.hovered {opacity: 1;}
 #svg_map .zona.active {opacity: 1;}
@@ -16,9 +19,10 @@
 #svg_map .zona[data-responsibility='3']  {fill:#C9028D;}
 #svg_map .zona[data-responsibility='5']  {fill:#EBD80C;}
 #svg_map .zona[data-responsibility='7']  {fill:#ED0000;}
-#map_legend {position: absolute; bottom: 20px; right: 20px;}
+#map_legend {position: absolute; top: 20px; left: 20px;}
 #map_legend .md-button {font-size:12px;text-transform: none;min-height:20px;line-height: 20px;display: block;}
 md-card#map_legend md-card-content {padding-top:0;}
+
 .legendButton_6.active {background:rgba(51, 204, 51, 0.7);}
 .legendButton_4.active {background:rgba(153, 0, 0, 0.7);}
 .legendButton_1.active {background:rgba(201, 2, 141, 0.7);}
@@ -46,7 +50,7 @@ md-card#map_legend md-card-content {padding-top:0;}
 
 #map_buttons {
     position: absolute;
-    left:20px;
+    right:20px;
     top:20px;
 }
 
