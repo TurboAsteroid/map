@@ -78,6 +78,8 @@ md-card#map_legend md-card-content {padding-top:0;}
 #place_datatable th {
     padding: 5px 10px 10px;
     cursor:pointer;
+    text-align: left;
+    white-space: nowrap;
 }
 #place_datatable th span{
     display:inline-block;
