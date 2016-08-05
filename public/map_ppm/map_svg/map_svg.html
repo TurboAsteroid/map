@@ -1,11 +1,11 @@
 <div id="svg_map" ng-controller="map_svgController">
     <div id="map_buttons">
         <md-slider-container>
-            <md-slider step="0.1" min="0.6" max="6" md-vertical="" ng-model="zoom_lvl" aria-label="zoom"></md-slider>
+            <md-slider step="0.1" min="0.6" max="6" md-vertical="" ng-model="zoom_lvl" aria-label="zoom" class="md-primary"></md-slider>
         </md-slider-container>
     </div>
     <md-card id="map_legend">
-        <md-button class="md-raised" ng-click="show_legend()">{{action_legend_name}}</md-button>
+        <md-button class="md-raised" ng-click="show_legend()" aria-label="Зоны ответственности">{{action_legend_name}}</md-button>
         <md-card-content id="legend_card_controller" ng-show="showLegend"></md-card-content>
     </md-card>
     <gh-visualization ng-include="'/resourses/ppm_new.svg'"></gh-visualization>

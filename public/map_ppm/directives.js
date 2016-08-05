@@ -50,7 +50,8 @@ angular.module('directivesModule', [])
                             $(this).siblings('*[data-zonaid="' + $(this).data('zonaid') + '"]').add($(this)).removeClass('hovered');
                             tooltip.hide();
                         })
-                        .on("mousemove", function(){
+                        .on("mousemove", function(event){
+                            console.log(123);
                             tooltip.css({
                                 "top": (event.pageY - 10) + "px",
                                 "left": (event.pageX + 10) + "px"
