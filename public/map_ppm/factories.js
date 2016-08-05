@@ -41,4 +41,17 @@ angular.module('factoriesModule', [])
                 return true;
             }
         };
-    });
+    })
+    .service('MapData', ['$http', function($http) {
+        var mapData;
+        this.getData =  function() {
+            if (!this.mapData) {
+                this.mapData = $http({
+                    method: 'GET',
+                    url: '/resourses/storage_list.json'
+                });
+            }
+            return this.mapData;
+        };
+
+    }]);

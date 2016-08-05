@@ -4,10 +4,9 @@
             <md-slider step="0.1" min="0.6" max="6" md-vertical="" ng-model="zoom_lvl" aria-label="zoom"></md-slider>
         </md-slider-container>
     </div>
-    <md-card style="position: absolute; bottom: 20px; right: 20px;">
-        <md-button ng-click="show_legend(true)">{{action_legend_name}}</md-button>
-        <md-card-content id="legend_card_controller" ng-show="showLegend">
-        </md-card-content>
+    <md-card id="map_legend">
+        <md-button class="md-raised" ng-click="show_legend()">{{action_legend_name}}</md-button>
+        <md-card-content id="legend_card_controller" ng-show="showLegend"></md-card-content>
     </md-card>
     <gh-visualization ng-include="'/resourses/ppm_new.svg'"></gh-visualization>
 </div>
