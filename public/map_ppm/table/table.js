@@ -15,7 +15,7 @@ angular.module('tableModule', ['ngRoute'])
             var new_thead = $('#place_datatable thead.duplicate_thead');
             old_thead.find('th').each(function () {
                 var ind = old_thead.find('th').index(this);
-                new_thead.find('th').filter(':eq('+ind+')').css({width: $(this).width()})
+                new_thead.find('th').filter(':eq('+ind+')').add($(this)).css({width: $(this).width()})
             });
         }
         $('#place_datatable').scroll(function () {
@@ -45,10 +45,12 @@ angular.module('tableModule', ['ngRoute'])
                 url: '/api/get_table/',
                 data: {zone: zone, place: place, raw: raw}
             }).then(function successCallback(response) {
+                console.log("response1", response);
                 $rootScope.load = false;
                 $rootScope.table = response.data.place_name;
                 $scope.table_data = response.data.data;
             }, function errorCallback(response) {
+                console.log("response", response);
                 $rootScope.load = false;
                 console.log('table request error');
             });
@@ -69,10 +71,9 @@ angular.module('tableModule', ['ngRoute'])
                 }
                 return 0;
             });
-        }
+        };
         $scope.toggle = function (key) {
             localStorageService.set(key, $scope.checkVisible(key) ? 'false' : 'true');
-            calculate_thead()
         };
         $scope.checkVisible = function (key) {
             return localStorageService.get(key) === 'false' ? false : true;

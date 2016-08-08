@@ -13,7 +13,7 @@
         </div>
     </md-toolbar>
     <div id="place_datatable">
-        <table style="min-width: 100%" autoscroll="place_datatable">
+        <table autoscroll="place_datatable">
             <thead>
                 <tr>
                     <th ng-repeat="(key, item) in items" ng-show="checkVisible(key)" ng-click="theadClick(key)">
@@ -42,7 +42,7 @@
         </table>
     </div>
 
-    <div style="visibility: hidden">
+    <div style="display: none">
         <div class="md-dialog-container" id="myDialogColums">
             <md-dialog layout-padding="20">
                 <div ng-repeat="(key, item) in items">
