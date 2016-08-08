@@ -35,7 +35,7 @@ angular.module('directivesModule', [])
                                 tmp_str = [];
                                 if (res[5] !== undefined) {
                                     var tmp = res[5].split("");
-                                    for (var j in tmp) {
+                                    for ( j in tmp) {
                                         tmp_str.push(raw.note[tmp[j]]);
                                     }
                                 } else if (typeof raw.note == "string") {
