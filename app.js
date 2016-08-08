@@ -3,14 +3,14 @@ var ActiveDirectory = require('activedirectory');
 var jwt = require('jsonwebtoken');
 //var multiparty      = require('connect-multiparty');
 var fs = require('fs');
-var https = require('https');
 var http = require('http');
 var express = require('express');
 var bodyParser = require('body-parser');
 var config = require('./config');
 var request = require('request');
 var async = require('async');
-
+var expressSession = require('express-session');
+var cookieParser = require('cookie-parser');
 var app = express();
 
 app.set('portHttp', config.portHttp);
@@ -18,6 +18,10 @@ app.set('adServer', config.adServer);
 app.set('adBaseDN', config.adBaseDN);
 app.set('adUser', config.adUser);
 app.set('adPassword', config.adPassword);
+
+app.use(cookieParser());
+
+app.use(expressSession({secret:'somesecrettokenhere'}));
 
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
@@ -33,13 +37,6 @@ var ad = new ActiveDirectory({
 });
 
 app.use(express.static('public')); //папка со статическими файлами
-
-var apiRoutes = express.Router(); //объявление роутера
-
-//точка входа в роутер
-apiRoutes.get('/', function (req, res) {
-    res.status(403).send('API входа и получения данных');
-});
 
 //аутентификация пользователя
 function auth(userAndPassword, callback) {
@@ -57,142 +54,78 @@ function auth(userAndPassword, callback) {
             })
         }
     ], function (err, result) {
-        callback(err, result, username, password);
+        callback(err, result, username);
     });
 }
 
 //проверка принадлежности к группе
-function checkGroup(authenticated, username, password, callback) {
+function checkGroup(authenticated, username, callback) {
     if (authenticated.success) {
         //проверяем на членство в группах
-        async.parallel({
-                GS11008: function (callback) {
-                    ad.isUserMemberOf(username, groupNames[0], function (err, isMember) {
-                        callback(err, isMember);
-                    });
-                },
-                GS11002: function (callback) {
-                    ad.isUserMemberOf(username, groupNames[1], function (err, isMember) {
-                        callback(err, isMember);
-                    });
-                },
-                GSGive: function (callback) {
-                    ad.isUserMemberOf(username, groupNames[2], function (err, isMember) {
-                        callback(err, isMember);
-                    });
-                }
-            },
-            function (err, userGroup) {
-                if (!userGroup.GS11008 && !userGroup.GS11002 && !userGroup.GSGive)
-                //при авторизации обнаружилось, что пользователь не принадлежит группе
-                    callback(true, {
-                        success: false,
-                        GS11008: userGroup.GS11008,
-                        GS11002: userGroup.GS11002,
-                        GSGive: userGroup.GSGive,
-                        message: 'Доступ запрещен'
-                    });
-                else if (userGroup.GS11008 && userGroup.GS11002 && userGroup.GSGive)
-                //при авторизации обнаружилось, что пользователь не принадлежит группе
-                    callback(true, {
-                        success: false,
-                        GS11008: userGroup.GS11008,
-                        GS11002: userGroup.GS11002,
-                        GSGive: userGroup.GSGive,
-                        message: 'Пользователь имеет двусмысленные права'
-                    });
-                else
-                //все хорошо, продолжаем
-                    callback(err, userGroup, username, password);
-            });
+        ad.isUserMemberOf(username, groupNames[0], function (err, isMember) {
+            if (err) {
+                callback(err, {success: false, message: 'Некорректное имя пользователя или пароль'});
+            }
+            if (isMember) {
+                callback(err, {success: true, message: 'Пользователь принадлежит группе'});
+            }
+        });
     }
     else {
-        callback(true, {"GS11008": false, "GS11002": false, "GSGive": false, message: 'Неизвестная ошибка 1'});
+        callback(true, { success: false, message: 'Неизвестная ошибка'});
     }
 }
 
-//генерация токенов (кодирование имени пользователя и пароля)
-function createTokens(userGroup, username, password, callback) {
-    var tokenUser = jwt.sign(username, app.get('superSecret')); //шифруем имя пользователя
-    var tokenPassword = jwt.sign(password, app.get('superSecret')); //шифруем пароль
-    //вычисляем интерфейс
-    var give = false;
-    var ckeckpoint = null;
-    //выдача пропуска
-    if (userGroup.GSGive) {
-        give = true;
-    }
-    //кпп инженерный корпус
-    if (userGroup.GS11008) {
-        ckeckpoint = 11008;
-    }
-    //кпп 7
-    if (userGroup.GS11002) {
-        ckeckpoint = 11002;
-    }
-    callback(null, {
-        success: true,
-        tokenUser: tokenUser,
-        tokenPassword: tokenPassword,
-        ckeckpoint: ckeckpoint,
-        give: give
-    });
-}
+var apiRoutes = express.Router(); //объявление роутера
 
-//декодирование токенов
-function decodeTokens(data, callback) {
-    var tokenUser = data.tokenuser; //получаем токен имени пользователя
-    var tokenPassword = data.tokenpassword; //получаем токен папроля
-    async.parallel({ //дешифруем токен пользователя и пароля параллельно
-            user: function (callback) {
-                jwt.verify(tokenUser, app.get('superSecret'), function (err, decoded) {
-                    callback(err, decoded);
-                });
-            },
-            password: function (callback) {
-                jwt.verify(tokenPassword, app.get('superSecret'), function (err, decoded) {
-                    callback(err, decoded);
-                });
+var checkAuth = function (req, res, next) {
+    if(!req.session.username || !req.session.password) {
+        res.status(401).json({success: false, message: 'Некорректное имя пользователя или пароль'});
+    }
+    else {
+        async.waterfall( //последовательно проверяем доступ пользователю
+            [
+                async.apply(auth, { username: req.session.username, password: req.session.password }),//правильный ли пароль
+                checkGroup //входит ли в группу
+            ], function (err, result) { //отправляем результат
+                if(err)
+                    res.status(400).send(result);
+                else {
+                    next();//res.status(200).json({success: true});
+                }
             }
-        },
-        function (err, userAndPassword) {
-            //выполняем действия и проверки после дешифрации и отправляем результат
-            if (err)
-                callback(err, {
-                    success: false,
-                    message: 'Доступ запрещен. Ошибка декодирования имени пользователя и пароля'
-                });
-            else
-                callback(err, {
-                    success: true,
-                    message: 'Декодирование токенов завершено успешно',
-                    username: userAndPassword.user,
-                    password: userAndPassword.password
-                });
-        });
-}
+        );
+    }
+};
 
-//проводим авторизацию
-apiRoutes.post('/authenticate', function (req, res) {
+var authenticate = function (req, res) {
+    async.waterfall( //последовательно проверяем доступ пользователю
+        [
+            async.apply(auth, { username: req.body.username, password: req.body.password }),//правильный ли пароль
+            checkGroup //входит ли в группу
+        ], function (err, result) { //отправляем результат
+            if(err)
+                res.status(400).send(result);
+            else {
+                //делаем куки
+                req.session.username = req.body.username;
+                req.session.password = req.body.password;
+                res.status(200).json({success: true});
+            }
+        }
+    );
+};
 
-    res.status(200).send({success: true, tokenUser: "TUUUUUUUUUUUUUUUU", tokenPassword: "Tpppppppppppppppp"});
-    /*
-     async.waterfall([ //последовательно проверяем (водопадом)
-     async.apply(auth, { username: req.headers['username'], password: req.headers['password']}),//входит ли в группу
-     checkGroup, //входит ли в группу
-     createTokens //создаем токен
-     ], function (err, result) { //отправляем результат
-     if(err)
-     res.status(400).send(result);
-     else
-     res.status(200).send(result);
-     });*/
+apiRoutes.post('/authenticate', authenticate);
+
+apiRoutes.post('/logout', checkAuth, function (req, res) {
+    req.session = null;
+    res.json({success: true}).status(200);
 });
 
 //Получение данных диаграмы
-apiRoutes.post('/get_diagram', function (req, res) {
+apiRoutes.post('/get_diagram', checkAuth, function (req, res) {
     var fs = require('fs');
-
     fs.readFile('./public/ppm.json', 'utf8', function (err, contents) {
         if (err) throw err;
         data = JSON.parse(contents);
@@ -251,7 +184,7 @@ apiRoutes.post('/get_diagram', function (req, res) {
 });
 
 //Получение данных сводной таблицы
-apiRoutes.post('/get_table', function (req, res) {
+apiRoutes.post('/get_table', checkAuth, function (req, res) {
     var fs = require('fs');
     fs.readFile('./public/ppm.json', 'utf8', function (err, contents) {
         if (err) throw err;
@@ -269,7 +202,7 @@ apiRoutes.post('/get_table', function (req, res) {
 });
 
 //Получение данных диаграмы
-apiRoutes.post('/get_diagram2', function(req, res) {
+apiRoutes.post('/get_diagram2', checkAuth, function(req, res) {
     var fs = require('fs');
 
     fs.readFile('./public/ppm.json', 'utf8', function(err, contents) {
