@@ -63,6 +63,7 @@ md-card#map_legend md-card-content {padding-top:0;}
 #place_datatable table {
     border-collapse: collapse;
     position:relative;
+    table-layout: fixed;
 }
 #place_datatable thead {
     background: #fff;
@@ -73,7 +74,7 @@ md-card#map_legend md-card-content {padding-top:0;}
     top: 0;
     left:0;
     width:100%;
-    display:none !important;
+    display:none;
 }
 #place_datatable th {
     padding: 5px 10px 10px;
@@ -87,8 +88,9 @@ md-card#map_legend md-card-content {padding-top:0;}
 }
 #place_datatable td {
     padding: 5px 10px;
-    vertical-alig: middle;
+    vertical-align: middle;
     border-bottom: 1px solid #ccc;
+    white-space: nowrap;
 }
 
 #overlay_load {

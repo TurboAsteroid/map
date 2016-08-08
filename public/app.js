@@ -11,10 +11,6 @@ angular.module('appMAP', ['ngRoute', 'ngMaterial', 'authModule', 'map_ppmModule'
                 controller  : 'map_ppmController',
                 reloadOnSearch: false
             })
-            .when('/map_ppm/:zone', {
-                templateUrl: 'map_ppm/map_ppm.html',
-                controller: 'map_ppmController'
-            })
             .otherwise({ redirectTo: '/' });
 
     })
