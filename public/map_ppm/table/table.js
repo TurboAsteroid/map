@@ -17,7 +17,7 @@ angular.module('tableModule', ['ngRoute'])
             var new_thead = $('#place_datatable thead.duplicate_thead');
             old_thead.find('th').each(function () {
                 var ind = old_thead.find('th').index(this);
-                new_thead.find('th').filter(':eq('+ind+')').css({width: $(this).width()})
+                new_thead.find('th').filter(':eq('+ind+')').add($(this)).css({width: $(this).width()})
             });
         }
         $('#place_datatable').scroll(function () {
@@ -77,10 +77,9 @@ angular.module('tableModule', ['ngRoute'])
                 }
                 return 0;
             });
-        }
+        };
         $scope.toggle = function (key) {
             localStorageService.set(key, $scope.checkVisible(key) ? 'false' : 'true');
-            calculate_thead()
         };
         $scope.checkVisible = function (key) {
             return localStorageService.get(key) === 'false' ? false : true;
