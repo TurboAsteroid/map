@@ -1,8 +1,6 @@
 'use strict';
 angular.module('diagramModule', ['ngRoute'])
-    .controller('diagramController', function($scope, $http, $location, User, $routeParams, $rootScope, Logged) {
-        if(!Logged.get())
-            $location.path('/');
+    .controller('diagramController', function($scope, $http, $location, User, $routeParams, $rootScope) {
         $scope.ppm_diagram_checkbox_show = false;
         $scope.ppm_diagram_show = true;
         $scope.ppm_diagram2_show = false;
@@ -52,7 +50,6 @@ angular.module('diagramModule', ['ngRoute'])
                 data: {zone: zone}
             }).then(function successCallback(response) {
                 if (response.data.success) {
-                    Logged.set(true);
                     $rootScope.zone = $routeParams.svg_zone;
                     $rootScope.load = false;
                     $(function () {
@@ -77,14 +74,12 @@ angular.module('diagramModule', ['ngRoute'])
                     });
                     $scope.ppm_diagram_checkbox_show = true;
                 }
-                else
-                    Logged.set(false);
             }, function errorCallback(response) {
                 if (!response.data.success) {
-                    Logged.set(false);
                     $rootScope.load = false;
                     console.log('diagram request error');
                 }
+                $location.path('/');
             });
 
             $http({
@@ -93,7 +88,6 @@ angular.module('diagramModule', ['ngRoute'])
                 data: {zone: zone}
             }).then(function successCallback(response) {
                 if (response.data.success) {
-                    Logged.set(true);
                     $(function () {
                         for (var i = 0; i < response.data.zones.length; i++) {
                             response.data.zones[i] = "Место " + response.data.zones[i];
@@ -109,9 +103,9 @@ angular.module('diagramModule', ['ngRoute'])
                 }
             }, function errorCallback(response) {
                 if (!response.data.success) {
-                    Logged.set(false);
                     console.log('diagram request error');
                 }
+                $location.path('/');
             });
         }
     });

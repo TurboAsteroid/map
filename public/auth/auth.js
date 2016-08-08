@@ -1,13 +1,22 @@
 'use strict';
 angular.module('authModule', ['ngRoute'])
 
-    .controller('authController', function($scope, $http, $location, Logged) {
-        if(Logged.get())
-            $location.path('/map_ppm')
-        $scope.user = {
-            username: "gs2",
-            password: "gs2-1"
-        };
+    .controller('authController', function($scope, $http, $location) {
+        $http({
+            method: 'GET',
+            url: '/api/is'
+        }).then(function successCallback(response) {
+            $location.path('/map_ppm');
+        }, function errorCallback(response) {
+            if (!response.data.success) {
+                console.log('authentication error');
+            }
+            $location.path('/');
+        });
+        // $scope.user = {
+        //     username: "gs2",
+        //     password: "gs2-1"
+        // };
         $scope.login = function () {
             $scope.message = '';
             $scope.entering = true;
@@ -25,17 +34,16 @@ angular.module('authModule', ['ngRoute'])
                     $scope.entering = false;
                     $scope.user.username = '';
                     $scope.user.password = '';
-                    Logged.set(true);
                     $location.path('/map_ppm');
                 }
             }, function errorCallback(response) {
                 if (!response.data.success) {
-                    Logged.set(false);
                     $scope.entering = false;
                     $scope.user.password = '';
                     $scope.message = data.message;
                     console.log('authentication error');
                 }
+                $location.path('/');
             });
         };
     });

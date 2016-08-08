@@ -85,7 +85,6 @@ app.all('*', function(req, res, next){
     else if(req.body.username && req.body.password) {
         authenticate(req, res);
         next();
-        //res.status(401).json({success: false, message: 'Некорректное имя пользователя или пароль'});
     }
     else {
         async.waterfall( //последовательно проверяем доступ пользователю
@@ -105,26 +104,6 @@ app.all('*', function(req, res, next){
 
 var apiRoutes = express.Router(); //объявление роутера
 
-var checkAuth = function (req, res, next) {
-    if(!req.session.username || !req.session.password) {
-        res.status(401).json({success: false, message: 'Некорректное имя пользователя или пароль'});
-    }
-    else {
-        async.waterfall( //последовательно проверяем доступ пользователю
-            [
-                async.apply(auth, { username: req.session.username, password: req.session.password }),//правильный ли пароль
-                checkGroup //входит ли в группу
-            ], function (err, result) { //отправляем результат
-                if(err)
-                    res.status(400).send(result);
-                else {
-                    next();//res.status(200).json({success: true});
-                }
-            }
-        );
-    }
-};
-
 var authenticate = function (req, res) {
     async.waterfall( //последовательно проверяем доступ пользователю
         [
@@ -141,7 +120,9 @@ var authenticate = function (req, res) {
         }
     );
 };
-
+apiRoutes.get('/api/is', function (req, res) {
+    res.status(200).json({success: true, message: 'Ok'});
+});
 apiRoutes.post('/api/authenticate', function (req, res) {});
 
 apiRoutes.get('/api/logout', function (req, res) {
@@ -151,7 +132,6 @@ apiRoutes.get('/api/logout', function (req, res) {
 
 //Получение данных диаграмы, checkAuth
 apiRoutes.post('/api/get_diagram', function (req, res, next) {
-    var fs = require('fs');
     fs.readFile('./public/ppm.json', 'utf8', function (err, contents) {
         if (err) throw err;
         data = JSON.parse(contents);
@@ -211,7 +191,6 @@ apiRoutes.post('/api/get_diagram', function (req, res, next) {
 
 //Получение данных сводной таблицы, checkAuth
 apiRoutes.post('/api/get_table', function (req, res) {
-    var fs = require('fs');
     fs.readFile('./public/ppm.json', 'utf8', function (err, contents) {
         if (err) throw err;
         data = JSON.parse(contents);
@@ -229,8 +208,6 @@ apiRoutes.post('/api/get_table', function (req, res) {
 
 //Получение данных диаграмы, checkAuth
 apiRoutes.post('/api/get_diagram2', function(req, res) {
-    var fs = require('fs');
-
     fs.readFile('./public/ppm.json', 'utf8', function(err, contents) {
         if (err) throw err;
         data = JSON.parse(contents);

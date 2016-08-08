@@ -18,10 +18,7 @@ angular.module('appMAP', ['ngRoute', 'ngMaterial', 'authModule', 'map_ppmModule'
         $mdThemingProvider.theme('default');
     })
 
-    .controller('navigationController', function ($scope, $location, Logged) {
-        if(!Logged.get())
-            $location.path('/');
-
+    .controller('navigationController', function ($scope, $location) {
         $scope.go = function (path) {
             $location.path(path);
         };
@@ -32,31 +29,15 @@ angular.module('appMAP', ['ngRoute', 'ngMaterial', 'authModule', 'map_ppmModule'
                 url: '/api/logout'
             }).then(function successCallback(response) {
                 if (response.data.success) {
-                    Logged.set(false);
                     $rootScope.load = false;
                     $location.path('/');
                 }
             }, function errorCallback(response) {
                 if (!response.data.success) {
-                    Logged.set(false);
                     $rootScope.load = false;
-                    $location.path('/');
                     console.log('logout error');
+                    $location.path('/');
                 }
             });
         };
-
-        // $scope.$watch(function(){
-        //     return Logged.get();
-        // }, function(l) {
-        //     if(!l)
-        //         $location.path('/');
-        // });
-
-        $scope.$watch(function(){
-            return Logged.get();
-        }, function(l){
-            if(!l)
-                $location.path('/');
-        });
     });
