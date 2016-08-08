@@ -20,9 +20,7 @@ angular.module('factoriesModule', [])
     .factory('User', function() {
         var user_var = {
             'username' : null,
-            'password' : null,
-            'tokenUser' : null,
-            'tokenPassword' : null
+            'password' : null
         };
         return {
             set: function(new_user_var) {
@@ -34,14 +32,28 @@ angular.module('factoriesModule', [])
             reset: function() {
                 user_var = {
                     'username' : null,
-                    'password' : null,
-                    'tokenUser' : null,
-                    'tokenPassword' : null
+                    'password' : null
                 };
                 return true;
             }
         };
     })
+    .factory('Logged', function() {
+        var l = false;
+        return {
+            set: function(new_l) {
+                l = new_l;
+            },
+            get: function() {
+                return l;
+            }
+        };
+    })
+
+    // .factory('Logged', function(){
+    //     var factory = { isLogged: false };
+    //     return factory;
+    // })
     .service('MapData', ['$http', function($http) {
         var mapData;
         this.getData =  function() {

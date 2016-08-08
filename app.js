@@ -1,7 +1,5 @@
 //зависимости
 var ActiveDirectory = require('activedirectory');
-var jwt = require('jsonwebtoken');
-//var multiparty      = require('connect-multiparty');
 var fs = require('fs');
 var http = require('http');
 var express = require('express');
@@ -9,7 +7,7 @@ var bodyParser = require('body-parser');
 var config = require('./config');
 var request = require('request');
 var async = require('async');
-var expressSession = require('express-session');
+var session = require('express-session');
 var cookieParser = require('cookie-parser');
 var app = express();
 
@@ -21,14 +19,18 @@ app.set('adPassword', config.adPassword);
 
 app.use(cookieParser());
 
-app.use(expressSession({secret:'somesecrettokenhere'}));
+app.use(session({
+    secret: 'cookie_secret',
+    resave: false,
+    saveUninitialized: false
+}));
 
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 request = request.defaults({jar: true});
 
 // Настройка модуля ActiveDirectory
-var groupNames = ['GS11002'];
+var groupName = 'GS11002';
 var ad = new ActiveDirectory({
     url: app.get('adServer'),
     baseDN: app.get('adBaseDN'),
@@ -62,7 +64,7 @@ function auth(userAndPassword, callback) {
 function checkGroup(authenticated, username, callback) {
     if (authenticated.success) {
         //проверяем на членство в группах
-        ad.isUserMemberOf(username, groupNames[0], function (err, isMember) {
+        ad.isUserMemberOf(username, groupName, function (err, isMember) {
             if (err) {
                 callback(err, {success: false, message: 'Некорректное имя пользователя или пароль'});
             }
@@ -75,6 +77,31 @@ function checkGroup(authenticated, username, callback) {
         callback(true, { success: false, message: 'Неизвестная ошибка'});
     }
 }
+
+app.all('*', function(req, res, next){
+    if(!req.session.username && !req.session.password && !req.body.username && !req.body.password) {
+        res.status(401).json({success: false, message: 'Некорректное имя пользователя или пароль'});
+    }
+    else if(req.body.username && req.body.password) {
+        authenticate(req, res);
+        next();
+        //res.status(401).json({success: false, message: 'Некорректное имя пользователя или пароль'});
+    }
+    else {
+        async.waterfall( //последовательно проверяем доступ пользователю
+            [
+                async.apply(auth, { username: req.session.username, password: req.session.password }),//правильный ли пароль
+                checkGroup //входит ли в группу
+            ], function (err, result) { //отправляем результат
+                if(err)
+                    res.status(400).send(result);
+                else {
+                    next();
+                }
+            }
+        );
+    }
+});
 
 var apiRoutes = express.Router(); //объявление роутера
 
@@ -106,8 +133,7 @@ var authenticate = function (req, res) {
         ], function (err, result) { //отправляем результат
             if(err)
                 res.status(400).send(result);
-            else {
-                //делаем куки
+            else { //делаем куки
                 req.session.username = req.body.username;
                 req.session.password = req.body.password;
                 res.status(200).json({success: true});
@@ -116,15 +142,15 @@ var authenticate = function (req, res) {
     );
 };
 
-apiRoutes.post('/authenticate', authenticate);
+apiRoutes.post('/api/authenticate', function (req, res) {});
 
-apiRoutes.post('/logout', checkAuth, function (req, res) {
+apiRoutes.get('/api/logout', function (req, res) {
     req.session = null;
-    res.json({success: true}).status(200);
+    res.status(200).json({success: true, message: "Выполнен выход из системы"});
 });
 
-//Получение данных диаграмы
-apiRoutes.post('/get_diagram', checkAuth, function (req, res) {
+//Получение данных диаграмы, checkAuth
+apiRoutes.post('/api/get_diagram', function (req, res, next) {
     var fs = require('fs');
     fs.readFile('./public/ppm.json', 'utf8', function (err, contents) {
         if (err) throw err;
@@ -183,8 +209,8 @@ apiRoutes.post('/get_diagram', checkAuth, function (req, res) {
     });
 });
 
-//Получение данных сводной таблицы
-apiRoutes.post('/get_table', checkAuth, function (req, res) {
+//Получение данных сводной таблицы, checkAuth
+apiRoutes.post('/api/get_table', function (req, res) {
     var fs = require('fs');
     fs.readFile('./public/ppm.json', 'utf8', function (err, contents) {
         if (err) throw err;
@@ -201,8 +227,8 @@ apiRoutes.post('/get_table', checkAuth, function (req, res) {
     });
 });
 
-//Получение данных диаграмы
-apiRoutes.post('/get_diagram2', checkAuth, function(req, res) {
+//Получение данных диаграмы, checkAuth
+apiRoutes.post('/api/get_diagram2', function(req, res) {
     var fs = require('fs');
 
     fs.readFile('./public/ppm.json', 'utf8', function(err, contents) {
@@ -259,6 +285,6 @@ apiRoutes.post('/get_diagram2', checkAuth, function(req, res) {
     });
 });
 
-app.use('/api', apiRoutes);
+app.use('/', apiRoutes);
 
 app.listen(app.get('portHttp'));
