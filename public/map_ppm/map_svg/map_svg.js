@@ -1,6 +1,8 @@
 'use strict';
 angular.module('map_svgModule', ['ngRoute'])
-    .controller('map_svgController', function($scope, $location, $element, Zoom, localStorageService, $compile, MapData) {
+    .controller('map_svgController', function($scope, $location, $element, Zoom, localStorageService, $compile, MapData, Logged) {
+        if(!Logged.get())
+            $location.path('/');
         MapData.getData().then(function successCallback(response) {
             var storage_list = response.data;
             $('#legend_card_controller').empty();

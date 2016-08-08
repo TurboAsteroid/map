@@ -1,6 +1,8 @@
 'use strict';
 angular.module('tableModule', ['ngRoute'])
-    .controller('tableController', function($scope, $http, $location, User, $routeParams, $mdDialog, localStorageService, $rootScope, $compile) {
+    .controller('tableController', function($scope, $http, $location, User, $routeParams, $mdDialog, localStorageService, $rootScope, Logged) {
+        if(!Logged.get())
+            $location.path('/');
         $scope.sortType     = false;
         $scope.sortReverse  = false;
         $scope.$on('onRepeatLast', function(scope, element, attrs){
@@ -45,12 +47,18 @@ angular.module('tableModule', ['ngRoute'])
                 url: '/api/get_table/',
                 data: {zone: zone, place: place, raw: raw}
             }).then(function successCallback(response) {
-                $rootScope.load = false;
-                $rootScope.table = response.data.place_name;
-                $scope.table_data = response.data.data;
+                if (response.data.success) {
+                    Logged.set(true);
+                    $rootScope.load = false;
+                    $rootScope.table = response.data.place_name;
+                    $scope.table_data = response.data.data;
+                }
             }, function errorCallback(response) {
-                $rootScope.load = false;
-                console.log('table request error');
+                if (!response.data.success) {
+                    Logged.set(false);
+                    $rootScope.load = false;
+                    console.log('table request error');
+                }
             });
         }
 
