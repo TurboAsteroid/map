@@ -1,6 +1,14 @@
 'use strict';
 angular.module('map_ppmModule', ['ngRoute', 'ngMaterial', 'directivesModule', 'factoriesModule', 'tableModule', 'diagramModule', 'map_svgModule'])
-    .controller('map_ppmController', function($scope, $location, $routeParams, $rootScope) {
+    .controller('map_ppmController', function($scope, $location, $routeParams, $rootScope, $http) {
+        $http({
+            method: 'GET',
+            url: '/api/is'
+        }).then(function successCallback(response) {
+        }, function errorCallback(response) {
+            $location.path('/');
+        });
+
         var place = $location.search().place;
         var raw = $location.search().raw;
         var zone = $location.search().svg_zone;
