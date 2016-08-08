@@ -1,8 +1,12 @@
 'use strict';
 angular.module('authModule', ['ngRoute'])
 
-    .controller('authController', function($scope, $http, $location, User) {
-        $scope.user = User.get();
+    .controller('authController', function($scope, $http, $location) {
+        $scope.user = {
+            username: "gs2",
+            password: "gs2-1"
+        };
+
         $scope.login = function () {
             $scope.message = '';
             $scope.entering = true;
@@ -21,13 +25,6 @@ angular.module('authModule', ['ngRoute'])
                         $scope.entering = false;
                         $scope.user.username = '';
                         $scope.user.password = '';
-                        var user_var = {
-                            'username' : null,
-                            'password' : null,
-                            'tokenUser' : data.tokenUser,
-                            'tokenPassword' : data.tokenPassword
-                        };
-                        User.set(user_var);
                         $location.path('/map_ppm')
                     }
                     else {
