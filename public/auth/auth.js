@@ -13,10 +13,10 @@ angular.module('authModule', ['ngRoute'])
             }
             $location.path('/');
         });
-        // $scope.user = {
-        //     username: "gs2",
-        //     password: "gs2-1"
-        // };
+        $scope.user = {
+            username: "gs2",
+            password: "gs2-1"
+        };
         $scope.login = function () {
             $scope.message = '';
             $scope.entering = true;

@@ -56,6 +56,189 @@
         "balance_at_start_work": 0,
         "balance_at_start_OX": 470.7,
         "balance_at_start": 470.7
+      }
+    ],
+    "place": "61у№1",
+    "storage": 1,
+    "ei": "Т",
+    "balance_at_start_work": 55.75,
+    "balance_at_start_OX": 528.166,
+    "balance_at_start": 583.916
+  },
+
+  {
+    "raws": [
+      {
+        "raw": "К-Т СВИНЦОВЫЙ",
+        "place": "61у№1 сев 4/10",
+        "ei": "Т",
+        "balance_at_start_work": 43.418,
+        "balance_at_start_OX": 0,
+        "balance_at_start": 43.418
+      },
+      {
+        "raw": "РУДА САФ(CU-ZN)",
+        "place": "61у№1 сев 4/10",
+        "ei": "Т",
+        "balance_at_start_work": 1303.72,
+        "balance_at_start_OX": 0,
+        "balance_at_start": 1303.72
+      }
+    ],
+    "place": "61у№1 сев 4/10",
+    "storage": 1,
+    "ei": "Т",
+    "balance_at_start_work": 1347.138,
+    "balance_at_start_OX": 0,
+    "balance_at_start": 1347.138
+  },
+
+  {
+    "raws": [
+      {
+        "raw": "РУДА(ИНКОМСТАР)",
+        "place": "61у№1 сев 4/3",
+        "ei": "Т",
+        "balance_at_start_work": 1574.72,
+        "balance_at_start_OX": 537.7,
+        "balance_at_start": 512.42
+      },
+      {
+        "raw": "ШТЕЙН МЕДНЫЙ",
+        "place": "61у№1 сев 4/3",
+        "ei": "Т",
+        "balance_at_start_work": 24.8,
+        "balance_at_start_OX": 0,
+        "balance_at_start": 24.8
+      },
+      {
+        "raw": "ШЛАК ЭЛ/ПЕЧНОЙ",
+        "place": "61у№1 сев 4/3",
+        "ei": "Т",
+        "balance_at_start_work": 325.29,
+        "balance_at_start_OX": 0,
+        "balance_at_start": 325.29
+      },
+      {
+        "raw": "ШТЕЙН МЕДНЫЙ",
+        "place": "61у№1 сев 4/3",
+        "ei": "Т",
+        "balance_at_start_work": 24.8,
+        "balance_at_start_OX": 0,
+        "balance_at_start": 24.8
+      },
+      {
+        "raw": "ШТЕЙН МЕДНЫЙРТП",
+        "place": "61у№1 сев 4/3",
+        "ei": "Т",
+        "balance_at_start_work": 40.35,
+        "balance_at_start_OX": 0,
+        "balance_at_start": 40.35
+      },
+      {
+        "raw": "ШТЕЙН МЕДНЫЙ ШП",
+        "place": "61у№1 сев 4/3",
+        "ei": "Т",
+        "balance_at_start_work": 178.36,
+        "balance_at_start_OX": 0,
+        "balance_at_start": 178.36
+      }
+    ],
+    "place": "61у№1 сев 4/3",
+    "storage": 2,
+    "ei": "Т",
+    "balance_at_start_work": 2143.52,
+    "balance_at_start_OX": 537.7,
+    "balance_at_start": 2681.22
+  },
+
+  {
+    "raws": [
+      {
+        "raw": "ШТЕЙН МЕДНЫЙ",
+        "place": "61у№1 сев 4/6",
+        "ei": "Т",
+        "balance_at_start_work": 159.21,
+        "balance_at_start_OX": 0,
+        "balance_at_start": 159.21
+      },
+      {
+        "raw": "ШТЕЙН МЕДНЫЙРТП",
+        "place": "61у№1 сев 4/6",
+        "ei": "Т",
+        "balance_at_start_work": 96.41,
+        "balance_at_start_OX": 0,
+        "balance_at_start": 96.41
+      },
+      {
+        "raw": "ШТЕЙН МЕДНЫЙ ШП",
+        "place": "61у№1 сев 4/6",
+        "ei": "Т",
+        "balance_at_start_work": 638.45,
+        "balance_at_start_OX": 0,
+        "balance_at_start": 638.45
+      },
+      {
+        "raw": "ШТЕЙН МЕДНЫЙРТП",
+        "place": "61у№1 сев 4/6",
+        "ei": "Т",
+        "balance_at_start_work": 96.41,
+        "balance_at_start_OX": 0,
+        "balance_at_start": 96.41
+      }
+    ],
+    "place": "61у№1 сев 4/6",
+    "storage": 2,
+    "ei": "Т",
+    "balance_at_start_work": 894.07,
+    "balance_at_start_OX": 0,
+    "balance_at_start": 894.07
+  },
+
+  {
+    "raws": [
+      {
+        "raw": "ШТЕЙН МЕДНЫЙ ШП",
+        "place": "61у№1 сев 4/7",
+        "ei": "Т",
+        "balance_at_start_work": 29.47,
+        "balance_at_start_OX": 0,
+        "balance_at_start": 29.47
+      },
+      {
+        "raw": "ШТЕЙН МЕДНЫЙ",
+        "place": "61у№1 сев 4/7",
+        "ei": "Т",
+        "balance_at_start_work": 43.54,
+        "balance_at_start_OX": 0,
+        "balance_at_start": 43.54
+      },
+      {
+        "raw": "ШТЕЙН МЕДНЫЙ ШП",
+        "place": "61у№1 сев 4/7",
+        "ei": "Т",
+        "balance_at_start_work": 29.47,
+        "balance_at_start_OX": 0,
+        "balance_at_start": 29.47
+      }
+    ],
+    "place": "61у№1 сев 4/7",
+    "storage": 10,
+    "ei": "Т",
+    "balance_at_start_work": 196.599,
+    "balance_at_start_OX": 1180.246,
+    "balance_at_start": 1376.845
+  },
+
+  {
+    "raws": [
+      {
+        "raw": "КЕК МЕДНО-ХЛОРН",
+        "place": "61у№1",
+        "ei": "Т",
+        "balance_at_start_work": 0,
+        "balance_at_start_OX": 57.466,
+        "balance_at_start": 57.466
       },
       {
         "raw": "ПРОМПРОДУКТ ШШ",
@@ -72,38 +255,6 @@
         "balance_at_start_work": 0,
         "balance_at_start_OX": 470.7,
         "balance_at_start": 470.7
-      },
-      {
-        "raw": "ПРОМПРОДУКТ ШШ",
-        "place": "61у№1",
-        "ei": "Т",
-        "balance_at_start_work": 55.75,
-        "balance_at_start_OX": 0,
-        "balance_at_start": 55.75
-      },
-      {
-        "raw": "ПРОМПРОДУКТ ШШ",
-        "place": "61у№1",
-        "ei": "Т",
-        "balance_at_start_work": 55.75,
-        "balance_at_start_OX": 0,
-        "balance_at_start": 55.75
-      },
-      {
-        "raw": "ПРОМПРОДУКТ ШШ",
-        "place": "61у№1",
-        "ei": "Т",
-        "balance_at_start_work": 55.75,
-        "balance_at_start_OX": 0,
-        "balance_at_start": 55.75
-      },
-      {
-        "raw": "ПРОМПРОДУКТ ШШ",
-        "place": "61у№1",
-        "ei": "Т",
-        "balance_at_start_work": 55.75,
-        "balance_at_start_OX": 0,
-        "balance_at_start": 55.75
       },
       {
         "raw": "ПРОМПРОДУКТ ШШ",
@@ -131,6 +282,7 @@
       }
     ],
     "place": "61у№1",
+    "storage": 10,
     "ei": "Т",
     "balance_at_start_work": 55.75,
     "balance_at_start_OX": 528.166,
@@ -148,38 +300,6 @@
         "balance_at_start": 403.418
       },
       {
-        "raw": "К-Т СВИНЦОВЫЙ",
-        "place": "61у№1 сев 4/10",
-        "ei": "Т",
-        "balance_at_start_work": 43.418,
-        "balance_at_start_OX": 0,
-        "balance_at_start": 43.418
-      },
-      {
-        "raw": "К-Т СВИНЦОВЫЙ",
-        "place": "61у№1 сев 4/10",
-        "ei": "Т",
-        "balance_at_start_work": 43.418,
-        "balance_at_start_OX": 0,
-        "balance_at_start": 43.418
-      },
-      {
-        "raw": "К-Т СВИНЦОВЫЙ",
-        "place": "61у№1 сев 4/10",
-        "ei": "Т",
-        "balance_at_start_work": 43.418,
-        "balance_at_start_OX": 0,
-        "balance_at_start": 43.418
-      },
-      {
-        "raw": "К-Т СВИНЦОВЫЙ",
-        "place": "61у№1 сев 4/10",
-        "ei": "Т",
-        "balance_at_start_work": 43.418,
-        "balance_at_start_OX": 0,
-        "balance_at_start": 43.418
-      },
-      {
         "raw": "РУДА САФ(CU-ZN)",
         "place": "61у№1 сев 4/10",
         "ei": "Т",
@@ -189,6 +309,7 @@
       }
     ],
     "place": "61у№1 сев 4/10",
+    "storage": 11,
     "ei": "Т",
     "balance_at_start_work": 1347.138,
     "balance_at_start_OX": 0,
@@ -197,134 +318,6 @@
 
   {
     "raws": [
-      {
-        "raw": "РУДА(ИНКОМСТАР)",
-        "place": "61у№1 сев 4/3",
-        "ei": "Т",
-        "balance_at_start_work": 1574.72,
-        "balance_at_start_OX": 537.7,
-        "balance_at_start": 512.42
-      },
-      {
-        "raw": "ШЛАК ЭЛ/ПЕЧНОЙ",
-        "place": "61у№1 сев 4/3",
-        "ei": "Т",
-        "balance_at_start_work": 325.29,
-        "balance_at_start_OX": 0,
-        "balance_at_start": 325.29
-      },
-      {
-        "raw": "ШТЕЙН МЕДНЫЙ",
-        "place": "61у№1 сев 4/3",
-        "ei": "Т",
-        "balance_at_start_work": 24.8,
-        "balance_at_start_OX": 0,
-        "balance_at_start": 24.8
-      },
-      {
-        "raw": "ШТЕЙН МЕДНЫЙРТП",
-        "place": "61у№1 сев 4/3",
-        "ei": "Т",
-        "balance_at_start_work": 40.35,
-        "balance_at_start_OX": 0,
-        "balance_at_start": 40.35
-      },
-      {
-        "raw": "ШТЕЙН МЕДНЫЙ ШП",
-        "place": "61у№1 сев 4/3",
-        "ei": "Т",
-        "balance_at_start_work": 178.36,
-        "balance_at_start_OX": 0,
-        "balance_at_start": 178.36
-      },
-      {
-        "raw": "ШЛАК ЭЛ/ПЕЧНОЙ",
-        "place": "61у№1 сев 4/3",
-        "ei": "Т",
-        "balance_at_start_work": 325.29,
-        "balance_at_start_OX": 0,
-        "balance_at_start": 325.29
-      },
-      {
-        "raw": "ШТЕЙН МЕДНЫЙ",
-        "place": "61у№1 сев 4/3",
-        "ei": "Т",
-        "balance_at_start_work": 24.8,
-        "balance_at_start_OX": 0,
-        "balance_at_start": 24.8
-      },
-      {
-        "raw": "ШТЕЙН МЕДНЫЙРТП",
-        "place": "61у№1 сев 4/3",
-        "ei": "Т",
-        "balance_at_start_work": 40.35,
-        "balance_at_start_OX": 0,
-        "balance_at_start": 40.35
-      },
-      {
-        "raw": "ШТЕЙН МЕДНЫЙ ШП",
-        "place": "61у№1 сев 4/3",
-        "ei": "Т",
-        "balance_at_start_work": 178.36,
-        "balance_at_start_OX": 0,
-        "balance_at_start": 178.36
-      },
-      {
-        "raw": "ШЛАК ЭЛ/ПЕЧНОЙ",
-        "place": "61у№1 сев 4/3",
-        "ei": "Т",
-        "balance_at_start_work": 325.29,
-        "balance_at_start_OX": 0,
-        "balance_at_start": 325.29
-      },
-      {
-        "raw": "ШТЕЙН МЕДНЫЙ",
-        "place": "61у№1 сев 4/3",
-        "ei": "Т",
-        "balance_at_start_work": 24.8,
-        "balance_at_start_OX": 0,
-        "balance_at_start": 24.8
-      },
-      {
-        "raw": "ШТЕЙН МЕДНЫЙРТП",
-        "place": "61у№1 сев 4/3",
-        "ei": "Т",
-        "balance_at_start_work": 40.35,
-        "balance_at_start_OX": 0,
-        "balance_at_start": 40.35
-      },
-      {
-        "raw": "ШТЕЙН МЕДНЫЙ ШП",
-        "place": "61у№1 сев 4/3",
-        "ei": "Т",
-        "balance_at_start_work": 178.36,
-        "balance_at_start_OX": 0,
-        "balance_at_start": 178.36
-      },
-      {
-        "raw": "ШЛАК ЭЛ/ПЕЧНОЙ",
-        "place": "61у№1 сев 4/3",
-        "ei": "Т",
-        "balance_at_start_work": 325.29,
-        "balance_at_start_OX": 0,
-        "balance_at_start": 325.29
-      },
-      {
-        "raw": "ШТЕЙН МЕДНЫЙ",
-        "place": "61у№1 сев 4/3",
-        "ei": "Т",
-        "balance_at_start_work": 24.8,
-        "balance_at_start_OX": 0,
-        "balance_at_start": 24.8
-      },
-      {
-        "raw": "ШТЕЙН МЕДНЫЙРТП",
-        "place": "61у№1 сев 4/3",
-        "ei": "Т",
-        "balance_at_start_work": 40.35,
-        "balance_at_start_OX": 0,
-        "balance_at_start": 40.35
-      },
       {
         "raw": "ШТЕЙН МЕДНЫЙ ШП",
         "place": "61у№1 сев 4/3",
@@ -367,6 +360,182 @@
       }
     ],
     "place": "61у№1 сев 4/3",
+    "storage": 11,
+    "ei": "Т",
+    "balance_at_start_work": 2143.52,
+    "balance_at_start_OX": 537.7,
+    "balance_at_start": 2681.22
+  },
+
+  {
+    "raws": [
+      {
+        "raw": "ШТЕЙН МЕДНЫЙРТП",
+        "place": "61у№1 сев 4/6",
+        "ei": "Т",
+        "balance_at_start_work": 96.41,
+        "balance_at_start_OX": 0,
+        "balance_at_start": 96.41
+      },
+      {
+        "raw": "ШТЕЙН МЕДНЫЙ ШП",
+        "place": "61у№1 сев 4/6",
+        "ei": "Т",
+        "balance_at_start_work": 638.45,
+        "balance_at_start_OX": 0,
+        "balance_at_start": 638.45
+      }
+    ],
+    "place": "61у№1 сев 4/6",
+    "storage": 13,
+    "ei": "Т",
+    "balance_at_start_work": 894.07,
+    "balance_at_start_OX": 0,
+    "balance_at_start": 894.07
+  },
+
+  {
+    "raws": [
+      {
+        "raw": "ШТЕЙН МЕДНЫЙ ШП",
+        "place": "61у№1 сев 4/7",
+        "ei": "Т",
+        "balance_at_start_work": 29.47,
+        "balance_at_start_OX": 0,
+        "balance_at_start": 29.47
+      },
+      {
+        "raw": "ШТЕЙН МЕДНЫЙ",
+        "place": "61у№1 сев 4/7",
+        "ei": "Т",
+        "balance_at_start_work": 43.54,
+        "balance_at_start_OX": 0,
+        "balance_at_start": 43.54
+      },
+      {
+        "raw": "ШТЕЙН МЕДНЫЙ ШП",
+        "place": "61у№1 сев 4/7",
+        "ei": "Т",
+        "balance_at_start_work": 29.47,
+        "balance_at_start_OX": 0,
+        "balance_at_start": 29.47
+      }
+    ],
+    "place": "61у№1 сев 4/7",
+    "storage": 13,
+    "ei": "Т",
+    "balance_at_start_work": 196.599,
+    "balance_at_start_OX": 1180.246,
+    "balance_at_start": 1376.845
+  },
+
+  {
+    "raws": [
+      {
+        "raw": "ПРОМПРОДУКТ ШШ",
+        "place": "61у№1",
+        "ei": "Т",
+        "balance_at_start_work": 55.75,
+        "balance_at_start_OX": 0,
+        "balance_at_start": 55.75
+      },
+      {
+        "raw": "РУДА(ИНКОМСТАР)",
+        "place": "61у№1",
+        "ei": "Т",
+        "balance_at_start_work": 0,
+        "balance_at_start_OX": 470.7,
+        "balance_at_start": 470.7
+      },
+      {
+        "raw": "ПРОМПРОДУКТ ШШ",
+        "place": "61у№1",
+        "ei": "Т",
+        "balance_at_start_work": 55.75,
+        "balance_at_start_OX": 0,
+        "balance_at_start": 55.75
+      }
+    ],
+    "place": "61у№1",
+    "storage": 14,
+    "ei": "Т",
+    "balance_at_start_work": 55.75,
+    "balance_at_start_OX": 528.166,
+    "balance_at_start": 583.916
+  },
+
+  {
+    "raws": [
+      {
+        "raw": "К-Т СВИНЦОВЫЙ",
+        "place": "61у№1 сев 4/10",
+        "ei": "Т",
+        "balance_at_start_work": 43.418,
+        "balance_at_start_OX": 0,
+        "balance_at_start": 403.418
+      },
+      {
+        "raw": "К-Т СВИНЦОВЫЙ",
+        "place": "61у№1 сев 4/10",
+        "ei": "Т",
+        "balance_at_start_work": 43.418,
+        "balance_at_start_OX": 0,
+        "balance_at_start": 43.418
+      },
+      {
+        "raw": "РУДА САФ(CU-ZN)",
+        "place": "61у№1 сев 4/10",
+        "ei": "Т",
+        "balance_at_start_work": 1303.72,
+        "balance_at_start_OX": 0,
+        "balance_at_start": 1303.72
+      }
+    ],
+    "place": "61у№1 сев 4/10",
+    "storage": 14,
+    "ei": "Т",
+    "balance_at_start_work": 1347.138,
+    "balance_at_start_OX": 0,
+    "balance_at_start": 1347.138
+  },
+
+  {
+    "raws": [
+      {
+        "raw": "РУДА(ИНКОМСТАР)",
+        "place": "61у№1 сев 4/3",
+        "ei": "Т",
+        "balance_at_start_work": 1574.72,
+        "balance_at_start_OX": 537.7,
+        "balance_at_start": 512.42
+      },
+      {
+        "raw": "ШЛАК ЭЛ/ПЕЧНОЙ",
+        "place": "61у№1 сев 4/3",
+        "ei": "Т",
+        "balance_at_start_work": 325.29,
+        "balance_at_start_OX": 0,
+        "balance_at_start": 325.29
+      },
+      {
+        "raw": "ШТЕЙН МЕДНЫЙРТП",
+        "place": "61у№1 сев 4/3",
+        "ei": "Т",
+        "balance_at_start_work": 40.35,
+        "balance_at_start_OX": 0,
+        "balance_at_start": 40.35
+      },
+      {
+        "raw": "ШТЕЙН МЕДНЫЙ ШП",
+        "place": "61у№1 сев 4/3",
+        "ei": "Т",
+        "balance_at_start_work": 178.36,
+        "balance_at_start_OX": 0,
+        "balance_at_start": 178.36
+      }
+    ],
+    "place": "61у№1 сев 4/3",
+    "storage": 19,
     "ei": "Т",
     "balance_at_start_work": 2143.52,
     "balance_at_start_OX": 537.7,
@@ -414,31 +583,149 @@
         "balance_at_start_work": 638.45,
         "balance_at_start_OX": 0,
         "balance_at_start": 638.45
+      }
+    ],
+    "place": "61у№1 сев 4/6",
+    "storage": 19,
+    "ei": "Т",
+    "balance_at_start_work": 894.07,
+    "balance_at_start_OX": 0,
+    "balance_at_start": 894.07
+  },
+
+
+
+  {
+    "raws": [
+      {
+        "raw": "КЕК МЕДНО-ХЛОРН",
+        "place": "61у№1",
+        "ei": "Т",
+        "balance_at_start_work": 0,
+        "balance_at_start_OX": 57.466,
+        "balance_at_start": 57.466
+      },
+      {
+        "raw": "ПРОМПРОДУКТ ШШ",
+        "place": "61у№1",
+        "ei": "Т",
+        "balance_at_start_work": 55.75,
+        "balance_at_start_OX": 0,
+        "balance_at_start": 55.75
+      },
+      {
+        "raw": "ПРОМПРОДУКТ ШШ",
+        "place": "61у№1",
+        "ei": "Т",
+        "balance_at_start_work": 55.75,
+        "balance_at_start_OX": 0,
+        "balance_at_start": 55.75
+      },
+      {
+        "raw": "РУДА(ИНКОМСТАР)",
+        "place": "61у№1",
+        "ei": "Т",
+        "balance_at_start_work": 0,
+        "balance_at_start_OX": 470.7,
+        "balance_at_start": 470.7
+      },
+      {
+        "raw": "ПРОМПРОДУКТ ШШ",
+        "place": "61у№1",
+        "ei": "Т",
+        "balance_at_start_work": 55.75,
+        "balance_at_start_OX": 0,
+        "balance_at_start": 55.75
+      },
+      {
+        "raw": "РУДА(ИНКОМСТАР)",
+        "place": "61у№1",
+        "ei": "Т",
+        "balance_at_start_work": 0,
+        "balance_at_start_OX": 470.7,
+        "balance_at_start": 470.7
+      },
+      {
+        "raw": "ПРОМПРОДУКТ ШШ",
+        "place": "61у№1",
+        "ei": "Т",
+        "balance_at_start_work": 55.75,
+        "balance_at_start_OX": 0,
+        "balance_at_start": 55.75
+      }
+    ],
+    "place": "61у№1",
+    "storage": 20,
+    "ei": "Т",
+    "balance_at_start_work": 55.75,
+    "balance_at_start_OX": 528.166,
+    "balance_at_start": 583.916
+  },
+
+  {
+    "raws": [
+      {
+        "raw": "К-Т СВИНЦОВЫЙ",
+        "place": "61у№1 сев 4/10",
+        "ei": "Т",
+        "balance_at_start_work": 43.418,
+        "balance_at_start_OX": 0,
+        "balance_at_start": 403.418
+      },
+      {
+        "raw": "РУДА САФ(CU-ZN)",
+        "place": "61у№1 сев 4/10",
+        "ei": "Т",
+        "balance_at_start_work": 1303.72,
+        "balance_at_start_OX": 0,
+        "balance_at_start": 1303.72
+      }
+    ],
+    "place": "61у№1 сев 4/10",
+    "storage": 20,
+    "ei": "Т",
+    "balance_at_start_work": 1347.138,
+    "balance_at_start_OX": 0,
+    "balance_at_start": 1347.138
+  },
+
+  {
+    "raws": [
+      {
+        "raw": "ШТЕЙН МЕДНЫЙ",
+        "place": "61у№1 сев 4/3",
+        "ei": "Т",
+        "balance_at_start_work": 24.8,
+        "balance_at_start_OX": 0,
+        "balance_at_start": 24.8
       },
       {
         "raw": "ШТЕЙН МЕДНЫЙРТП",
-        "place": "61у№1 сев 4/6",
+        "place": "61у№1 сев 4/3",
         "ei": "Т",
-        "balance_at_start_work": 96.41,
+        "balance_at_start_work": 40.35,
         "balance_at_start_OX": 0,
-        "balance_at_start": 96.41
+        "balance_at_start": 40.35
       },
       {
         "raw": "ШТЕЙН МЕДНЫЙ ШП",
-        "place": "61у№1 сев 4/6",
+        "place": "61у№1 сев 4/3",
         "ei": "Т",
-        "balance_at_start_work": 638.45,
+        "balance_at_start_work": 178.36,
         "balance_at_start_OX": 0,
-        "balance_at_start": 638.45
-      },
-      {
-        "raw": "ШТЕЙН МЕДНЫЙРТП",
-        "place": "61у№1 сев 4/6",
-        "ei": "Т",
-        "balance_at_start_work": 96.41,
-        "balance_at_start_OX": 0,
-        "balance_at_start": 96.41
-      },
+        "balance_at_start": 178.36
+      }
+    ],
+    "place": "61у№1 сев 4/3",
+    "storage": 23,
+    "ei": "Т",
+    "balance_at_start_work": 2143.52,
+    "balance_at_start_OX": 537.7,
+    "balance_at_start": 2681.22
+  },
+
+  {
+    "raws": [
       {
         "raw": "ШТЕЙН МЕДНЫЙ ШП",
         "place": "61у№1 сев 4/6",
@@ -465,6 +752,7 @@
       }
     ],
     "place": "61у№1 сев 4/6",
+    "storage": 23,
     "ei": "Т",
     "balance_at_start_work": 894.07,
     "balance_at_start_OX": 0,
@@ -512,103 +800,190 @@
         "balance_at_start_work": 43.54,
         "balance_at_start_OX": 0,
         "balance_at_start": 43.54
+      }
+    ],
+    "place": "61у№1 сев 4/7",
+    "storage": 24,
+    "ei": "Т",
+    "balance_at_start_work": 196.599,
+    "balance_at_start_OX": 1180.246,
+    "balance_at_start": 1376.845
+  },
+
+  {
+    "raws": [
+      {
+        "raw": "РУДА(ИНКОМСТАР)",
+        "place": "61у№1",
+        "ei": "Т",
+        "balance_at_start_work": 0,
+        "balance_at_start_OX": 470.7,
+        "balance_at_start": 470.7
+      },
+      {
+        "raw": "ПРОМПРОДУКТ ШШ",
+        "place": "61у№1",
+        "ei": "Т",
+        "balance_at_start_work": 55.75,
+        "balance_at_start_OX": 0,
+        "balance_at_start": 55.75
+      },
+      {
+        "raw": "ПРОМПРОДУКТ ШШ",
+        "place": "61у№1",
+        "ei": "Т",
+        "balance_at_start_work": 55.75,
+        "balance_at_start_OX": 0,
+        "balance_at_start": 55.75
+      },
+      {
+        "raw": "ПРОМПРОДУКТ ШШ",
+        "place": "61у№1",
+        "ei": "Т",
+        "balance_at_start_work": 55.75,
+        "balance_at_start_OX": 0,
+        "balance_at_start": 55.75
+      }
+    ],
+    "place": "61у№1",
+    "storage": 24,
+    "ei": "Т",
+    "balance_at_start_work": 55.75,
+    "balance_at_start_OX": 528.166,
+    "balance_at_start": 583.916
+  },
+
+  {
+    "raws": [
+      {
+        "raw": "К-Т СВИНЦОВЫЙ",
+        "place": "61у№1 сев 4/10",
+        "ei": "Т",
+        "balance_at_start_work": 43.418,
+        "balance_at_start_OX": 0,
+        "balance_at_start": 403.418
+      },
+      {
+        "raw": "К-Т СВИНЦОВЫЙ",
+        "place": "61у№1 сев 4/10",
+        "ei": "Т",
+        "balance_at_start_work": 43.418,
+        "balance_at_start_OX": 0,
+        "balance_at_start": 43.418
+      },
+      {
+        "raw": "РУДА САФ(CU-ZN)",
+        "place": "61у№1 сев 4/10",
+        "ei": "Т",
+        "balance_at_start_work": 1303.72,
+        "balance_at_start_OX": 0,
+        "balance_at_start": 1303.72
+      }
+    ],
+    "place": "61у№1 сев 4/10",
+    "storage": 27,
+    "ei": "Т",
+    "balance_at_start_work": 1347.138,
+    "balance_at_start_OX": 0,
+    "balance_at_start": 1347.138
+  },
+
+  {
+    "raws": [
+      {
+        "raw": "РУДА(ИНКОМСТАР)",
+        "place": "61у№1 сев 4/3",
+        "ei": "Т",
+        "balance_at_start_work": 1574.72,
+        "balance_at_start_OX": 537.7,
+        "balance_at_start": 512.42
+      },
+      {
+        "raw": "ШЛАК ЭЛ/ПЕЧНОЙ",
+        "place": "61у№1 сев 4/3",
+        "ei": "Т",
+        "balance_at_start_work": 325.29,
+        "balance_at_start_OX": 0,
+        "balance_at_start": 325.29
+      },
+      {
+        "raw": "ШТЕЙН МЕДНЫЙРТП",
+        "place": "61у№1 сев 4/3",
+        "ei": "Т",
+        "balance_at_start_work": 40.35,
+        "balance_at_start_OX": 0,
+        "balance_at_start": 40.35
       },
       {
         "raw": "ШТЕЙН МЕДНЫЙ ШП",
-        "place": "61у№1 сев 4/7",
+        "place": "61у№1 сев 4/3",
         "ei": "Т",
-        "balance_at_start_work": 29.47,
+        "balance_at_start_work": 178.36,
         "balance_at_start_OX": 0,
-        "balance_at_start": 29.47
-      },
+        "balance_at_start": 178.36
+      }
+    ],
+    "place": "61у№1 сев 4/3",
+    "storage": 27,
+    "ei": "Т",
+    "balance_at_start_work": 2143.52,
+    "balance_at_start_OX": 537.7,
+    "balance_at_start": 2681.22
+  },
+
+  {
+    "raws": [
       {
         "raw": "ШТЕЙН МЕДНЫЙ",
-        "place": "61у№1 сев 4/7",
+        "place": "61у№1 сев 4/6",
         "ei": "Т",
-        "balance_at_start_work": 43.54,
+        "balance_at_start_work": 159.21,
         "balance_at_start_OX": 0,
-        "balance_at_start": 43.54
+        "balance_at_start": 159.21
+      },
+      {
+        "raw": "ШТЕЙН МЕДНЫЙРТП",
+        "place": "61у№1 сев 4/6",
+        "ei": "Т",
+        "balance_at_start_work": 96.41,
+        "balance_at_start_OX": 0,
+        "balance_at_start": 96.41
       },
       {
         "raw": "ШТЕЙН МЕДНЫЙ ШП",
-        "place": "61у№1 сев 4/7",
+        "place": "61у№1 сев 4/6",
         "ei": "Т",
-        "balance_at_start_work": 29.47,
+        "balance_at_start_work": 638.45,
         "balance_at_start_OX": 0,
-        "balance_at_start": 29.47
+        "balance_at_start": 638.45
       },
       {
-        "raw": "ШТЕЙН МЕДНЫЙ",
-        "place": "61у№1 сев 4/7",
+        "raw": "ШТЕЙН МЕДНЫЙРТП",
+        "place": "61у№1 сев 4/6",
         "ei": "Т",
-        "balance_at_start_work": 43.54,
+        "balance_at_start_work": 96.41,
         "balance_at_start_OX": 0,
-        "balance_at_start": 43.54
-      },
-      {
-        "raw": "ШТЕЙН МЕДНЫЙ ШП",
-        "place": "61у№1 сев 4/7",
-        "ei": "Т",
-        "balance_at_start_work": 29.47,
-        "balance_at_start_OX": 0,
-        "balance_at_start": 29.47
-      },
-      {
-        "raw": "ШТЕЙН МЕДНЫЙ",
-        "place": "61у№1 сев 4/7",
-        "ei": "Т",
-        "balance_at_start_work": 43.54,
-        "balance_at_start_OX": 0,
-        "balance_at_start": 43.54
+        "balance_at_start": 96.41
       },
       {
         "raw": "ШТЕЙН МЕДНЫЙ ШП",
-        "place": "61у№1 сев 4/7",
+        "place": "61у№1 сев 4/6",
         "ei": "Т",
-        "balance_at_start_work": 29.47,
+        "balance_at_start_work": 638.45,
         "balance_at_start_OX": 0,
-        "balance_at_start": 29.47
-      },
-      {
-        "raw": "ШТЕЙН МЕДНЫЙ",
-        "place": "61у№1 сев 4/7",
-        "ei": "Т",
-        "balance_at_start_work": 43.54,
-        "balance_at_start_OX": 0,
-        "balance_at_start": 43.54
-      },
-      {
-        "raw": "ШТЕЙН МЕДНЫЙ ШП",
-        "place": "61у№1 сев 4/7",
-        "ei": "Т",
-        "balance_at_start_work": 29.47,
-        "balance_at_start_OX": 0,
-        "balance_at_start": 29.47
-      },
-      {
-        "raw": "ШТЕЙН МЕДНЫЙ",
-        "place": "61у№1 сев 4/7",
-        "ei": "Т",
-        "balance_at_start_work": 43.54,
-        "balance_at_start_OX": 0,
-        "balance_at_start": 43.54
-      },
-      {
-        "raw": "ШТЕЙН МЕДНЫЙ ШП",
-        "place": "61у№1 сев 4/7",
-        "ei": "Т",
-        "balance_at_start_work": 29.47,
-        "balance_at_start_OX": 0,
-        "balance_at_start": 29.47
-      },
-      {
-        "raw": "ШТЕЙН МЕДНЫЙ",
-        "place": "61у№1 сев 4/7",
-        "ei": "Т",
-        "balance_at_start_work": 43.54,
-        "balance_at_start_OX": 0,
-        "balance_at_start": 43.54
-      },
+        "balance_at_start": 638.45
+      }
+    ],
+    "place": "61у№1 сев 4/6",
+    "storage": 28,
+    "ei": "Т",
+    "balance_at_start_work": 894.07,
+    "balance_at_start_OX": 0,
+    "balance_at_start": 894.07
+  },
+
+  {
+    "raws": [
       {
         "raw": "ШТЕЙН МЕДНЫЙ ШП",
         "place": "61у№1 сев 4/7",
@@ -635,9 +1010,88 @@
       }
     ],
     "place": "61у№1 сев 4/7",
+    "storage": 28,
     "ei": "Т",
     "balance_at_start_work": 196.599,
     "balance_at_start_OX": 1180.246,
     "balance_at_start": 1376.845
+  },
+
+  {
+    "raws": [
+      {
+        "raw": "РУДА(ИНКОМСТАР)",
+        "place": "61у№1",
+        "ei": "Т",
+        "balance_at_start_work": 0,
+        "balance_at_start_OX": 470.7,
+        "balance_at_start": 470.7
+      },
+      {
+        "raw": "ПРОМПРОДУКТ ШШ",
+        "place": "61у№1",
+        "ei": "Т",
+        "balance_at_start_work": 55.75,
+        "balance_at_start_OX": 0,
+        "balance_at_start": 55.75
+      },
+      {
+        "raw": "РУДА(ИНКОМСТАР)",
+        "place": "61у№1",
+        "ei": "Т",
+        "balance_at_start_work": 0,
+        "balance_at_start_OX": 470.7,
+        "balance_at_start": 470.7
+      },
+      {
+        "raw": "ПРОМПРОДУКТ ШШ",
+        "place": "61у№1",
+        "ei": "Т",
+        "balance_at_start_work": 55.75,
+        "balance_at_start_OX": 0,
+        "balance_at_start": 55.75
+      }
+    ],
+    "place": "61у№1",
+    "storage": 29,
+    "ei": "Т",
+    "balance_at_start_work": 55.75,
+    "balance_at_start_OX": 528.166,
+    "balance_at_start": 583.916
+  },
+
+  {
+    "raws": [
+      {
+        "raw": "К-Т СВИНЦОВЫЙ",
+        "place": "61у№1 сев 4/10",
+        "ei": "Т",
+        "balance_at_start_work": 43.418,
+        "balance_at_start_OX": 0,
+        "balance_at_start": 403.418
+      },
+      {
+        "raw": "К-Т СВИНЦОВЫЙ",
+        "place": "61у№1 сев 4/10",
+        "ei": "Т",
+        "balance_at_start_work": 43.418,
+        "balance_at_start_OX": 0,
+        "balance_at_start": 43.418
+      },
+      {
+        "raw": "РУДА САФ(CU-ZN)",
+        "place": "61у№1 сев 4/10",
+        "ei": "Т",
+        "balance_at_start_work": 1303.72,
+        "balance_at_start_OX": 0,
+        "balance_at_start": 1303.72
+      }
+    ],
+    "place": "61у№1 сев 4/10",
+    "storage": 29,
+    "ei": "Т",
+    "balance_at_start_work": 1347.138,
+    "balance_at_start_OX": 0,
+    "balance_at_start": 1347.138
   }
 ]

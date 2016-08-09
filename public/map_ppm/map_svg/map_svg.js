@@ -5,7 +5,7 @@ angular.module('map_svgModule', ['ngRoute'])
             var storage_list = response.data;
             $('#legend_card_controller').empty();
             angular.forEach(storage_list.areas, function(value, key) {
-                var tmp = $compile('<md-button class="legendButton legendButton_'+key+'" ng-click="show_legend_items($event,'+key+')">'+value+'</md-button>')($scope);
+                var tmp = $compile('<md-button class="legendButton legendButton_'+key+'" ng-click="show_legend_items($event,'+key+')">'+value.name+'</md-button>')($scope);
                 $('#legend_card_controller').append(tmp);
             });
             $scope.action_legend_name = $scope.legend_name();
