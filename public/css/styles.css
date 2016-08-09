@@ -112,3 +112,7 @@ md-card#map_legend md-card-content {padding-top:0;}
 .circles_All {
     background: coral !important;
 }
+
+map-visualization {
+    display: block;
+}

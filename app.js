@@ -189,6 +189,30 @@ apiRoutes.post('/api/get_diagram', function (req, res, next) {
     });
 });
 
+//Получение данных ля визуального представления складов
+apiRoutes.get('/api/get_storages', function (req, res) {
+    fs.readFile('./public/ppm.json', 'utf8', function (err, contents) {
+        if (err) throw err;
+        data = JSON.parse(contents);
+        var new_data = {};
+        for (d in data) {
+            if (!new_data[data[d].storage]) {
+                new_data[data[d].storage] = {};
+            }
+            if (!new_data[data[d].storage][data[d].place]) {
+                new_data[data[d].storage][data[d].place] = {};
+            }
+            for (r in data[d].raws) {
+                new_data[data[d].storage][data[d].place][data[d].raws[r].raw] = data[d].raws[r].balance_at_start;
+            }
+        }
+        res.status(200).send({
+            success: true,
+            data: new_data
+        });
+    });
+});
+
 //Получение данных сводной таблицы, checkAuth
 apiRoutes.post('/api/get_table', function (req, res) {
     fs.readFile('./public/ppm.json', 'utf8', function (err, contents) {

@@ -65,5 +65,4 @@ angular.module('factoriesModule', [])
             }
             return this.mapData;
         };
-
     }]);
