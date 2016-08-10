@@ -16,11 +16,12 @@ app.set('adServer', config.adServer);
 app.set('adBaseDN', config.adBaseDN);
 app.set('adUser', config.adUser);
 app.set('adPassword', config.adPassword);
+app.set('cookieSecret', config.cookieSecret);
 
 app.use(cookieParser());
 
 app.use(session({
-    secret: 'cookie_secret',
+    secret: app.get('cookieSecret'),
     resave: false,
     saveUninitialized: false
 }));
@@ -30,7 +31,7 @@ app.use(bodyParser.json());
 request = request.defaults({jar: true});
 
 // Настройка модуля ActiveDirectory
-var groupName = 'GS11002';
+var groupName = 'RedmineUsers';
 var ad = new ActiveDirectory({
     url: app.get('adServer'),
     baseDN: app.get('adBaseDN'),
@@ -83,6 +84,8 @@ app.all('*', function(req, res, next){
         res.status(401).json({success: false, message: 'Некорректное имя пользователя или пароль'});
     }
     else if(req.body.username && req.body.password) {
+        if(req.body.username.indexOf('@elem.ru') == -1 || req.body.username.indexOf('@') == -1)
+            req.body.username += "@elem.ru";
         authenticate(req, res);
         next();
     }
