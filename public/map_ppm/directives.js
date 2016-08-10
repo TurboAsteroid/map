@@ -86,8 +86,7 @@ angular.module('directivesModule', [])
                                 var value = this.value || this.node.childrenTotal;
                                 return '<b>' + this.name + ':</b> '
                                     + Highcharts.numberFormat(value, 3, '.','')
-                            },
-                            valueDecimals: 0
+                            }
                         },
                         title: {
                             text: 'Склады'
