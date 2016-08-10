@@ -1,6 +1,6 @@
 module.exports = {
 	//порты сервера ноды
-	'portHttp': '7070',
+	'portHttp': '80',
 	//сервер  АД
 	'adServer': 'ldap://elem-dc0.elem.ru',
 	//домен

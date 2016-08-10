@@ -31,7 +31,7 @@ app.use(bodyParser.json());
 request = request.defaults({jar: true});
 
 // Настройка модуля ActiveDirectory
-var groupName = 'RedmineUsers';
+var groupName = 'GS11002';
 var ad = new ActiveDirectory({
     url: app.get('adServer'),
     baseDN: app.get('adBaseDN'),
@@ -79,31 +79,31 @@ function checkGroup(authenticated, username, callback) {
     }
 }
 
-app.all('*', function(req, res, next){
-    if(!req.session.username && !req.session.password && !req.body.username && !req.body.password) {
-        res.status(401).json({success: false, message: 'Некорректное имя пользователя или пароль'});
-    }
-    else if(req.body.username && req.body.password) {
-        if(req.body.username.indexOf('@elem.ru') == -1 || req.body.username.indexOf('@') == -1)
-            req.body.username += "@elem.ru";
-        authenticate(req, res);
-        next();
-    }
-    else {
-        async.waterfall( //последовательно проверяем доступ пользователю
-            [
-                async.apply(auth, { username: req.session.username, password: req.session.password }),//правильный ли пароль
-                checkGroup //входит ли в группу
-            ], function (err, result) { //отправляем результат
-                if(err)
-                    res.status(400).send(result);
-                else {
-                    next();
-                }
-            }
-        );
-    }
-});
+// app.all('*', function(req, res, next){
+//     if(!req.session.username && !req.session.password && !req.body.username && !req.body.password) {
+//         res.status(401).json({success: false, message: 'Некорректное имя пользователя или пароль'});
+//     }
+//     else if(req.body.username && req.body.password) {
+//         if(req.body.username.indexOf('@elem.ru') == -1 || req.body.username.indexOf('@') == -1)
+//             req.body.username += "@elem.ru";
+//         authenticate(req, res);
+//         next();
+//     }
+//     else {
+//         async.waterfall( //последовательно проверяем доступ пользователю
+//             [
+//                 async.apply(auth, { username: req.session.username, password: req.session.password }),//правильный ли пароль
+//                 checkGroup //входит ли в группу
+//             ], function (err, result) { //отправляем результат
+//                 if(err)
+//                     res.status(400).send(result);
+//                 else {
+//                     next();
+//                 }
+//             }
+//         );
+//     }
+// });
 
 var apiRoutes = express.Router(); //объявление роутера
 
