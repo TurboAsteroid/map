@@ -119,6 +119,7 @@ map-visualization {
 gh-visualization {
     max-height: 719px;
     display: block;
+    overflow: hidden;
 }
 gh-visualization > svg {
     max-width: 100%;
