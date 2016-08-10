@@ -52,12 +52,14 @@ angular.module('directivesModule', [])
                                             $location.search({'svg_zone': mapData.storages[tree[1]].name, 'place': null, 'raw': tree[3]});
                                             scope.$apply();
                                         }
-                                    }
+                                    },
+                                    cursor: "pointer"
                                 });
                                 j++;
                             }
                         }
                     }
+                    console.log(JSON.stringify(new_data));
                     var chart = $(element).highcharts({
                         series: [{
                             type: 'treemap',
@@ -86,13 +88,14 @@ angular.module('directivesModule', [])
                                 var value = this.value || this.node.childrenTotal;
                                 return '<b>' + this.name + ':</b> '
                                     + Highcharts.numberFormat(value, 3, '.','')
-                            }
+                            },valueSuffix: 'E',
+                            valueDecimals: 2
                         },
                         title: {
                             text: 'Склады'
                         }
                     });
-                }, function(reason) {
+                }, function(response) {
                     if (!response.data.success) {
                         $rootScope.load = false;
                         console.log('data request error');

@@ -40,6 +40,8 @@ angular.module('tableModule', ['ngRoute'])
 
         function load_place (zone, place, raw) {
             $rootScope.load = true;
+            $scope.sortType     = false;
+            $scope.sortReverse  = false;
             $http({
                 method: 'POST',
                 url: '/api/get_table/',
