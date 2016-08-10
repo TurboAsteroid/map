@@ -48,12 +48,6 @@ md-card#map_legend md-card-content {padding-top:0;}
     margin: 3px 0 0 10px;
 }
 
-#map_buttons {
-    position: absolute;
-    right:20px;
-    top:20px;
-}
-
 #place_datatable {
     width: 100%;
     overflow: auto;

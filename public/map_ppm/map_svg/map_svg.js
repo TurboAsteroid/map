@@ -35,29 +35,4 @@ angular.module('map_svgModule', ['ngRoute'])
             $scope.mapStyle = {"height": map_block.width()+'px'};
             center = [map_block.width()/2, map_block.height() / 2];
         });
-
-        $scope.zoom_map = function (new_zoom) {
-            var old_transform = Zoom.get('transform');
-            var new_transform = {
-                x : center[0] - (center[0]*new_zoom / old_transform.k),
-                y : center[1] - (center[1]*new_zoom / old_transform.k),
-                k : new_zoom
-            };
-
-            var elem = d3.select("#svg_map").select("svg");
-            if (!Zoom.get('zoom_obj')) {
-                Zoom.set({zoom_obj: d3.zoom()});
-            }
-            Zoom.get('zoom_obj').scaleTo(elem, new_transform.k);
-            Zoom.get('zoom_obj').translateBy(elem, new_transform.x, new_transform.y);
-            Zoom.set({transform: new_transform});
-        };
-
-        $scope.zoom_lvl = 1;
-
-        $scope.$watch(function(){
-            return $scope.zoom_lvl;
-        }, function(zoom) {
-            $scope.zoom_map(zoom);
-        });
     });
