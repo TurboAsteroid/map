@@ -39,6 +39,9 @@ angular.module('diagramModule', ['ngRoute'])
                         }
                     }
                 },
+                tooltip: {
+                    valueDecimals: 3
+                },
                 series: data
             };
         }
