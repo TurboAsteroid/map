@@ -116,3 +116,12 @@ md-card#map_legend md-card-content {padding-top:0;}
 map-visualization {
     display: block;
 }
+gh-visualization {
+    max-height: 719px;
+    display: block;
+}
+gh-visualization > svg {
+    max-width: 100%;
+    max-height: 100%;
+}
+

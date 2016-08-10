@@ -45,7 +45,14 @@ angular.module('directivesModule', [])
                                     name: r_id,
                                     parent: mapData.storages[s_id].area+'|'+s_id+'|'+p_id,
                                     value: ppm[s_id][p_id][r_id],
-                                    color: Highcharts.getOptions().colors[j%10]
+                                    color: Highcharts.getOptions().colors[j%10],
+                                    events: {
+                                        click: function () {
+                                            var tree = this.id.split('|');
+                                            $location.search({'svg_zone': mapData.storages[tree[1]].name, 'place': null, 'raw': tree[3]});
+                                            scope.$apply();
+                                        }
+                                    }
                                 });
                                 j++;
                             }

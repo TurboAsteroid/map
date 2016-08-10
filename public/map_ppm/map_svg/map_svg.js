@@ -1,6 +1,6 @@
 'use strict';
 angular.module('map_svgModule', ['ngRoute'])
-    .controller('map_svgController', function($scope, $location, $element, Zoom, localStorageService, $compile, MapData, $http) {
+    .controller('map_svgController', function($scope, $location, $element, Zoom, localStorageService, $compile, MapData, $http, $window) {
         MapData.getData().then(function successCallback(response) {
             var storage_list = response.data;
             $('#legend_card_controller').empty();
@@ -28,11 +28,11 @@ angular.module('map_svgModule', ['ngRoute'])
         };
 
         var map_block = $('#svg_map');
-        map_block.height(map_block.width());
+        $scope.mapStyle = {"height": map_block.width()+'px'};
         var center = [map_block.width()/2, map_block.height() / 2];
 
-        $(window).resize(function(){
-            map_block.height(map_block.width());
+        angular.element($window).bind('resize', function(){
+            $scope.mapStyle = {"height": map_block.width()+'px'};
             center = [map_block.width()/2, map_block.height() / 2];
         });
 

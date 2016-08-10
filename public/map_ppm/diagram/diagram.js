@@ -81,31 +81,5 @@ angular.module('diagramModule', ['ngRoute'])
                 }
                 $location.path('/');
             });
-
-            $http({
-                method: 'POST',
-                url: '/api/get_diagram2/',
-                data: {zone: zone}
-            }).then(function successCallback(response) {
-                if (response.data.success) {
-                    $(function () {
-                        for (var i = 0; i < response.data.zones.length; i++) {
-                            response.data.zones[i] = "Место " + response.data.zones[i];
-                        }
-                        $('#ppm_diagram2').highcharts(
-                            highcharts_opts(response.data.zone_name, response.data.zones, 'Распределение сырья, тонны', response.data.data, function (event) {
-                                $location.search({'zone': zone, 'place': event.point.category, 'raw': null});
-                                $scope.$apply();
-                            })
-                        );
-                    });
-                    $scope.ppm_diagram_checkbox_show = true;
-                }
-            }, function errorCallback(response) {
-                if (!response.data.success) {
-                    console.log('diagram request error');
-                }
-                $location.path('/');
-            });
         }
     });
