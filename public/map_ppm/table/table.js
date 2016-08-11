@@ -755,7 +755,13 @@ angular.module('tableModule', ['ngRoute'])
                         [Date.UTC(2015,5,28),0.9113],
                         [Date.UTC(2015,5,29),0.8900],
                         [Date.UTC(2015,5,30),0.8950]
-                    ]
+                    ],
+                    events: {
+                        click: function (event) {
+                            $location.search({'svg_zone': $routeParams.svg_zone, 'place': null, 'raw': $routeParams.raw, 'date': event.point.x});
+                            $scope.$apply();
+                        }
+                    }
                 }]
             });
         }
