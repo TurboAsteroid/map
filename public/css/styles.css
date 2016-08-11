@@ -121,8 +121,10 @@ gh-visualization > svg {
 }
 
 #splineTimeline {
-    width: 98%;
+    width: 100%;
     margin: 0 auto;
     display:block;
 }
-
+#splineTimeline > * {
+    max-width: 100%;
+}
