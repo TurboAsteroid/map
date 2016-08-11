@@ -25,6 +25,11 @@
     <div layout="column">
         <md-card>
             <md-content>
+                <div ng-show="$root.raw" id="splineTimeline"></div>
+            </md-content>
+        </md-card>
+        <md-card>
+            <md-content>
                 <div flex ng-include="'/map_ppm/table/table.html'"></div>
             </md-content>
         </md-card>
