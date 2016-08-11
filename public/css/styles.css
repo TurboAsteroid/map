@@ -52,7 +52,7 @@ md-card#map_legend md-card-content {padding-top:0;}
     width: 100%;
     overflow: auto;
     text-align: left;
-    height: 500px;
+    height: 450px;
 }
 #place_datatable table {
     border-collapse: collapse;
@@ -118,5 +118,10 @@ gh-visualization {
 gh-visualization > svg {
     max-width: 100%;
     max-height: 100%;
+}
+
+#splineTimeline {
+    width: 100%;
+    display:block;
 }
 

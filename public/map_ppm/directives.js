@@ -1,6 +1,6 @@
 'use strict';
 angular.module('directivesModule', [])
-    .directive('mapVisualization', function ($location, Zoom, $http, $rootScope, MapData, $q) {
+    .directive('mapVisualization', function ($location, $http, $rootScope, MapData, $q) {
         return {
             restrict: 'E', // the directive can be invoked only by using <my-directive> tag in the template
             link: function (scope, element, attrs) {
@@ -59,7 +59,7 @@ angular.module('directivesModule', [])
                             }
                         }
                     }
-                    console.log(JSON.stringify(new_data));
+
                     var chart = $(element).highcharts({
                         series: [{
                             type: 'treemap',
