@@ -49,6 +49,10 @@ md-card#map_legend md-card-content {padding-top:0;}
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 7px;
+    box-sizing: border-box;
+}
+.map_tooltip_desc_item{
+    clear: both;
 }
 .map_tooltip_desc_item_note{
     float: right;
