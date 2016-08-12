@@ -156,10 +156,26 @@ angular.module('directivesModule', [])
                             tooltip.hide();
                         })
                         .on("mousemove", function(event){
-                            tooltip.css({
-                                "top": (event.pageY - 10) + "px",
-                                "left": (event.pageX + 10) + "px"
-                            });
+
+                            var tooltip_width = tooltip.width();
+                            var block_left = $('#svg_map').offset().left;
+                            var block_width = $('#svg_map').width();
+                            var window_width = $(window).width();
+
+
+                            if (window_width < event.pageX + tooltip_width) {
+                                tooltip.css({
+                                    "top": (event.pageY + 10) + "px",
+                                    "left": (block_left + block_width - tooltip_width) + "px",
+                                    "max-width": (window_width-20) + "px"
+                                });
+                            } else {
+                                tooltip.css({
+                                    "top": (event.pageY + 10) + "px",
+                                    "left": (event.pageX + 10) + "px",
+                                    "max-width": (window_width - 20) + "px"
+                                });
+                            }
                         })
                         .on("click", function(){
                             $location.search({'svg_zone': storage_list.storages[$(this).data('zonaid')].name, 'place': null, 'raw': null});
