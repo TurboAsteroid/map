@@ -9,6 +9,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "mongodb": "^2.2.5"
+    "mongodb": "^2.2.5",
+    "node-schedule": "^1.1.1",
+    "request": "^2.74.0"
   }
 }
