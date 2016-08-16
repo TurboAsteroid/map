@@ -10,6 +10,8 @@ var async = require('async');
 var session = require('express-session');
 var cookieParser = require('cookie-parser');
 var app = express();
+var MongoClient = require('mongodb').MongoClient;
+var assert = require('assert');
 
 app.set('portHttp', config.portHttp);
 app.set('adServer', config.adServer);
@@ -17,6 +19,10 @@ app.set('adBaseDN', config.adBaseDN);
 app.set('adUser', config.adUser);
 app.set('adPassword', config.adPassword);
 app.set('cookieSecret', config.cookieSecret);
+app.set('dbHost', config.dbHost);
+app.set('dbDatabase', config.dbDatabase);
+app.set('dbUser', config.dbUser);
+app.set('dbPassword', config.dbPassword);
 
 app.use(cookieParser());
 
@@ -37,6 +43,14 @@ var ad = new ActiveDirectory({
     baseDN: app.get('adBaseDN'),
     username: app.get('adUser'),
     password: app.get('adPassword')
+});
+
+// Connection URL
+var url = 'mongodb://'+app.get('dbUser')+':'+app.get('dbPassword')+'@'+app.get('dbHost')+':27017/'+app.get('dbDatabase');
+var dbCon;
+MongoClient.connect(url, function(err, db) {
+    dbCon = db;
+    app.listen(app.get('portHttp'));
 });
 
 app.use(express.static('public')); //папка со статическими файлами
@@ -289,6 +303,12 @@ apiRoutes.post('/api/get_diagram2', function(req, res) {
     });
 });
 
+// apiRoutes.get('/api/test', function (req, res) {
+//     dbCon.collection('areas').find().toArray(function(err, docs) {
+//         console.log(docs);
+//         res.send(docs);
+//     });
+// });
+
 app.use('/', apiRoutes);
 
-app.listen(app.get('portHttp'));
