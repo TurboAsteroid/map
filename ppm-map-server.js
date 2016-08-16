@@ -5,7 +5,6 @@ var http = require('http');
 var express = require('express');
 var bodyParser = require('body-parser');
 var config = require('./config');
-var request = require('request');
 var async = require('async');
 var session = require('express-session');
 var cookieParser = require('cookie-parser');
@@ -34,7 +33,6 @@ app.use(session({
 
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
-request = request.defaults({jar: true});
 
 // Настройка модуля ActiveDirectory
 var groupName = 'GS11002';
