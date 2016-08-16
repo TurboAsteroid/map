@@ -18,8 +18,9 @@ angular.module('directivesModule', [])
                         new_data.push({
                             id: a_id,
                             name: mapData.areas[a_id].name,
-                            color: mapData.areas[a_id].color
+                            color: Highcharts.getOptions().colors[i%10]
                         });
+                        i++;
                     }
                     for (var s_id in mapData.storages) {
                         new_data.push({
@@ -95,12 +96,6 @@ angular.module('directivesModule', [])
                             text: 'Склады'
                         }
                     });
-                }, function(response) {
-                    if (!response.data.success) {
-                        $rootScope.load = false;
-                        console.log('data request error');
-                    }
-                    $location.path('/');
                 });
             }
         };
@@ -125,28 +120,8 @@ angular.module('directivesModule', [])
                             tooltip_title.text(storage_list.storages[$(this).data('zonaid')].name + ' - ' + storage_list.areas[storage_list.storages[$(this).data('zonaid')].area].name);
                             tooltip_desc.html("");
                             for (var i in storage_list.storages[$(this).data('zonaid')].raws) {
-                                var reg = /(\d+)(-(\d+))?(:(\d+))?/g;
-                                var res = reg.exec(storage_list.storages[$(this).data('zonaid')].raws[i]);
-                                var raw = storage_list.raws[res[1]];
-                                var tmp_str = [];
-                                if (res[3] !== undefined) {
-                                    var tmp = res[3].split("");
-                                    for (var j in tmp) {
-                                        tmp_str.push(raw.name_note[tmp[j]]);
-                                    }
-                                }
-                                var tmp_name = $("<span />", {class:"map_tooltip_desc_item_name", text: raw.name.replace("{name_note}", tmp_str.join(','))});
-
-                                tmp_str = [];
-                                if (res[5] !== undefined) {
-                                    var tmp = res[5].split("");
-                                    for ( j in tmp) {
-                                        tmp_str.push(raw.note[tmp[j]]);
-                                    }
-                                } else if (typeof raw.note == "string") {
-                                    tmp_str.push(raw.note);
-                                }
-                                var tmp_note = $("<span />", {class:"map_tooltip_desc_item_note", text: tmp_str.join(',')});
+                                var tmp_name = $("<span />", {class:"map_tooltip_desc_item_name", text: storage_list.storages[$(this).data('zonaid')].raws[i].name});
+                                var tmp_note = $("<span />", {class:"map_tooltip_desc_item_note", text: storage_list.storages[$(this).data('zonaid')].raws[i].note});
                                 tooltip_desc.append($('<li />', {class: "map_tooltip_desc_item"}).append(tmp_name, tmp_note));
                             }
                             tooltip.show();

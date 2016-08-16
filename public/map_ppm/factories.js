@@ -50,19 +50,24 @@ angular.module('factoriesModule', [])
         };
     })
 
-    // .factory('Logged', function(){
-    //     var factory = { isLogged: false };
-    //     return factory;
-    // })
-    .service('MapData', ['$http', function($http) {
+    .service('MapData', function($http, $rootScope, $location) {
         var mapData;
         this.getData =  function() {
             if (!this.mapData) {
-                this.mapData = $http({
+                this.mapData= $http({
                     method: 'GET',
-                    url: '/resourses/storage_list.json'
+                    url: '/api/map_legend'
+                }).then(function (response) {
+
+                    return response;
+                }, function(response) {
+                    if (!response.data.success) {
+                        $rootScope.load = false;
+                        console.log('data request error');
+                    }
+                    $location.path('/');
                 });
             }
             return this.mapData;
         };
-    }]);
+    });

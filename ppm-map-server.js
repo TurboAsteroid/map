@@ -93,32 +93,6 @@ function checkGroup(authenticated, username, callback) {
     }
 }
 
-// app.all('*', function(req, res, next){
-//     if(!req.session.username && !req.session.password && !req.body.username && !req.body.password) {
-//         res.status(401).json({success: false, message: 'Некорректное имя пользователя или пароль'});
-//     }
-//     else if(req.body.username && req.body.password) {
-//         if(req.body.username.indexOf('@elem.ru') == -1 || req.body.username.indexOf('@') == -1)
-//             req.body.username += "@elem.ru";
-//         authenticate(req, res);
-//         next();
-//     }
-//     else {
-//         async.waterfall( //последовательно проверяем доступ пользователю
-//             [
-//                 async.apply(auth, { username: req.session.username, password: req.session.password }),//правильный ли пароль
-//                 checkGroup //входит ли в группу
-//             ], function (err, result) { //отправляем результат
-//                 if(err)
-//                     res.status(400).send(result);
-//                 else {
-//                     next();
-//                 }
-//             }
-//         );
-//     }
-// });
-
 var apiRoutes = express.Router(); //объявление роутера
 
 var authenticate = function (req, res) {
@@ -247,68 +221,37 @@ apiRoutes.post('/api/get_table', function (req, res) {
     });
 });
 
-//Получение данных диаграмы, checkAuth
-apiRoutes.post('/api/get_diagram2', function(req, res) {
-    fs.readFile('./public/ppm.json', 'utf8', function(err, contents) {
-        if (err) throw err;
-        data = JSON.parse(contents);
-
-        var places = [];
-        var tmp_data = {};
-        for (place in data) {
-            var pl = data[place];
-            for (raw in pl.raws) {
-                var rw = pl.raws[raw];
-                places.push(pl.place);
-                if (!tmp_data[rw.raw]) {tmp_data[rw.raw] = {};}
-                if (!tmp_data[rw.raw][pl.place]) {tmp_data[rw.raw][pl.place] = 0;}
-                tmp_data[rw.raw][pl.place] += rw.balance_at_start;
+//Получение информации по карте
+apiRoutes.get('/api/map_legend', function (req, res) {
+    async.parallel(
+        [
+            function(callback){
+                dbCon.collection('areas').find().toArray(callback);
+            },
+            function(callback){
+                dbCon.collection('storages').find().toArray(callback);
             }
-        }
-        places = places.filter(function(elem, pos) {
-            return places.indexOf(elem) == pos;
-        });
-        var new_data = [];
+        ],
+        function(err, results){
+            var areas = {};
+            var storages = {};
 
-        for(i in tmp_data) {
-            tmp = [];
-            for(k in places) {
-                tmp.push(tmp_data[i][places[k]] || 0);
+            for (var i in results[0]) {
+                areas[results[0][i].area_id] = results[0][i];
             }
-            new_data.push({name: i, data: tmp});
-        }
-
-        var new_data_sum = [];
-        for(var iii = 0; iii < new_data.length; iii++) {
-            new_data_sum[iii] = 0;
-        }
-        for(var i = 0; i < new_data.length; i++) {
-            for(var j = 0; j < new_data[i].data.length; j++) {
-                new_data_sum[j] = new_data_sum[j] + new_data[i].data[j];
+            for (var j in results[1]) {
+                storages[results[1][j].storage_id] = results[1][j];
             }
-        }
 
-        for(var i = 0; i < new_data.length;i++) {
-            for(var j = 0; j < new_data[i].data.length; j++) {
-                new_data[i].data[j] = new_data[i].data[j]/new_data_sum[j]*100;
-            }
+            res.status(200).send({
+                success: true,
+                areas: areas,
+                storages: storages
+            });
         }
+    );
 
-        res.status(200).send({
-            success: true,
-            zone_name: req.body.zone,
-            zones: places,
-            data: new_data
-        });
-    });
 });
-
-// apiRoutes.get('/api/test', function (req, res) {
-//     dbCon.collection('areas').find().toArray(function(err, docs) {
-//         console.log(docs);
-//         res.send(docs);
-//     });
-// });
 
 app.use('/', apiRoutes);
 
