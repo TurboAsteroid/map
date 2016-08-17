@@ -5,7 +5,7 @@ angular.module('diagramModule', ['ngRoute'])
         $scope.ppm_diagram_show = true;
         $scope.ppm_diagram2_show = false;
         $scope.$watch(function(){
-            return $rootScope.zone;
+            return $routeParams.svg_zone;
         }, function(zone) {
             if($routeParams.svg_zone) {
                 load_zone($routeParams.svg_zone);
