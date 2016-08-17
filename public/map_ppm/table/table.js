@@ -36,25 +36,26 @@ angular.module('tableModule', ['ngRoute'])
             date:"Дата выгрузки"
         };
         $scope.$watch(function(){
-            return $rootScope.table;
+            return $rootScope.table + $rootScope.date;
         }, function(table) {
             if($routeParams.place || $routeParams.raw) {
-                load_place($routeParams.svg_zone, $routeParams.place, $routeParams.raw);
+                load_place($routeParams.svg_zone, $routeParams.place, $routeParams.raw, $routeParams.date );
             }
         });
 
-        function load_place (zone, place, raw) {
+        function load_place (zone, place, raw, date) {
             $rootScope.load = true;
             $scope.sortType     = false;
             $scope.sortReverse  = false;
             $http({
                 method: 'POST',
                 url: '/api/get_table/',
-                data: {zone: zone, place: place, raw: raw}
+                data: {zone: zone, place: place, raw: raw, date: date}
             }).then(function successCallback(response) {
                 if (response.data.success) {
                     $rootScope.load = false;
-                    $rootScope.table = raw ? raw : place;
+                    $rootScope.table = raw || place;
+                    $rootScope.date = date;
                     $scope.table_data = response.data.data;
 
                     if (response.data.timeline.length) {

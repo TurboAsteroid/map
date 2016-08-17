@@ -12,15 +12,19 @@ angular.module('map_ppmModule', ['ngRoute', 'ngMaterial', 'directivesModule', 'f
         var place = $location.search().place;
         var raw = $location.search().raw;
         var zone = $location.search().svg_zone;
+        var date = $location.search().date;
         $rootScope.table = raw || place;
+        $rootScope.date = date;
         $rootScope.raw = raw;
         $rootScope.zone = zone;
 
         $rootScope.$on('$locationChangeSuccess', function(event) {
             var place = $location.search().place;
             var raw = $location.search().raw;
-            var zone = $location.search().svg_zone;
+            var zone = $location.search().date;
+            var date = $location.search().date;
             $rootScope.table = raw || place;
+            $rootScope.date = date;
             $rootScope.raw = raw;
             $rootScope.zone = zone;
         });
