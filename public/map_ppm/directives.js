@@ -11,7 +11,8 @@ angular.module('directivesModule', [])
                     var mapData = value[0].data,
                         ppm = value[1].data.data,
                         new_data = [],
-                        tmp_data = {},
+                        tmp_place = [],
+                        tmp_raw = {},
                         i = 0,
                         j = 0;
                     for (var a_id in mapData.areas) {
@@ -32,33 +33,44 @@ angular.module('directivesModule', [])
                         i++;
                     }
                     for (s_id in ppm) {
-                        for (var p_id in ppm[s_id]) {
+                        var storage_id = ppm[s_id].N_KART //номер склада
+                        var place_id = ppm[s_id].LGORT //номер места
+                        var raw_name = ppm[s_id].MATNR_CPH_PPM //Название сырья
+                        var raw_count = ppm[s_id].MENGE //Количество сырья
+
+                        if (tmp_place.indexOf(mapData.storages[storage_id].area+'|'+storage_id+'|'+place_id) == -1) {
+                            tmp_place.push(mapData.storages[storage_id].area+'|'+storage_id+'|'+place_id);
                             new_data.push({
-                                id: mapData.storages[s_id].area+'|'+s_id+'|'+p_id,
-                                name: p_id,
-                                parent: mapData.storages[s_id].area+'|'+s_id,
+                                id: mapData.storages[storage_id].area+'|'+storage_id+'|'+place_id,
+                                name: place_id,
+                                parent: mapData.storages[storage_id].area+'|'+storage_id,
                                 color: Highcharts.getOptions().colors[i%10]
                             });
-                            i = 0;
-                            for (var r_id in ppm[s_id][p_id]) {
-                                new_data.push({
-                                    id: mapData.storages[s_id].area+'|'+s_id+'|'+p_id+'|'+r_id,
-                                    name: r_id,
-                                    parent: mapData.storages[s_id].area+'|'+s_id+'|'+p_id,
-                                    value: ppm[s_id][p_id][r_id],
-                                    color: Highcharts.getOptions().colors[j%10],
-                                    events: {
-                                        click: function () {
-                                            var tree = this.id.split('|');
-                                            $location.search({'svg_zone': mapData.storages[tree[1]].name, 'place': null, 'raw': tree[3]});
-                                            scope.$apply();
-                                        }
-                                    },
-                                    cursor: "pointer"
-                                });
-                                j++;
-                            }
+                            i++;
                         }
+                        if (!tmp_raw[mapData.storages[storage_id].area+'|'+storage_id+'|'+place_id+'|'+raw_name]) {
+                            tmp_raw[mapData.storages[storage_id].area+'|'+storage_id+'|'+place_id+'|'+raw_name] = {
+                                id: mapData.storages[storage_id].area+'|'+storage_id+'|'+place_id+'|'+raw_name,
+                                name: raw_name,
+                                parent: mapData.storages[storage_id].area+'|'+storage_id+'|'+place_id,
+                                value: parseFloat(raw_count),
+                                color: Highcharts.getOptions().colors[j%10],
+                                events: {
+                                    click: function () {
+                                        var tree = this.id.split('|');
+                                        $location.search({'svg_zone': tree[1], 'place': null, 'raw': tree[3]});
+                                        scope.$apply();
+                                    }
+                                },
+                                cursor: "pointer"
+                            };
+                            j++;
+                        } else {
+                            tmp_raw[mapData.storages[storage_id].area+'|'+storage_id+'|'+place_id+'|'+raw_name].value += parseFloat(raw_count);
+                        }
+                    }
+                    for (var t in tmp_raw) {
+                        new_data.push(tmp_raw[t]);
                     }
 
                     var chart = $(element).highcharts({
@@ -153,7 +165,7 @@ angular.module('directivesModule', [])
                             }
                         })
                         .on("click", function(){
-                            $location.search({'svg_zone': storage_list.storages[$(this).data('zonaid')].name, 'place': null, 'raw': null});
+                            $location.search({'svg_zone': $(this).data('zonaid'), 'place': null, 'raw': null});
                             scope.$apply();
                         });
                 }, function errorCallback(response) {

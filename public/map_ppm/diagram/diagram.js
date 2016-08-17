@@ -56,24 +56,32 @@ angular.module('diagramModule', ['ngRoute'])
                     $rootScope.zone = $routeParams.svg_zone;
                     $rootScope.load = false;
                     $(function () {
-                        for (var i = 0; i < response.data.zones.length; i++) {
-                            response.data.zones[i] = "Место " + response.data.zones[i];
+                        if (response.data.data.length) {
+                            // for (var i = 0; i < response.data.places.length; i++) {
+                            //     response.data.places[i] = 'Место ' + response.data.places[i];
+                            // }
+                            $('#ppm_diagram').highcharts(
+                                highcharts_opts(response.data.zone_name, response.data.places, 'Распределение сырья, тонны', response.data.data, function (event) {
+                                    $location.search({'svg_zone': zone, 'place': event.point.category, 'raw': null});
+                                    $scope.$apply();
+                                })
+                            );
+                        } else {
+                            $('#ppm_diagram').html('<h3>Нет данных</h3>');
                         }
-                        $('#ppm_diagram').highcharts(
-                            highcharts_opts(response.data.zone_name, response.data.zones, 'Распределение сырья, тонны', response.data.data, function (event) {
-                                $location.search({'svg_zone': zone, 'place': event.point.category, 'raw': null});
-                                $scope.$apply();
-                            })
-                        );
-                        for (i in response.data.data_raws) {
-                            response.data.data_raws[i].name = 'Место ' + response.data.data_raws[i].name;
+                        if (response.data.data_raws.length) {
+                            for (var i in response.data.data_raws) {
+                                response.data.data_raws[i].name = 'Место ' + response.data.data_raws[i].name;
+                            }
+                            $('#ppm_diagram_raws').highcharts(
+                                highcharts_opts(response.data.zone_name, response.data.raws, 'Распределение сырья, тонны', response.data.data_raws, function (event) {
+                                    $location.search({'svg_zone': zone, 'raw': event.point.category, 'place': null});
+                                    $scope.$apply();
+                                })
+                            )
+                        } else {
+                            $('#ppm_diagram_raws').html('');
                         }
-                        $('#ppm_diagram_raws').highcharts(
-                            highcharts_opts(response.data.zone_name, response.data.raws, 'Распределение сырья, тонны', response.data.data_raws, function (event) {
-                                $location.search({'svg_zone': zone, 'raw': event.point.category, 'place': null});
-                                $scope.$apply();
-                            })
-                        )
                     });
                     $scope.ppm_diagram_checkbox_show = true;
                 }
