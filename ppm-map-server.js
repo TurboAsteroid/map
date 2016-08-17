@@ -9,7 +9,7 @@ var async = require('async');
 var session = require('express-session');
 var cookieParser = require('cookie-parser');
 var MongoClient = require('mongodb').MongoClient;
-require('./sap-mongo');
+// require('./sap-mongo');
 
 var app = express();
 
@@ -291,6 +291,8 @@ apiRoutes.post('/api/get_table', function (req, res) {
     var N_KART = req.body.zone;
     var LGORT = req.body.place;
     var MATNR_CPH_PPM = req.body.raw;
+    var date = req.body.date || Date.now();
+
 
     async.parallel(
         [
@@ -300,7 +302,7 @@ apiRoutes.post('/api/get_table', function (req, res) {
                 if (LGORT) request.LGORT = LGORT.toString();
                 //TODO: Заменить на код сырья
                 if (MATNR_CPH_PPM) request.MATNR_CPH_PPM = MATNR_CPH_PPM.toString();
-                request.date = {$gte: new Date(Date.now() - 24*60*60*1000).toISOString()};
+                request.date = {$gte: new Date(date - 24*60*60*1000).toISOString()};
                 dbCon.collection('sap_data').find(request, {_id: 0}).toArray(callback);
             },
             function(callback){
