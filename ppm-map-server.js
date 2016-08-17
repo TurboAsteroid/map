@@ -146,7 +146,10 @@ apiRoutes.get('/api/logout', function (req, res) {
 //Получение данных диаграмы, checkAuth
 apiRoutes.post('/api/get_diagram', function (req, res, next) {
     var request = {};
-    request.date = {$gte: new Date(Date.now() - 24*60*60*1000).toISOString()};
+    request.date = {$gte: new Date(Date.now() - 24*60*60*1000)};
+
+
+
     if (req.body.zone) {
         request.N_KART = req.body.zone.toString();
     }
@@ -271,7 +274,7 @@ apiRoutes.get('/api/get_storages', function (req, res) {
         [
             function(callback){
                 dbCon.collection('sap_data').find({"date": {
-                    $gte: new Date(Date.now() - 24*60*60*1000).toISOString()
+                    $gte: new Date(Date.now() - 24*60*60*1000)
                 }}).toArray(callback);
             }
         ],
@@ -301,7 +304,7 @@ apiRoutes.post('/api/get_table', function (req, res) {
                 if (LGORT) request.LGORT = LGORT.toString();
                 //TODO: Заменить на код сырья
                 if (MATNR_CPH_PPM) request.MATNR_CPH_PPM = MATNR_CPH_PPM.toString();
-                request.date = {$gte: new Date(date - 24*60*60*1000).toISOString()};
+                request.date = {$gte: new Date(date - 24*60*60*1000)};
                 dbCon.collection('sap_data').find(request, {_id: 0}).toArray(callback);
             },
             function(callback){
@@ -326,6 +329,8 @@ apiRoutes.post('/api/get_table', function (req, res) {
 
             var timeline = [];
             for (var j in results[1]) {
+                console.log(results[1][j]._id);
+                console.log(Date(results[1][j]._id));
                 timeline.push([
                     new Date(results[1][j]._id).getTime(),
                     results[1][j].total
