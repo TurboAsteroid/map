@@ -1,12 +1,12 @@
 {
   "name": "sap-mongo",
   "version": "1.0.0",
-  "description": "",
+  "description": "Скрипт для записи данных из SAP в Mongo",
   "main": "sap-mongo.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
+  "author": "Nightwelf",
   "license": "ISC",
   "dependencies": {
     "mongodb": "^2.2.5",
