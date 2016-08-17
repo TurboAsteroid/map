@@ -143,3 +143,4 @@ gh-visualization > svg {
 #splineTimeline > * {
     max-width: 100%;
 }
+#ppm_diagram h3 {padding: 0 20px;}
