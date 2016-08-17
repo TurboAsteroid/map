@@ -293,7 +293,6 @@ apiRoutes.post('/api/get_table', function (req, res) {
     var MATNR_CPH_PPM = req.body.raw;
     var date = req.body.date || Date.now();
 
-
     async.parallel(
         [
             function(callback){
@@ -314,7 +313,7 @@ apiRoutes.post('/api/get_table', function (req, res) {
                 dbCon.collection('sap_data').aggregate([{$match: request}, {$group: {
                     _id: "$date",
                     total: { $sum: "$MENGE" }
-                }}]).toArray(callback);
+                }}]).sort({_id: 1}).toArray(callback);
             }
         ],
         function(err, results){
