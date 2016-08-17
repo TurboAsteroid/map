@@ -18,11 +18,7 @@ request = request.defaults({jar: true});
 var url = 'mongodb://'+app.get('dbUser')+':'+app.get('dbPassword')+'@'+app.get('dbHost')+':27017/'+app.get('dbDatabase');
 var dbCon;
 
-var rule = new schedule.RecurrenceRule();
-
-rule.minute = new schedule.Range(0, 59, 1);
-
-schedule.scheduleJob('0 0 0 1-31 * *', function(){
+schedule.scheduleJob('0 0 0 * * *', function(){
 // schedule.scheduleJob('0-59 * * * * *', function(){
     MongoClient.connect(url, function(err, db) {
         dbCon = db;
