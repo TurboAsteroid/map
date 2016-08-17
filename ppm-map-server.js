@@ -8,9 +8,10 @@ var config = require('./config');
 var async = require('async');
 var session = require('express-session');
 var cookieParser = require('cookie-parser');
-var app = express();
 var MongoClient = require('mongodb').MongoClient;
-var assert = require('assert');
+require('./sap-mongo');
+
+var app = express();
 
 app.set('portHttp', config.portHttp);
 app.set('adServer', config.adServer);
