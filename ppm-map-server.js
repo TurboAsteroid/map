@@ -265,14 +265,17 @@ apiRoutes.post('/api/get_table', function (req, res) {
                     _id: "$date",
                     total: { $sum: "$MENGE" }
                 }}]).sort({_id: 1}).toArray(callback);
+            },
+            function(callback){
+                dbCon.collection('storages').findOne({storage_id: parseInt(N_KART)},{name: 1},callback);
             }
         ],
         function(err, results){
             if (err) throw err;
-
             for (var i in results[0]) {
                 var date = new Date(results[0][i].date);
                 results[0][i].date = date.getDate()+'.'+(date.getMonth()+1)+'.'+date.getFullYear();
+                results[0][i].PLOSH = results[2].name;
             }
 
             var timeline = [];
