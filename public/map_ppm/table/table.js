@@ -52,6 +52,7 @@ angular.module('tableModule', ['ngRoute'])
                 url: '/api/get_table/',
                 data: {zone: zone, place: place, raw: raw, date: date}
             }).then(function successCallback(response) {
+
                 if (response.data.success) {
                     $rootScope.load = false;
                     $rootScope.table = raw || place;
@@ -65,7 +66,7 @@ angular.module('tableModule', ['ngRoute'])
                                 zoomType: 'x'
                             },
                             title: {
-                                text: 'Общее количество «' + $rootScope.raw + '» на складах'
+                                text: 'Общее количество «' + $rootScope.raw + '» на складе'
                             },
                             xAxis: {
                                 type: 'datetime'

@@ -148,7 +148,8 @@ apiRoutes.post('/api/get_diagram', function (req, res, next) {
     var request = {};
     request.date = {
         $gte: new Date(Date.now() - 24*60*60*1000)
-        ,$lte: new Date()
+        ,
+        $lte: new Date()
     };
 
 
@@ -161,14 +162,10 @@ apiRoutes.post('/api/get_diagram', function (req, res, next) {
         [
             function(callback){
                 dbCon.collection('sap_data').find(request, {LGORT: 1,MATNR_CPH_PPM: 1,MENGE: 1}).toArray(callback);
-            },
-            function(callback){
-                dbCon.collection('storages').findOne({storage_id: request.N_KART}, {name: 1},callback);
             }
         ],
         function(err, results){
             if (err) throw err;
-
             var places = [];
             var raws = [];
             var tmp_data_r = {};
@@ -277,7 +274,8 @@ apiRoutes.get('/api/get_storages', function (req, res) {
         [
             function(callback){
                 dbCon.collection('sap_data').find({"date": {
-                    $gte: new Date(Date.now() - 24*60*60*1000)
+                    $gte: new Date(Date.now() - 24*60*60*1000),
+                    $lt: new Date()
                 }}).toArray(callback);
             }
         ],
