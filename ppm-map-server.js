@@ -200,8 +200,6 @@ apiRoutes.post('/api/get_diagram', function (req, res, next) {
                 }
                 data_p.push({name: i,data: arr_tmp});
             }
-console.log(data_p);
-console.log(data_r);
             res.status(200).send({
                 success: true,
                 places: places,
