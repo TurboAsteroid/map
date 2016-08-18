@@ -200,7 +200,8 @@ apiRoutes.post('/api/get_diagram', function (req, res, next) {
                 }
                 data_p.push({name: i,data: arr_tmp});
             }
-
+console.log(data_p);
+console.log(data_r);
             res.status(200).send({
                 success: true,
                 places: places,
@@ -211,61 +212,6 @@ apiRoutes.post('/api/get_diagram', function (req, res, next) {
             });
         }
     );
-    // fs.readFile('./public/ppm.json', 'utf8', function (err, contents) {
-    //     if (err) throw err;
-    //     data = JSON.parse(contents);
-    //     var places = [];
-    //     var raws = [];
-    //     var tmp_data = {};
-    //
-    //     for (place in data) {
-    //         var pl = data[place];
-    //         for (raw in pl.raws) {
-    //             var rw = pl.raws[raw];
-    //             places.push(pl.place);
-    //             raws.push(rw.raw);
-    //             if (!tmp_data[rw.raw]) {
-    //                 tmp_data[rw.raw] = {};
-    //             }
-    //             if (!tmp_data[rw.raw][pl.place]) {
-    //                 tmp_data[rw.raw][pl.place] = 0;
-    //             }
-    //             tmp_data[rw.raw][pl.place] += rw.balance_at_start;
-    //         }
-    //     }
-    //     places = places.filter(function (elem, pos) {
-    //         return places.indexOf(elem) == pos;
-    //     });
-    //     raws = raws.filter(function (elem, pos) {
-    //         return raws.indexOf(elem) == pos;
-    //     });
-    //     var tmp_data_raws = [];
-    //     for (place in data) {
-    //         var arr_tmp = Array(raws.length).join('0').split('');
-    //         for (r in data[place].raws) {
-    //             arr_tmp[raws.indexOf(data[place].raws[r].raw)] = data[place].raws[r].balance_at_start;
-    //         }
-    //         tmp_data_raws.push({name: data[place].place, data: arr_tmp})
-    //     }
-    //
-    //     var new_data = [];
-    //     for (i in tmp_data) {
-    //         tmp = [];
-    //         for (k in places) {
-    //             tmp.push(tmp_data[i][places[k]] || 0);
-    //         }
-    //         new_data.push({name: i, data: tmp});
-    //     }
-    //
-    //     res.status(200).send({
-    //         success: true,
-    //         zone_name: req.body.zone,
-    //         zones: places,
-    //         data: new_data,
-    //         data_raws: tmp_data_raws,
-    //         raws: raws
-    //     });
-    // });
 });
 
 //Получение данных ля визуального представления складов
