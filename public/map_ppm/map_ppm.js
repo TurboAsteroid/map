@@ -21,7 +21,7 @@ angular.module('map_ppmModule', ['ngRoute', 'ngMaterial', 'directivesModule', 'f
         $rootScope.$on('$locationChangeSuccess', function(event) {
             var place = $location.search().place;
             var raw = $location.search().raw;
-            var zone = $location.search().date;
+            var zone = $location.search().svg_zone;
             var date = $location.search().date;
             $rootScope.table = raw || place;
             $rootScope.date = date;
