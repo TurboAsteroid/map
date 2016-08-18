@@ -20,7 +20,8 @@ var dbCon;
 
 schedule.scheduleJob('0 0 0 * * *', function(){
 //schedule.scheduleJob('0-59 * * * * *', function(){
-    if (test == 0 || test == 1 || test == 2)
+    var date = new Date();
+    var rndMult = parseFloat(Math.random() * 2);
     MongoClient.connect(url, function(err, db) {
         dbCon = db;
         var url = app.get('sap');
@@ -39,9 +40,10 @@ schedule.scheduleJob('0 0 0 * * *', function(){
                 if (!error && response.statusCode == 200) {
                     var json = JSON.parse(body);
                     for(var j = 0; j < json.length; j++) {
-                            json[j].MENGE = parseFloat(json[j].MENGE);
+                            json[j].MENGE = parseFloat(json[j].MENGE) * rndMult;
                         if(json[j].PR_ZDAT_PROB == '00000000')
                             json[j].PR_ZDAT_PROB = '';
+                        json[j].date = date;
                     }
                     dbCon.collection('sap_data').insert(json);
                 }
