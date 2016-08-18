@@ -18,11 +18,11 @@ request = request.defaults({jar: true});
 var url = 'mongodb://'+app.get('dbUser')+':'+app.get('dbPassword')+'@'+app.get('dbHost')+':27017/'+app.get('dbDatabase');
 var dbCon;
 
-// schedule.scheduleJob('0 0 0 * * *', function(){
-schedule.scheduleJob('0-59 * * * * *', function(){
+schedule.scheduleJob('0 0 0 * * *', function(){
+//schedule.scheduleJob('0-59 * * * * *', function(){
+    if (test == 0 || test == 1 || test == 2)
     MongoClient.connect(url, function(err, db) {
         dbCon = db;
-        // dbCon.collection('sap_data').drop(); //TEST
         var url = app.get('sap');
         var url_now;
         for (var i = 1; i < 33; i++) {
@@ -39,12 +39,11 @@ schedule.scheduleJob('0-59 * * * * *', function(){
                 if (!error && response.statusCode == 200) {
                     var json = JSON.parse(body);
                     for(var j = 0; j < json.length; j++) {
-                        if(json[j].MENGE) {
                             json[j].MENGE = parseFloat(json[j].MENGE);
-                        }
+                        if(json[j].PR_ZDAT_PROB == '00000000')
+                            json[j].PR_ZDAT_PROB = '';
                     }
                     dbCon.collection('sap_data').insert(json);
-                    dbCon.collection('sap_data').update({date : {$exists : false}}, {$set: {date : Date()}}, {multi: true});
                 }
                 else {
                     var str = new Date() +
