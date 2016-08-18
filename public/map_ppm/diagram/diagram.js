@@ -12,6 +12,7 @@ angular.module('diagramModule', ['ngRoute'])
             }
         });
         function highcharts_opts(title, categories, desc, data, event_func) {
+            console.log(data);
             return {
                 chart: {
                     type: 'bar'
@@ -23,10 +24,10 @@ angular.module('diagramModule', ['ngRoute'])
                     categories: categories
                 },
                 yAxis: {
-                    min: 0,
                     title: {
                         text: desc
-                    }
+                    },
+                    type: 'logarithmic'
                 },
                 legend: {
                     maxHeight: 60
@@ -42,7 +43,10 @@ angular.module('diagramModule', ['ngRoute'])
                 tooltip: {
                     valueDecimals: 3
                 },
-                series: data
+                series: data,
+                credits: {
+                    enabled: false
+                }
             };
         }
         function load_zone (zone) {
