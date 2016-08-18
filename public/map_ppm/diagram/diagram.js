@@ -12,7 +12,6 @@ angular.module('diagramModule', ['ngRoute'])
             }
         });
         function highcharts_opts(title, categories, desc, data, event_func) {
-            console.log(data);
             return {
                 chart: {
                     type: 'bar'
