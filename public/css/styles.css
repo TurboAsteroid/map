@@ -144,3 +144,5 @@ gh-visualization > svg {
     max-width: 100%;
 }
 #ppm_diagram h3 {padding: 0 20px;}
+
+#ppm_diagram_raws, #ppm_diagram {overflow: hidden;}
