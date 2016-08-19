@@ -147,8 +147,7 @@ apiRoutes.get('/api/logout', function (req, res) {
 apiRoutes.post('/api/get_diagram', function (req, res, next) {
     var request = {};
     request.date = {
-        $gte: new Date(Date.now() - 24*60*60*1000)
-        ,
+        $gte: new Date(Date.now() - 24*60*60*1000),
         $lte: new Date()
     };
 
@@ -250,10 +249,11 @@ apiRoutes.post('/api/get_table', function (req, res) {
                 //TODO: Заменить на код сырья
                 if (MATNR_CPH_PPM) request.MATNR_CPH_PPM = MATNR_CPH_PPM.toString();
                 request.date = {
-                    $gte: new Date(date - 24*60*60*1000)
-                    ,$lte: new Date(date)
+                    $gte: new Date(date - 24*60*60*1000),
+                    $lte: new Date(parseInt(date))
                 };
                 dbCon.collection('sap_data').find(request, {_id: 0}).toArray(callback);
+                console.log(request);
             },
             function(callback){
                 var request = {};
@@ -276,13 +276,14 @@ apiRoutes.post('/api/get_table', function (req, res) {
                 var date = new Date(results[0][i].date);
                 results[0][i].date = date.getDate()+'.'+(date.getMonth()+1)+'.'+date.getFullYear();
                 results[0][i].PLOSH = results[2].name;
+                results[0][i].MENGE = results[0][i].MENGE.toFixed(3);
             }
 
             var timeline = [];
             for (var j in results[1]) {
                 timeline.push([
                     new Date(results[1][j]._id).getTime(),
-                    results[1][j].total
+                    parseFloat(results[1][j].total.toFixed(3))
                 ]);
             }
 
