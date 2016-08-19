@@ -18,7 +18,7 @@ request = request.defaults({jar: true});
 var url = 'mongodb://'+app.get('dbUser')+':'+app.get('dbPassword')+'@'+app.get('dbHost')+':27017/'+app.get('dbDatabase');
 var dbCon;
 
-schedule.scheduleJob('0 0 0 * * *', function(){
+schedule.scheduleJob('0 0 9 * * *', function(){
 //schedule.scheduleJob('0-59 * * * * *', function(){
     var date = new Date();
     var rndMult = parseFloat(Math.random() * 2);
