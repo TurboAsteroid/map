@@ -14,5 +14,5 @@ module.exports = {
 	'dbDatabase' : 'ppm-map',
 	'dbUser': 'dev_db',
 	'dbPassword': 'dev_me_please',
-	'sap' : 'https://sap-prx.ugmk.com:442/ummc/zkart/main?sap-user=skud_uem&sap-password=sRec137K'
+	'sap' : 'https://sap-prx.ugmk.com:443/ummc/zkart/main?sap-user=skud_uem&sap-password=sRec137K'
 };
