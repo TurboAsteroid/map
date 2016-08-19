@@ -18,10 +18,9 @@ request = request.defaults({jar: true});
 var url = 'mongodb://'+app.get('dbUser')+':'+app.get('dbPassword')+'@'+app.get('dbHost')+':27017/'+app.get('dbDatabase');
 var dbCon;
 
-schedule.scheduleJob('0 0 0 * * *', function(){
+schedule.scheduleJob('0 0 9 * * *', function(){
 //schedule.scheduleJob('0-59 * * * * *', function(){
     var date = new Date();
-    var rndMult = parseFloat(Math.random() * 2);
     MongoClient.connect(url, function(err, db) {
         dbCon = db;
         var url = app.get('sap');
@@ -40,7 +39,7 @@ schedule.scheduleJob('0 0 0 * * *', function(){
                 if (!error && response.statusCode == 200) {
                     var json = JSON.parse(body);
                     for(var j = 0; j < json.length; j++) {
-                            json[j].MENGE = parseFloat(json[j].MENGE) * rndMult;
+                            json[j].MENGE = parseFloat(json[j].MENGE);
                         if(json[j].PR_ZDAT_PROB == '00000000')
                             json[j].PR_ZDAT_PROB = '';
                         json[j].date = date;
