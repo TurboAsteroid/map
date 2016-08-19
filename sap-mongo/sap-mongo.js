@@ -18,7 +18,7 @@ request = request.defaults({jar: true});
 var url = 'mongodb://'+app.get('dbUser')+':'+app.get('dbPassword')+'@'+app.get('dbHost')+':27017/'+app.get('dbDatabase');
 var dbCon;
 
-schedule.scheduleJob('0 5 * * * *', function(){
+schedule.scheduleJob('0 10 * * * *', function(){
 //schedule.scheduleJob('0-59 * * * * *', function(){
     var date = new Date();
     MongoClient.connect(url, function(err, db) {
