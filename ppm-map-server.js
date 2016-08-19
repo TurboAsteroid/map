@@ -251,7 +251,7 @@ apiRoutes.post('/api/get_table', function (req, res) {
                 if (MATNR_CPH_PPM) request.MATNR_CPH_PPM = MATNR_CPH_PPM.toString();
                 request.date = {
                     $gte: new Date(date - 24*60*60*1000)
-                    ,$lt: new Date(date)
+                    ,$lte: new Date(date)
                 };
                 dbCon.collection('sap_data').find(request, {_id: 0}).toArray(callback);
             },
