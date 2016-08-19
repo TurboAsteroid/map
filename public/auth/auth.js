@@ -2,10 +2,6 @@
 angular.module('authModule', ['ngRoute'])
 
     .controller('authController', function($scope, $http, $location) {
-        $scope.user = {
-            'username': 'gs2',
-            'password': 'gs2-1'
-        }
         $http({
             method: 'GET',
             url: '/api/is'
