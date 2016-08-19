@@ -11,7 +11,7 @@ angular.module('diagramModule', ['ngRoute'])
                 load_zone($routeParams.svg_zone);
             }
         });
-        function highcharts_opts1(title, categories, desc, data, event_func) {
+        function highcharts_opts(title, categories, desc, data, event_func) {
             return {
                 chart: {
                     type: 'column'
@@ -95,83 +95,5 @@ angular.module('diagramModule', ['ngRoute'])
                 }
                 $location.path('/');
             });
-        }
-
-        function highcharts_opts(title, categories, desc, data, event_func) {
-            var series;
-            var firstSixDataNames=[];
-            for (var i = 0; i < 1; i++) {
-                if (data[i] != null || data[i] != undefined)
-                    firstSixDataNames[i] = data[i].name;
-            }
-            var series = [];
-            for (var i = 0; i < data.length; i++) {
-                series[i] = data[i];
-            }
-            /*for (var i = 6; i < data.length; i++) {
-                if (data[i])
-                    secondData[i] = data[i];
-            }*/
-            var tmp = {
-                chart: {
-                    type: 'bar'
-                },
-                title: {
-                    text: 'Пример пагинации Highcharts',
-                },
-                xAxis: {
-                    categories: firstSixDataNames
-                },
-
-                yAxis: {
-                    startOnTick: false
-                },
-                plotOptions: {
-                    bar: {
-                        events: {
-                            legendItemClick: function (event) {
-                                var seriesIndex = this.index;
-                                var series = this.chart.series;
-                                for (var i = 0; i < series.length; i++)
-                                {
-                                    series[i].hide();
-                                }
-                                var newCats = [];
-                                for (var i = 0; i < series[this.index]['data'].length; i++) {
-                                    newCats[i] = series[this.index]['data'][i]['name'];
-                                };
-                                this.chart.xAxis[0].setCategories(newCats);
-                            }
-                        },
-                    },
-                },
-                tooltip: {
-
-                },
-                legend: {
-                    symbolHeight: 0,
-                    symbolPadding: 0,
-                    symbolWidth: 0,
-                },
-                series:
-                    [
-                        {
-                            name: '1',
-                            visible: false,
-                            color: "#87b7db",
-                            data: [
-                                    {
-                                        name: data[0].name,
-                                        y: data[2].data[0]
-                                    },
-                                    {
-                                        name: data[0].name,
-                                        y: data[2].data[1]
-                                    }
-                                ]
-                        }
-                    ]
-            };
-            return tmp;
         }
     });
