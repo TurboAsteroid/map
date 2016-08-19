@@ -147,7 +147,7 @@ apiRoutes.get('/api/logout', function (req, res) {
 apiRoutes.post('/api/get_diagram', function (req, res, next) {
     var request = {};
     request.date = {
-        $gte: new Date(Date.now() - 24*60*60*1000),
+        $gte: new Date(Date.now() - 1*60*60*1000),
         $lte: new Date()
     };
 
@@ -217,7 +217,7 @@ apiRoutes.get('/api/get_storages', function (req, res) {
         [
             function(callback){
                 dbCon.collection('sap_data').find({"date": {
-                    $gte: new Date(Date.now() - 24*60*60*1000),
+                    $gte: new Date(Date.now() - 1*60*60*1000),
                     $lt: new Date()
                 }}).toArray(callback);
             }
@@ -249,11 +249,10 @@ apiRoutes.post('/api/get_table', function (req, res) {
                 //TODO: Заменить на код сырья
                 if (MATNR_CPH_PPM) request.MATNR_CPH_PPM = MATNR_CPH_PPM.toString();
                 request.date = {
-                    $gte: new Date(date - 24*60*60*1000),
+                    $gte: new Date(date - 1*60*60*1000),
                     $lte: new Date(parseInt(date))
                 };
                 dbCon.collection('sap_data').find(request, {_id: 0}).toArray(callback);
-                console.log(request);
             },
             function(callback){
                 var request = {};

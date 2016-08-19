@@ -14,7 +14,7 @@ angular.module('diagramModule', ['ngRoute'])
         function highcharts_opts1(title, categories, desc, data, event_func) {
             return {
                 chart: {
-                    type: 'column'
+                    type: 'bar'
                 },
                 title: {
                     text: title
