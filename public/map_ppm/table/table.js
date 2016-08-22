@@ -33,7 +33,7 @@ angular.module('tableModule', ['ngRoute'])
             NAME_ZPOST: "Поставщик",
             PR_ZDAT_PROB:"дата апробирования",
             PR_NOTE: "Заметки",
-            date:"Дата выгрузки"
+            date:"Дата отчета"
         };
         $scope.$watch(function(){
             return $rootScope.table + $rootScope.date;
