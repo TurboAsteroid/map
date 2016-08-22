@@ -238,7 +238,8 @@ apiRoutes.post('/api/get_table', function (req, res) {
     var N_KART = req.body.zone;
     var LGORT = req.body.place;
     var MATNR_CPH_PPM = req.body.raw;
-    var date = req.body.date || Date.now();
+    var d = new Date();
+    var date = req.body.date ? parseInt(req.body.date) + d.getTimezoneOffset()*60*1000 : Date.now();
 
     async.parallel(
         [
