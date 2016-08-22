@@ -280,8 +280,12 @@ apiRoutes.post('/api/get_table', function (req, res) {
 
             var timeline = [];
             for (var j in results[1]) {
+                console.log(results[1][j]._id);
+                var d = new Date(results[1][j]._id);
+                var time = d.getTime()-d.getTimezoneOffset()*60*1000;
+
                 timeline.push([
-                    new Date(results[1][j]._id).getTime(),
+                    time,
                     parseFloat(results[1][j].total.toFixed(3))
                 ]);
             }
