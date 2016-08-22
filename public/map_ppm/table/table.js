@@ -28,13 +28,23 @@ angular.module('tableModule', ['ngRoute'])
             LGORT: "Место хранения",
             PR_NUMBER_ACT:"Акт",
             MATNR_CPH_PPM: "ПРОДУКТ НЕМАГН",
+            // PR_MATNR_CPH_PPM:" Код сырья",
             MENGE: "Остаток",
+            MENGE_END_OH:"Количество сырья на ОХ",
+            REASON_OH:"Причины ОХ",
+            PR_DATA_OH_OUT:"Дата снятия с ОХ",
             MEINS: "Ед. изм.",
             NAME_ZPOST: "Поставщик",
-            PR_ZDAT_PROB:"дата апробирования",
+            ZOTPR:"Отправитель",
+            ZDATOUT:"Дата отправления",
+            ZDATIN:"Дата поступления",
+            ZVIDTRANSP:"Вид транспорта",
+            PR_ZDAT_PROB:"Дата апробирования",
             PR_NOTE: "Заметки",
-            date:"Дата отчета"
+            date:"Дата отчета",
+            ZDATV:"Дата отчета"
         };
+
         $scope.$watch(function(){
             return $rootScope.table + $rootScope.date;
         }, function(table) {
