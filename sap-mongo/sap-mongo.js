@@ -49,11 +49,11 @@ schedule.scheduleJob('0 10 * * * *', function(){
                     var json = JSON.parse(body);
                     for(var j = 0; j < json.length; j++) {
                         json[j].MENGE = parseFloat(json[j].MENGE);
-                        json[j].PR_ZDAT_PROB = dateConstructor(json[j].PR_ZDAT_PROB, false);
-                        json[j].ZDATOUT = dateConstructor(json[j].PR_ZDAT_PROB, false);
-                        json[j].ZDATIN = dateConstructor(json[j].PR_ZDAT_PROB, false);
-                        json[j].PR_DATA_OH_OUT = dateConstructor(json[j].PR_ZDAT_PROB, false);
-                        json[j].ZDATV = dateConstructor(json[j].PR_ZDAT_PROB, true);
+                        json[j].PR_ZDAT_PROB = dateConstructor(json[j].PR_ZDAT_PROB, true);
+                        json[j].ZDATOUT = dateConstructor(json[j].ZDATOUT, true);
+                        json[j].ZDATIN = dateConstructor(json[j].ZDATIN, true);
+                        json[j].PR_DATA_OH_OUT = dateConstructor(json[j].PR_DATA_OH_OUT, true);
+                        json[j].ZDATV = dateConstructor(json[j].ZDATV, false);
                     }
                     dbCon.collection('sap_data').insert(json);
                 }
