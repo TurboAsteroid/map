@@ -30,7 +30,7 @@ var dateConstructor = function (date, dateNow, showOnly) {
     return date;
 };
 
-schedule.scheduleJob('0 10 * * * *', function(){
+schedule.scheduleJob('0 20 * * * *', function(){
 //schedule.scheduleJob('0-59 * * * * *', function(){
     var date = new Date();
     MongoClient.connect(url, function(err, db) {
