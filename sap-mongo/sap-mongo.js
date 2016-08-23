@@ -21,7 +21,7 @@ var dbCon;
 var dateConstructor = function (date, showOnly) {
     if (date == "00000000")
         date = '';
-    else if(showOnly)
+    else if(showOnly && date != '')
         date = date.slice(6, 8) +'.' + date.slice(4, 6) + '.' + date.slice(0, 4);
     else
         date = new Date(date.slice(0, 4), parseInt(date.slice(4, 6)) - 1, date.slice(6, 8));
