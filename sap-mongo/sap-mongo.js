@@ -18,18 +18,21 @@ request = request.defaults({jar: true});
 var url = 'mongodb://'+app.get('dbUser')+':'+app.get('dbPassword')+'@'+app.get('dbHost')+':27017/'+app.get('dbDatabase');
 var dbCon;
 
-var dateConstructor = function (date, showOnly) {
+var dateConstructor = function (date, dateNow, showOnly) {
     if (date == "00000000")
         date = '';
     else if(showOnly && date != '')
-        date = date.slice(6, 8) +'.' + date.slice(4, 6) + '.' + date.slice(0, 4);
+        date = date.slice(6, 8) +   '.' + date.slice(4, 6) +     '.' + date.slice(0, 4) + ' ' +
+               dateNow.getHours() + ':' + dateNow.getMinutes() + ':' + dateNow.getSeconds();
     else
-        date = new Date(date.slice(0, 4), parseInt(date.slice(4, 6)) - 1, date.slice(6, 8));
+        date = new Date(date.slice(0, 4), parseInt(date.slice(4, 6)) - 1, date.slice(6, 8),
+                        dateNow.getHours(), dateNow.getMinutes(), dateNow.getSeconds());
     return date;
 };
 
 schedule.scheduleJob('0 10 * * * *', function(){
 //schedule.scheduleJob('0-59 * * * * *', function(){
+    var date = new Date();
     MongoClient.connect(url, function(err, db) {
         dbCon = db;
         var url = app.get('sap');
@@ -49,11 +52,12 @@ schedule.scheduleJob('0 10 * * * *', function(){
                     var json = JSON.parse(body);
                     for(var j = 0; j < json.length; j++) {
                         json[j].MENGE = parseFloat(json[j].MENGE);
-                        json[j].PR_ZDAT_PROB = dateConstructor(json[j].PR_ZDAT_PROB, true);
-                        json[j].ZDATOUT = dateConstructor(json[j].ZDATOUT, true);
-                        json[j].ZDATIN = dateConstructor(json[j].ZDATIN, true);
-                        json[j].PR_DATA_OH_OUT = dateConstructor(json[j].PR_DATA_OH_OUT, true);
-                        json[j].ZDATV = dateConstructor(json[j].ZDATV, false);
+                        json[j].PR_ZDAT_PROB = dateConstructor(json[j].PR_ZDAT_PROB, date, true);
+                        json[j].ZDATOUT = dateConstructor(json[j].ZDATOUT, date, true);
+                        json[j].ZDATIN = dateConstructor(json[j].ZDATIN, date, true);
+                        json[j].PR_DATA_OH_OUT = dateConstructor(json[j].PR_DATA_OH_OUT, date, true);
+                        json[j].ZDATV = dateConstructor(json[j].ZDATV, date, false);
+                        json[j].date = date;
                     }
                     dbCon.collection('sap_data').insert(json);
                 }
