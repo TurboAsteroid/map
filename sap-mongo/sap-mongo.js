@@ -18,9 +18,18 @@ request = request.defaults({jar: true});
 var url = 'mongodb://'+app.get('dbUser')+':'+app.get('dbPassword')+'@'+app.get('dbHost')+':27017/'+app.get('dbDatabase');
 var dbCon;
 
+var dateConstructor = function (date, showOnly) {
+    if (date == "00000000")
+        date = '';
+    else if(showOnly)
+        date = date.slice(6, 8) +'.' + date.slice(4, 6) + '.' + date.slice(0, 4);
+    else
+        date = new Date(date.slice(0, 4), parseInt(date.slice(4, 6)) - 1, date.slice(6, 8));
+    return date;
+};
+
 schedule.scheduleJob('0 10 * * * *', function(){
 //schedule.scheduleJob('0-59 * * * * *', function(){
-    var date = new Date();
     MongoClient.connect(url, function(err, db) {
         dbCon = db;
         var url = app.get('sap');
@@ -39,10 +48,12 @@ schedule.scheduleJob('0 10 * * * *', function(){
                 if (!error && response.statusCode == 200) {
                     var json = JSON.parse(body);
                     for(var j = 0; j < json.length; j++) {
-                            json[j].MENGE = parseFloat(json[j].MENGE);
-                        if(json[j].PR_ZDAT_PROB == '00000000')
-                            json[j].PR_ZDAT_PROB = '';
-                        json[j].date = date;
+                        json[j].MENGE = parseFloat(json[j].MENGE);
+                        json[j].PR_ZDAT_PROB = dateConstructor(json[j].PR_ZDAT_PROB, false);
+                        json[j].ZDATOUT = dateConstructor(json[j].PR_ZDAT_PROB, false);
+                        json[j].ZDATIN = dateConstructor(json[j].PR_ZDAT_PROB, false);
+                        json[j].PR_DATA_OH_OUT = dateConstructor(json[j].PR_ZDAT_PROB, false);
+                        json[j].ZDATV = dateConstructor(json[j].PR_ZDAT_PROB, true);
                     }
                     dbCon.collection('sap_data').insert(json);
                 }
