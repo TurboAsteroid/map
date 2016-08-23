@@ -22,8 +22,7 @@ var dateConstructor = function (date, dateNow, showOnly) {
     if (date == "00000000")
         date = '';
     else if(showOnly && date != '')
-        date = date.slice(6, 8) +   '.' + date.slice(4, 6) +     '.' + date.slice(0, 4) + ' ' +
-               dateNow.getHours() + ':' + dateNow.getMinutes() + ':' + dateNow.getSeconds();
+        date = date.slice(6, 8) + '.' + date.slice(4, 6) + '.' + date.slice(0, 4);
     else
         date = new Date(date.slice(0, 4), parseInt(date.slice(4, 6)) - 1, date.slice(6, 8),
                         dateNow.getHours(), dateNow.getMinutes(), dateNow.getSeconds());
