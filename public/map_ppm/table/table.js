@@ -27,13 +27,13 @@ angular.module('tableModule', ['ngRoute'])
             PLOSH: "Cклад",
             LGORT: "Место хранения",
             PR_NUMBER_ACT:"Акт",
-            MATNR_CPH_PPM: "ПРОДУКТ НЕМАГН",
+            MATNR_CPH_PPM: "Название Сырья",
             // PR_MATNR_CPH_PPM:" Код сырья",
             MENGE: "Остаток",
-            MENGE_END_OH:"Количество сырья на ОХ",
+            MENGE_END_OH:"Остаток на ОХ",
+            MEINS: "Ед. изм.",
             REASON_OH:"Причины ОХ",
             PR_DATA_OH_OUT:"Дата снятия с ОХ",
-            MEINS: "Ед. изм.",
             NAME_ZPOST: "Поставщик",
             ZOTPR:"Отправитель",
             ZDATOUT:"Дата отправления",
@@ -42,7 +42,7 @@ angular.module('tableModule', ['ngRoute'])
             PR_ZDAT_PROB:"Дата апробирования",
             PR_NOTE: "Заметки",
             date:"Дата отчета",
-            ZDATV:"Дата отчета"
+            // ZDATV:"Дата отчета"
         };
 
         $scope.$watch(function(){
@@ -148,10 +148,25 @@ angular.module('tableModule', ['ngRoute'])
             var k = 1 * ($scope.sortReverse ? 1 : -1);
 
             $scope.table_data.sort(function(a, b) {
-                if (a[key] > b[key]) {
+                var val1 = a[key];
+                var val2 = b[key];
+                if (["LGORT","PR_NUMBER_ACT","MENGE","MENGE_END_OH"].indexOf(key) != -1 ) {
+                    val1 = parseFloat(val1);
+                    val2 = parseFloat(val2);
+                } else if (["PR_DATA_OH_OUT","ZDATOUT","ZDATIN","PR_ZDAT_PROB"].indexOf(key) != -1 ) {
+                    var tmp = val1.split(" ")[0].split(".");
+                    tmp = new Date(tmp[2], tmp[1] - 1, tmp[0]);
+                    val1 = new Date(tmp);
+
+                    tmp = val2.split(" ")[0].split(".");
+                    tmp = new Date(tmp[2], tmp[1] - 1, tmp[0]);
+                    val2 = new Date(tmp);
+                }
+
+                if (val1 > val2) {
                     return k;
                 }
-                if (a[key] < b[key]) {
+                if (val1 < val2) {
                     return -k;
                 }
                 return 0;
