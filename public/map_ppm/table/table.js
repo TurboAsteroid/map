@@ -42,7 +42,7 @@ angular.module('tableModule', ['ngRoute'])
             PR_ZDAT_PROB:"Дата апробирования",
             PR_NOTE: "Заметки",
             date:"Дата отчета",
-            ZDATV:"Дата отчета"
+            // ZDATV:"Дата отчета"
         };
 
         $scope.$watch(function(){
