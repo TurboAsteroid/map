@@ -146,3 +146,7 @@ gh-visualization > svg {
 #ppm_diagram h3 {padding: 0 20px;}
 
 #ppm_diagram_raws, #ppm_diagram {overflow: hidden;}
+
+.off-err-sp .md-errors-spacer {
+    display: none;
+}

@@ -54,6 +54,7 @@ angular.module('tableModule', ['ngRoute'])
         });
 
         function load_place (zone, place, raw, date) {
+            $scope.search_text = "";
             $rootScope.load = true;
             $scope.sortType     = false;
             $scope.sortReverse  = false;
@@ -68,7 +69,7 @@ angular.module('tableModule', ['ngRoute'])
                     $rootScope.table = raw || place;
                     $rootScope.date = date;
                     $scope.table_data = response.data.data;
-
+                    $scope.table_data_O = response.data.data;
                     if (response.data.timeline.length) {
 
                         $("#splineTimeline").highcharts({
@@ -140,6 +141,24 @@ angular.module('tableModule', ['ngRoute'])
                 $location.path('/');
             });
         }
+
+        $scope.search_text = "";
+        $scope.search = function () {
+            $scope.search_text = $scope.search_text.toLowerCase();
+            $scope.table_data_S = [];
+            var obj, i = 0;
+            for(obj in $scope.table_data_O) {
+                var item;
+                for(item in $scope.table_data_O[obj]) {
+                    if((($scope.table_data_O[obj][item]).toLowerCase()).indexOf($scope.search_text) != -1) {
+                        $scope.table_data_S[i] = $scope.table_data_O[obj];
+                        i++;
+                        break;
+                    }
+                }
+            }
+            $scope.table_data = $scope.table_data_S;
+        };
 
         $scope.theadClick = function (key) {
             $scope.sortType = key;
