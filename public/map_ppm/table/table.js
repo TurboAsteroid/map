@@ -32,7 +32,7 @@ angular.module('tableModule', ['ngRoute'])
             MENGE: "Остаток",
             MENGE_END_OH:"Остаток на ОХ",
             MEINS: "Ед. изм.",
-            PR_NOTE: "Заметки",
+            PR_NOTE: "Зgit addаметки",
             PR_ZDAT_PROB:"Дата апробирования",
             REASON_OH:"Причины ОХ",
             PR_DATA_OH_OUT:"Дата снятия с ОХ",
