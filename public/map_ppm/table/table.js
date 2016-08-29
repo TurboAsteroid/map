@@ -41,7 +41,7 @@ angular.module('tableModule', ['ngRoute'])
             ZVIDTRANSP:"Вид транспорта",
             PR_ZDAT_PROB:"Дата апробирования",
             PR_NOTE: "Заметки",
-            date:"Дата отчета",
+            date:"Дата отчета"
             // ZDATV:"Дата отчета"
         };
 
