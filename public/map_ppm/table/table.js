@@ -32,6 +32,8 @@ angular.module('tableModule', ['ngRoute'])
             MENGE: "Остаток",
             MENGE_END_OH:"Остаток на ОХ",
             MEINS: "Ед. изм.",
+            PR_NOTE: "Заметки",
+            PR_ZDAT_PROB:"Дата апробирования",
             REASON_OH:"Причины ОХ",
             PR_DATA_OH_OUT:"Дата снятия с ОХ",
             NAME_ZPOST: "Поставщик",
@@ -39,8 +41,6 @@ angular.module('tableModule', ['ngRoute'])
             ZDATOUT:"Дата отправления",
             ZDATIN:"Дата поступления",
             ZVIDTRANSP:"Вид транспорта",
-            PR_ZDAT_PROB:"Дата апробирования",
-            PR_NOTE: "Заметки",
             date:"Дата отчета",
             // ZDATV:"Дата отчета"
         };
