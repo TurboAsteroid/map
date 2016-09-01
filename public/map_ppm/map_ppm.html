@@ -1,11 +1,13 @@
-<md-toolbar>
+<md-toolbar style="position:fixed !important; top:0 !important; left:0 !important;">
     <div class="md-toolbar-tools">
         <h1 class="md-display-1">
             <span>Интерактивная карта ППМ</span>
         </h1>
+        <span flex></span>
+        <input class="md-body-2" style="height: 30px" placeholder="  Поиск">
     </div>
 </md-toolbar>
-<md-content>
+<md-content style="padding-top: 64px">
     <div class="md-padding" layout-sm="column" layout-xs="column" layout-md="column" layout="row">
         <div flex-gt-md="50" layout="column">
             <md-card>
@@ -23,9 +25,9 @@
         </div>
     </div>
     <div layout="column">
-        <md-card>
+        <md-card ng-show="$root.raw">
             <md-content>
-                <div ng-show="$root.raw" id="splineTimeline"></div>
+                <div id="splineTimeline"></div>
             </md-content>
         </md-card>
         <md-card>
