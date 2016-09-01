@@ -1,6 +1,6 @@
 'use strict';
 angular.module('map_ppmModule', ['ngRoute', 'ngMaterial', 'directivesModule', 'factoriesModule', 'tableModule', 'diagramModule', 'map_svgModule'])
-    .controller('map_ppmController', function($scope, $location, $routeParams, $rootScope, $http) {
+    .controller('map_ppmController', function($scope, $location, $routeParams, $rootScope, $http, localStorageService, TableData) {
         $http({
             method: 'GET',
             url: '/api/is'
@@ -8,7 +8,7 @@ angular.module('map_ppmModule', ['ngRoute', 'ngMaterial', 'directivesModule', 'f
         }, function errorCallback(response) {
             $location.path('/');
         });
-
+        $scope.act = "";
         var place = $location.search().place;
         var raw = $location.search().raw;
         var zone = $location.search().svg_zone;
@@ -28,7 +28,6 @@ angular.module('map_ppmModule', ['ngRoute', 'ngMaterial', 'directivesModule', 'f
             $rootScope.raw = raw;
             $rootScope.zone = zone;
         });
-
 
         Highcharts.setOptions({
             lang: {
@@ -50,4 +49,30 @@ angular.module('map_ppmModule', ['ngRoute', 'ngMaterial', 'directivesModule', 'f
                 drillUpText: 'Назад к {series.name}'
             }
         });
+
+        $scope.search_act = function () {
+            if($scope.act != "" && $scope.act != undefined && $scope.act != null && ($scope.act.length > 2)) {
+                $location.search().timestamp = "1472705824744";
+                $http({
+                    method: 'post',
+                    url: '/api/search',
+                    data: {search_act: $scope.act, timestamp: parseInt($location.search().timestamp)}
+                }).then(function successCallback(response) {
+                    if (response.data.success) {
+                        TableData.set(response.data.results);
+                        $rootScope.act = response.data.act;
+                    }
+                }, function errorCallback(response) {
+                    if (!response.data.success) {
+                        $rootScope.load = false;
+                        console.log('search_act request error');
+                    }
+                    $location.path('/');
+                });
+            }
+            else {
+                TableData.set({});
+                $rootScope.act = $scope.act;
+            }
+        }
     });

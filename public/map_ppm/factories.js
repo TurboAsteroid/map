@@ -49,6 +49,17 @@ angular.module('factoriesModule', [])
             }
         };
     })
+    .factory('TableData', function() {
+        var table_data = {};
+        return {
+            set: function(new_table_data) {
+                table_data = new_table_data;
+            },
+            get: function() {
+                return table_data;
+            }
+        };
+    })
 
     .service('MapData', function($http, $rootScope, $location) {
         var mapData;

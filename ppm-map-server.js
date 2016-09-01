@@ -348,7 +348,8 @@ apiRoutes.post('/api/search', function (req, res) {
             if (err) throw err;
             res.status(200).send({
                 success: true,
-                results: results
+                results: results,
+                act: req.body.search_act
             });
         }
     );
