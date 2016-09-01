@@ -28,7 +28,7 @@ var dateConstructor = function (date, dateNow, showOnly) {
 };
 schedule.scheduleJob('0 20 * * * *', function(){
 //schedule.scheduleJob('0-59 * * * * *', function(){
-    var date = (new Date()).toGMTString();
+    var date = new Date();
     var timestamp = date.getTime();
     MongoClient.connect(url, function(err, db) {
         dbCon = db;
