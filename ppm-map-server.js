@@ -144,7 +144,7 @@ apiRoutes.get('/api/logout', function (req, res) {
 });
 
 //Получение данных диаграмы, checkAuth
-apiRoutes.post('/api/get_diagram', function (req, res, next) {
+apiRoutes.post('/api/get_diagram', function (req, res) {
     var request = {};
     request.date = {
         $gt: new Date(Date.now() - 1*60*60*1000),
@@ -331,6 +331,27 @@ apiRoutes.get('/api/map_legend', function (req, res) {
         }
     );
 
+});
+
+//Поиск
+apiRoutes.post('/api/search', function (req, res) {
+    var act = req.body.search_act;
+    var timestamp = req.body.timestamp;
+
+    async.waterfall(
+        [
+            async.apply(function(callback){
+                dbCon.collection('sap_data').find({PR_NUMBER_ACT: {$regex: '.*'+act+'.*'}, timestamp: parseInt(timestamp) }).toArray(callback);
+            })
+        ],
+        function(err, results){
+            if (err) throw err;
+            res.status(200).send({
+                success: true,
+                results: results
+            });
+        }
+    );
 });
 
 app.use('/', apiRoutes);
