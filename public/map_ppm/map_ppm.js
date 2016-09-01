@@ -29,6 +29,75 @@ angular.module('map_ppmModule', ['ngRoute', 'ngMaterial', 'directivesModule', 'f
             $rootScope.zone = zone;
         });
 
+
+        $http({
+            method: 'POST',
+            url: '/api/get_times/',
+            data: {zone: zone, place: place, raw: raw, date: date}
+        }).then(function successCallback(response) {
+            var dates = response.data.dates;
+            $scope.myDate = $routeParams.date ? new Date(parseInt($routeParams.date)) : new Date();
+            $scope.maxDate = new Date();
+            $scope.minDate = new Date(
+                dates[dates.length - 1].year,
+                dates[dates.length - 1].month-1,
+                dates[dates.length - 1].day
+            );
+
+            $scope.onlyOurDates = function(date) {
+                for (var d in dates) {
+                    if (
+                        date.getFullYear() == dates[d].year &&
+                        date.getMonth()+1 == dates[d].month &&
+                        date.getDate() == dates[d].day
+                    ) {
+                        return true;
+                    }
+                }
+                return false;
+            };
+
+            $scope.getTimes($scope.myDate, dates);
+            if ($routeParams.date) {
+                $scope.currentTime = new Date(parseInt($routeParams.date)).getTime();
+            }
+            $scope.dateChanged = function(){
+                $scope.getTimes($scope.myDate, dates);
+            };
+        }, function errorCallback(response) {
+            if (!response.data.success) {
+                $rootScope.load = false;
+                console.log('times request error');
+            }
+            $location.path('/');
+        });
+
+        $scope.timeChanged = function(){
+            var search = $routeParams;
+            search.date = $scope.currentTime;
+            $location.search(search);
+        };
+        $scope.getTimes = function(date, dates){
+            $scope.dayTimes = [];
+            $scope.currentTime = 0;
+            for (var d in dates) {
+                if (
+                    date.getFullYear() == dates[d].year &&
+                    date.getMonth()+1 == dates[d].month &&
+                    date.getDate() == dates[d].day
+                ) {
+                    $scope.dayTimes.push({
+                        time: dates[d].hour + ':' + dates[d].mins,
+                        timestamp: dates[d].timestamp
+                    });
+                    if ($scope.currentTime < dates[d].timestamp) {
+                        $scope.currentTime = dates[d].timestamp;
+                    }
+                }
+            }
+            $scope.timeChanged();
+        };
+
         Highcharts.setOptions({
             lang: {
                 loading: 'Загрузка...',

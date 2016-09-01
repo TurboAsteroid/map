@@ -32,12 +32,12 @@ angular.module('directivesModule', [])
                         });
                         i++;
                     }
+
                     for (s_id in ppm) {
                         var storage_id = ppm[s_id].N_KART //номер склада
                         var place_id = ppm[s_id].LGORT //номер места
                         var raw_name = ppm[s_id].MATNR_CPH_PPM //Название сырья
                         var raw_count = ppm[s_id].MENGE //Количество сырья
-
                         if (tmp_place.indexOf(mapData.storages[storage_id].area+'|'+storage_id+'|'+place_id) == -1) {
                             tmp_place.push(mapData.storages[storage_id].area+'|'+storage_id+'|'+place_id);
                             new_data.push({

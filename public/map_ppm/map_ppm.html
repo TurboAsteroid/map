@@ -1,8 +1,14 @@
 <md-toolbar style="position:fixed !important; top:0 !important; left:0 !important;">
     <div class="md-toolbar-tools">
         <h1 class="md-display-1">
-            <span>Интерактивная карта ППМ</span>
+            <span>Интерактивная карта ППМ по состоянию на</span>
         </h1>
+        <md-datepicker ng-model="myDate" md-placeholder="lastDate" md-min-date="minDate" md-max-date="maxDate" md-hide-icons="all" md-open-on-focus="" md-date-filter="onlyOurDates" ng-change="dateChanged(this)"></md-datepicker>
+        <md-select ng-model="currentTime" ng-change="timeChanged()">
+            <md-option ng-repeat="time in dayTimes" ng-value="time.timestamp">
+                {{time.time}}
+            </md-option>
+        </md-select>
         <span flex></span>
         <input class="md-body-2" style="height: 30px" placeholder="  Поиск" ng-change="search_act()" ng-model="act">
     </div>
