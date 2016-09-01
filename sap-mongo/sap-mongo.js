@@ -1,5 +1,6 @@
 var express = require('express');
 var MongoClient = require('mongodb').MongoClient;
+var ObjectId = require('mongodb').ObjectId;
 var schedule = require('node-schedule');
 var request = require('request');
 var fs = require('fs');
@@ -25,12 +26,19 @@ var dateConstructor = function (date, dateNow, showOnly) {
         date = date.slice(6, 8) + '.' + date.slice(4, 6) + '.' + date.slice(0, 4);
     return date;
 };
-
 schedule.scheduleJob('0 20 * * * *', function(){
 //schedule.scheduleJob('0-59 * * * * *', function(){
-    var date = new Date();
+    var date = (new Date()).toGMTString();
+    var timestamp = date.getTime();
     MongoClient.connect(url, function(err, db) {
         dbCon = db;
+        var o_id = new ObjectId("57c6c22711b7d8941b3ddf1c");
+        dbCon.collection("variables").update({ "_id": o_id }, {
+            $set: {
+                "lastReportDate": date,
+                "timestamp": timestamp
+            }
+        });
         var url = app.get('sap');
         var url_now;
         for (var i = 1; i < 33; i++) {
@@ -54,6 +62,7 @@ schedule.scheduleJob('0 20 * * * *', function(){
                         json[j].PR_DATA_OH_OUT = dateConstructor(json[j].PR_DATA_OH_OUT, date, true);
                         json[j].ZDATV = dateConstructor(json[j].ZDATV, date, false);
                         json[j].date = date;
+                        json[j].timestamp = timestamp;
                     }
                     dbCon.collection('sap_data').insert(json);
                 }
