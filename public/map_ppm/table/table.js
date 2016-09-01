@@ -1,6 +1,6 @@
 'use strict';
 angular.module('tableModule', ['ngRoute'])
-    .controller('tableController', function($scope, $http, $location, User, $routeParams, $mdDialog, localStorageService, $rootScope) {
+    .controller('tableController', function($scope, $http, $location, User, $routeParams, $mdDialog, localStorageService, $rootScope, TableData) {
         $scope.sortType     = false;
         $scope.sortReverse  = false;
         $scope.$on('onRepeatLast', function(scope, element, attrs){
@@ -54,6 +54,19 @@ angular.module('tableModule', ['ngRoute'])
         }, function(table) {
             if($routeParams.place || $routeParams.raw) {
                 load_place($routeParams.svg_zone, $routeParams.place, $routeParams.raw, $routeParams.date );
+            }
+        });
+
+        $scope.$watch(function(){
+            return $rootScope.act;
+        }, function(act) {
+            if(act != "" && act != undefined && act != null && ($scope.act.length > 2)) {
+                $scope.table_data = TableData.get();
+                $rootScope.table = "Результаты поиска";
+            }
+            else {
+                $rootScope.act = $scope.act;
+                $rootScope.table = undefined;
             }
         });
 
@@ -146,23 +159,24 @@ angular.module('tableModule', ['ngRoute'])
             });
         }
 
-        $scope.search_text = "";
-        $scope.search = function () {
-            $scope.search_text = $scope.search_text.toLowerCase();
-            $scope.table_data_S = [];
-            var obj, i = 0;
-            for(obj in $scope.table_data_O) {
-                var item;
-                for(item in $scope.table_data_O[obj]) {
-                    if((($scope.table_data_O[obj][item]).toLowerCase()).indexOf($scope.search_text) != -1) {
-                        $scope.table_data_S[i] = $scope.table_data_O[obj];
-                        i++;
-                        break;
-                    }
-                }
-            }
-            $scope.table_data = $scope.table_data_S;
-        };
+        // DISABLED
+        // $scope.search_text = "";
+        // $scope.search = function () {
+        //     $scope.search_text = $scope.search_text.toLowerCase();
+        //     $scope.table_data_S = [];
+        //     var obj, i = 0;
+        //     for(obj in $scope.table_data_O) {
+        //         var item;
+        //         for(item in $scope.table_data_O[obj]) {
+        //             if((($scope.table_data_O[obj][item]).toLowerCase()).indexOf($scope.search_text) != -1) {
+        //                 $scope.table_data_S[i] = $scope.table_data_O[obj];
+        //                 i++;
+        //                 break;
+        //             }
+        //         }
+        //     }
+        //     $scope.table_data = $scope.table_data_S;
+        // };
 
         $scope.theadClick = function (key) {
             $scope.sortType = key;

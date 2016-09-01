@@ -22,7 +22,6 @@ angular.module('appMAP', ['ngRoute', 'ngMaterial', 'authModule', 'map_ppmModule'
         $scope.go = function (path) {
             $location.path(path);
         };
-
         $scope.logout = function () {
             $http({
                 method: 'GET',
