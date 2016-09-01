@@ -54,6 +54,22 @@ MongoClient.connect(url, function(err, db) {
 
 app.use(express.static('public')); //папка со статическими файлами
 
+var reportDate;
+
+app.all('*', function(req, res, next){
+    async.parallel(
+        [
+            function(callback){
+                dbCon.collection('variables').findOne({}, {timestamp: 1}, callback);
+            }
+        ],
+        function(err, results){
+            reportDate = req.body.date ? parseInt(req.body.date) : results[0].timestamp;
+            next();
+        }
+    )
+});
+
 //аутентификация пользователя
 function auth(userAndPassword, callback) {
     var username = userAndPassword.username;
@@ -146,12 +162,8 @@ apiRoutes.get('/api/logout', function (req, res) {
 //Получение данных диаграмы, checkAuth
 apiRoutes.post('/api/get_diagram', function (req, res) {
     var request = {};
-    request.date = {
-        $gt: new Date(Date.now() - 1*60*60*1000),
-        $lte: new Date()
-    };
 
-
+    request.timestamp = reportDate;
 
     if (req.body.zone) {
         request.N_KART = req.body.zone.toString();
@@ -216,10 +228,7 @@ apiRoutes.get('/api/get_storages', function (req, res) {
     async.parallel(
         [
             function(callback){
-                dbCon.collection('sap_data').find({"date": {
-                    $gt: new Date(Date.now() - 1*60*60*1000),
-                    $lte: new Date()
-                }}).toArray(callback);
+                dbCon.collection('sap_data').find({"timestamp": reportDate}).toArray(callback);
             }
         ],
         function(err, results){
@@ -238,8 +247,6 @@ apiRoutes.post('/api/get_table', function (req, res) {
     var N_KART = req.body.zone;
     var LGORT = req.body.place;
     var MATNR_CPH_PPM = req.body.raw;
-    var d = new Date();
-    var date = req.body.date ? parseInt(req.body.date) + d.getTimezoneOffset()*60*1000 : Date.now();
 
     async.parallel(
         [
@@ -250,10 +257,7 @@ apiRoutes.post('/api/get_table', function (req, res) {
                 //TODO: Заменить на код сырья
                 if (MATNR_CPH_PPM) request.MATNR_CPH_PPM = MATNR_CPH_PPM.toString();
 
-                request.date = {
-                    $gt: new Date(date - 1*60*60*1000),
-                    $lte: new Date(parseInt(date))
-                };
+                request.timestamp = reportDate;
                 dbCon.collection('sap_data').find(request, {_id: 0}).toArray(callback);
             },
             function(callback){
@@ -262,10 +266,14 @@ apiRoutes.post('/api/get_table', function (req, res) {
                 if (LGORT) request.LGORT = LGORT.toString();
                 //TODO: Заменить на код сырья
                 if (MATNR_CPH_PPM) request.MATNR_CPH_PPM = MATNR_CPH_PPM.toString();
-                dbCon.collection('sap_data').aggregate([{$match: request}, {$group: {
-                    _id: "$date",
-                    total: { $sum: "$MENGE" }
-                }}]).sort({_id: 1}).toArray(callback);
+                request.timestamp = {$exists: true};
+                dbCon.collection('sap_data').aggregate([
+                    {$match: request},
+                    {$group: {
+                        _id: "$timestamp",
+                        total: { $sum: "$MENGE" }
+                    }
+                }]).sort({_id: 1}).toArray(callback);
             },
             function(callback){
                 dbCon.collection('storages').findOne({storage_id: parseInt(N_KART)},{name: 1},callback);
@@ -274,19 +282,14 @@ apiRoutes.post('/api/get_table', function (req, res) {
         function(err, results){
             if (err) throw err;
             for (var i in results[0]) {
-                var date = new Date(results[0][i].date);
-                results[0][i].date = date.getDate()+'.'+(date.getMonth()+1)+'.'+date.getFullYear()+' '+date.getHours()+':'+date.getMinutes();
                 results[0][i].PLOSH = results[2].name;
                 results[0][i].MENGE = results[0][i].MENGE.toFixed(3);
             }
 
             var timeline = [];
             for (var j in results[1]) {
-                var d = new Date(results[1][j]._id);
-                var time = d.getTime()-d.getTimezoneOffset()*60*1000;
-
                 timeline.push([
-                    time,
+                    results[1][j]._id,
                     parseFloat(results[1][j].total.toFixed(3))
                 ]);
             }
@@ -300,6 +303,24 @@ apiRoutes.post('/api/get_table', function (req, res) {
     );
 });
 
+//Получение времени выгрузок
+apiRoutes.post('/api/get_times', function (req, res) {
+    async.parallel(
+        [
+            function(callback) {
+                dbCon.collection('dates_list').find().sort({timestamp: -1}).toArray(callback);
+            }
+        ],
+        function(err, results){
+            if (err) throw err;
+
+            res.status(200).send({
+                success: true,
+                dates: results[0]
+            });
+        }
+    );
+});
 //Получение информации по карте
 apiRoutes.get('/api/map_legend', function (req, res) {
     async.parallel(
@@ -330,7 +351,6 @@ apiRoutes.get('/api/map_legend', function (req, res) {
             });
         }
     );
-
 });
 
 //Поиск

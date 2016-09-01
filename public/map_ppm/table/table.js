@@ -45,8 +45,9 @@ angular.module('tableModule', ['ngRoute'])
             ZDATOUT:"Дата отправления",
             ZVIDTRANSP:"Вид транспорта",
             LGORT: "Место хранения",
-            // date:"Дата отчета",
-            // ZDATV:"Дата отчета"
+            // date: "Дата отчета",
+            // ZDATV: "Дата отчета"
+            // timestamp: "Дата отчета"
         };
 
         $scope.$watch(function(){
@@ -132,18 +133,7 @@ angular.module('tableModule', ['ngRoute'])
                             series: [{
                                 type: 'area',
                                 name: $rootScope.raw,
-                                data: response.data.timeline,
-                                events: {
-                                    click: function (event) {
-                                        $location.search({
-                                            'svg_zone': $routeParams.svg_zone,
-                                            'place': null,
-                                            'raw': $routeParams.raw,
-                                            'date': event.point.x
-                                        });
-                                        $scope.$apply();
-                                    }
-                                }
+                                data: response.data.timeline
                             }]
                         });
                     } else {

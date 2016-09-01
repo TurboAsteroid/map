@@ -1,6 +1,6 @@
 'use strict';
 angular.module('appMAP', ['ngRoute', 'ngMaterial', 'authModule', 'map_ppmModule', 'LocalStorageModule'])
-    .config(function($routeProvider) {
+    .config(function($routeProvider, $mdDateLocaleProvider) {
         $routeProvider
             .when('/', {
                     templateUrl : 'auth/auth.html',
@@ -12,7 +12,18 @@ angular.module('appMAP', ['ngRoute', 'ngMaterial', 'authModule', 'map_ppmModule'
                 reloadOnSearch: false
             })
             .otherwise({ redirectTo: '/' });
+        $mdDateLocaleProvider.formatDate = function(date) {
+            date = new Date(date);
+            var day = date.getDate();
+            var month = date.getMonth() + 1;
+            var year = date.getFullYear();
 
+            return day + "-" + month + "-" + year;
+        };
+        $mdDateLocaleProvider.months = ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'];
+        $mdDateLocaleProvider.shortMonths = ['Янв', 'Фев', 'Март', 'Апр', 'Май', 'Июнь', 'Июль', 'Авг', 'Сент', 'Окт', 'Нояб', 'Дек'];
+        $mdDateLocaleProvider.days = ['Воскресенье', 'Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота'];
+        $mdDateLocaleProvider.shortDays = ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб' ];
     })
     .config(function($mdThemingProvider) {
         $mdThemingProvider.theme('default');
