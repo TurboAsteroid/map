@@ -69,9 +69,9 @@ angular.module('map_ppmModule', ['ngRoute', 'ngMaterial', 'directivesModule', 'f
             $location.path('/');
         });
 
-        $scope.timeChanged = function(){
+        $scope.timeChanged = function(notupdate){
             var search = $routeParams;
-            if ($scope.currentTime) {
+            if ($routeParams.date || !notupdate) {
                 search.date = $scope.currentTime;
             }
             $location.search(search);
@@ -90,7 +90,7 @@ angular.module('map_ppmModule', ['ngRoute', 'ngMaterial', 'directivesModule', 'f
                     });
                 }
             }
-            $scope.timeChanged();
+            $scope.timeChanged(true);
         };
 
         Highcharts.setOptions({
