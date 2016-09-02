@@ -5,20 +5,20 @@ angular.module('search_by_actModule', ['ngRoute'])
         $scope.sortReverse  = false;
         $scope.$on('onRepeatLast', function(scope, element, attrs){
             $('html,body').animate({
-                scrollTop: $("#datatable_anchor").offset().top
+                scrollTop: $("#datatable_anchor2").offset().top
             }, 500);
             calculate_thead();
         });
 
         function calculate_thead() {
-            var old_thead = $('#place_datatable thead:not(.duplicate_thead)');
-            var new_thead = $('#place_datatable thead.duplicate_thead');
+            var old_thead = $('#place_datatable2 thead:not(.duplicate_thead)');
+            var new_thead = $('#place_datatable2 thead.duplicate_thead');
             old_thead.find('th').each(function () {
                 var ind = old_thead.find('th').index(this);
                 new_thead.find('th').filter(':eq('+ind+')').add($(this)).css({width: $(this).width()})
             });
         }
-        $('#place_datatable').scroll(function () {
+        $('#place_datatable2').scroll(function () {
             $(this).find('thead.duplicate_thead').show().css('top', $(this).scrollTop());
         });
 
