@@ -316,7 +316,8 @@ apiRoutes.post('/api/get_times', function (req, res) {
 
             res.status(200).send({
                 success: true,
-                dates: results[0]
+                dates: results[0],
+                lastDate: reportDate
             });
         }
     );
