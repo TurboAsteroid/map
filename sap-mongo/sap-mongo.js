@@ -38,7 +38,7 @@ schedule.scheduleJob('0 20 * * * *', function(){
         dbCon.collection("dates_list").insert({
             "timestamp": timestamp,
             "day": date.getDate(),
-            "month": date.getMonth(),
+            "month": date.getMonth()+1,
             "year": date.getFullYear(),
             "hour": date.getHours(),
             "mins": date.getMinutes()
