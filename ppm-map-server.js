@@ -357,7 +357,7 @@ apiRoutes.get('/api/map_legend', function (req, res) {
 //Поиск
 apiRoutes.post('/api/search', function (req, res) {
     var act = req.body.search_act;
-    var timestamp = req.body.timestamp;
+    var timestamp = req.body.timestamp || reportDate;
 
     async.waterfall(
         [
