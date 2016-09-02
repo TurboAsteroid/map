@@ -56,8 +56,6 @@ angular.module('map_ppmModule', ['ngRoute', 'ngMaterial', 'directivesModule', 'f
                 $scope.dayDayts.push({timestamp:tmp_dates[d].timestamp, date: tmp_dates[d].day+'-'+tmp_dates[d].month+'-'+tmp_dates[d].year});
             }
 
-            // console.log($scope.currentDate, new Date($scope.currentDate));
-
             $scope.currentTime = $scope.myDate.getTime();
             $scope.getTimes(dates);
             $scope.dateChanged = function(){
@@ -73,12 +71,13 @@ angular.module('map_ppmModule', ['ngRoute', 'ngMaterial', 'directivesModule', 'f
 
         $scope.timeChanged = function(){
             var search = $routeParams;
-            search.date = $scope.currentTime;
+            if ($scope.currentTime) {
+                search.date = $scope.currentTime;
+            }
             $location.search(search);
         };
         $scope.getTimes = function(dates){
             $scope.dayTimes = [];
-            $scope.currentTime = 0;
             for (var d in dates) {
                 if (
                     $scope.myDate.getFullYear() == dates[d].year &&

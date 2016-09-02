@@ -46,7 +46,8 @@ angular.module('tableModule', ['ngRoute'])
             ZVIDTRANSP:"Вид транспорта",
             LGORT: "Место хранения",
             // date: "Дата отчета",
-            // ZDATV: "Дата отчета"
+            // ZDATV: "Дата отчета",
+            // TIMEV: "Время отчета",
             // timestamp: "Дата отчета"
         };
 

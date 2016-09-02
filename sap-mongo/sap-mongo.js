@@ -29,7 +29,9 @@ var dateConstructor = function (date, dateNow, showOnly) {
 schedule.scheduleJob('0 20 * * * *', function(){
 //schedule.scheduleJob('0-59 * * * * *', function(){
     var date = new Date();
+    console.log(date);
     date = new Date(date.getTime() - date.getTimezoneOffset()*60*1000);
+    console.log(date);
     var timestamp = date.getTime();
 
     MongoClient.connect(url, function(err, db) {
@@ -37,11 +39,11 @@ schedule.scheduleJob('0 20 * * * *', function(){
         var o_id = new ObjectId("57c6c22711b7d8941b3ddf1c");
         dbCon.collection("dates_list").insert({
             "timestamp": timestamp,
-            "day": date.getDate(),
-            "month": date.getMonth()+1,
-            "year": date.getFullYear(),
-            "hour": date.getHours(),
-            "mins": date.getMinutes()
+            "day": date.getUTCDate(),
+            "month": date.getUTCMonth()+1,
+            "year": date.getUTCFullYear(),
+            "hour": date.getUTCHours(),
+            "mins": date.getUTCMinutes()
         });
         dbCon.collection("variables").update({ "_id": o_id }, {
             $set: {
