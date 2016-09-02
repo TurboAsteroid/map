@@ -29,10 +29,20 @@ var dateConstructor = function (date, dateNow, showOnly) {
 schedule.scheduleJob('0 20 * * * *', function(){
 //schedule.scheduleJob('0-59 * * * * *', function(){
     var date = new Date();
+    date = new Date(date.getTime() - date.getTimezoneOffset()*60*1000);
     var timestamp = date.getTime();
+
     MongoClient.connect(url, function(err, db) {
         dbCon = db;
         var o_id = new ObjectId("57c6c22711b7d8941b3ddf1c");
+        dbCon.collection("dates_list").insert({
+            "timestamp": timestamp,
+            "day": date.getDate(),
+            "month": date.getMonth()+1,
+            "year": date.getFullYear(),
+            "hour": date.getHours(),
+            "mins": date.getMinutes()
+        });
         dbCon.collection("variables").update({ "_id": o_id }, {
             $set: {
                 "lastReportDate": date,

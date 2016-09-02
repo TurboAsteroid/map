@@ -3,7 +3,13 @@
         <h1 class="md-display-1">
             <span>Интерактивная карта ППМ по состоянию на</span>
         </h1>
-        <md-datepicker ng-model="myDate" md-placeholder="lastDate" md-min-date="minDate" md-max-date="maxDate" md-hide-icons="all" md-open-on-focus="" md-date-filter="onlyOurDates" ng-change="dateChanged(this)"></md-datepicker>
+
+        <md-select ng-model="currentDate" ng-change="dateChanged()">
+            <md-option ng-repeat="date in dayDayts" ng-value="date.timestamp">
+                {{date.date}}
+            </md-option>
+        </md-select>
+
         <md-select ng-model="currentTime" ng-change="timeChanged()">
             <md-option ng-repeat="time in dayTimes" ng-value="time.timestamp">
                 {{time.time}}
