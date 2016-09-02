@@ -36,33 +36,32 @@ angular.module('map_ppmModule', ['ngRoute', 'ngMaterial', 'directivesModule', 'f
             data: {zone: zone, place: place, raw: raw, date: date}
         }).then(function successCallback(response) {
             var dates = response.data.dates;
-            $scope.myDate = $routeParams.date ? new Date(parseInt($routeParams.date)) : new Date();
-            $scope.maxDate = new Date();
-            $scope.minDate = new Date(
-                dates[dates.length - 1].year,
-                dates[dates.length - 1].month-1,
-                dates[dates.length - 1].day
-            );
+            $scope.myDate = $routeParams.date ? new Date(parseInt($routeParams.date)) : new Date(parseInt(response.data.lastDate));
+            var tmp_dates = {};
+            for (var d in dates) {
+                if (!tmp_dates[dates[d].year+'-'+dates[d].months+'-'+dates[d].day] || tmp_dates[dates[d].year+'-'+dates[d].months+'-'+dates[d].day].timestamp < dates[d].timestamp) {
+                    tmp_dates[dates[d].year+'-'+dates[d].months+'-'+dates[d].day] = dates[d];
 
-            $scope.onlyOurDates = function(date) {
-                for (var d in dates) {
                     if (
-                        date.getFullYear() == dates[d].year &&
-                        date.getMonth()+1 == dates[d].month &&
-                        date.getDate() == dates[d].day
+                        $scope.myDate.getFullYear() == dates[d].year &&
+                        $scope.myDate.getMonth()+1 == dates[d].month &&
+                        $scope.myDate.getDate() == dates[d].day
                     ) {
-                        return true;
+                        $scope.currentDate = dates[d].timestamp;
                     }
                 }
-                return false;
-            };
-
-            $scope.getTimes($scope.myDate, dates);
-            if ($routeParams.date) {
-                $scope.currentTime = new Date(parseInt($routeParams.date)).getTime();
             }
+            $scope.dayDayts = [];
+            for (var d in tmp_dates) {
+                $scope.dayDayts.push({timestamp:tmp_dates[d].timestamp, date: tmp_dates[d].day+'-'+tmp_dates[d].month+'-'+tmp_dates[d].year});
+            }
+
+            // console.log($scope.currentDate, new Date($scope.currentDate));
+
+            $scope.currentTime = $scope.myDate.getTime();
+            $scope.getTimes(dates);
             $scope.dateChanged = function(){
-                $scope.getTimes($scope.myDate, dates);
+                $scope.getTimes(dates);
             };
         }, function errorCallback(response) {
             if (!response.data.success) {
@@ -77,22 +76,19 @@ angular.module('map_ppmModule', ['ngRoute', 'ngMaterial', 'directivesModule', 'f
             search.date = $scope.currentTime;
             $location.search(search);
         };
-        $scope.getTimes = function(date, dates){
+        $scope.getTimes = function(dates){
             $scope.dayTimes = [];
             $scope.currentTime = 0;
             for (var d in dates) {
                 if (
-                    date.getFullYear() == dates[d].year &&
-                    date.getMonth()+1 == dates[d].month &&
-                    date.getDate() == dates[d].day
+                    $scope.myDate.getFullYear() == dates[d].year &&
+                    $scope.myDate.getMonth()+1 == dates[d].month &&
+                    $scope.myDate.getDate() == dates[d].day
                 ) {
                     $scope.dayTimes.push({
                         time: dates[d].hour + ':' + dates[d].mins,
                         timestamp: dates[d].timestamp
                     });
-                    if ($scope.currentTime < dates[d].timestamp) {
-                        $scope.currentTime = dates[d].timestamp;
-                    }
                 }
             }
             $scope.timeChanged();
