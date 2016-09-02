@@ -1,6 +1,6 @@
 'use strict';
-angular.module('map_ppmModule', ['ngRoute', 'ngMaterial', 'directivesModule', 'factoriesModule', 'tableModule', 'diagramModule', 'map_svgModule'])
-    .controller('map_ppmController', function($scope, $location, $routeParams, $rootScope, $http, localStorageService, TableData) {
+angular.module('map_ppmModule', ['ngRoute', 'ngMaterial', 'directivesModule', 'factoriesModule', 'tableModule', 'diagramModule', 'map_svgModule', 'search_by_actModule'])
+    .controller('map_ppmController', function($scope, $location, $routeParams, $rootScope, $http, TableData) {
         $http({
             method: 'GET',
             url: '/api/is'
@@ -115,7 +115,11 @@ angular.module('map_ppmModule', ['ngRoute', 'ngMaterial', 'directivesModule', 'f
         });
 
         $scope.search_act = function () {
-            if($scope.act != "" && $scope.act != undefined && $scope.act != null && ($scope.act.length > 2)) {
+            if($scope.act != undefined || $scope.act != null)
+                var act = $scope.act.toString();
+            else
+                var act = "";
+            if(act != "" && act != undefined && act != null && (act.length > 2)) {
                 $location.search().timestamp = "1472705824744";
                 $http({
                     method: 'post',
@@ -136,7 +140,7 @@ angular.module('map_ppmModule', ['ngRoute', 'ngMaterial', 'directivesModule', 'f
             }
             else {
                 TableData.set({});
-                $rootScope.act = $scope.act;
+                $rootScope.act = act;
             }
         }
     });
