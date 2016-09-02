@@ -18,7 +18,7 @@ angular.module('appMAP', ['ngRoute', 'ngMaterial', 'authModule', 'map_ppmModule'
             var month = date.getMonth() + 1;
             var year = date.getFullYear();
 
-            return day + "-" + month + "-" + year;
+            return day + "." + month + "." + year;
         };
         $mdDateLocaleProvider.months = ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'];
         $mdDateLocaleProvider.shortMonths = ['Янв', 'Фев', 'Март', 'Апр', 'Май', 'Июнь', 'Июль', 'Авг', 'Сент', 'Окт', 'Нояб', 'Дек'];
