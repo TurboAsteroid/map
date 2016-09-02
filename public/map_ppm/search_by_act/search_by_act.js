@@ -32,9 +32,9 @@ angular.module('search_by_actModule', ['ngRoute'])
             // PR_MATNR_CPH_PPM:" Код сырья",
             MENGE: "Остаток",
             MENGE_END_OH:"Остаток на ОХ",
-            CU: "Cu",
-            AU: "Au",
-            AG: "Ag",
+            CU_END: "Cu",
+            AU_END: "Au",
+            AG_END: "Ag",
             MEINS: "Ед. изм.",
             PR_NOTE: "Заметки",
             PR_ZDAT_PROB:"Дата отбора проб",
@@ -46,7 +46,8 @@ angular.module('search_by_actModule', ['ngRoute'])
             ZVIDTRANSP:"Вид транспорта",
             LGORT: "Место хранения",
             // date: "Дата отчета",
-            // ZDATV: "Дата отчета"
+            // ZDATV: "Дата отчета",
+            // TIMEV: "Время отчета",
             // timestamp: "Дата отчета"
         };
 
