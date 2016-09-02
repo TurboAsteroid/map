@@ -60,7 +60,7 @@ angular.module('search_by_actModule', ['ngRoute'])
             $scope.table_data.sort(function(a, b) {
                 var val1 = a[key];
                 var val2 = b[key];
-                if (["LGORT","PR_NUMBER_ACT","MENGE","MENGE_END_OH"].indexOf(key) != -1 ) {
+                if (["LGORT","PR_NUMBER_ACT","MENGE","MENGE_END_OH", "CU_END", "AU_END", "AG_END"].indexOf(key) != -1 ) {
                     val1 = parseFloat(val1);
                     val2 = parseFloat(val2);
                 } else if (["PR_DATA_OH_OUT","ZDATOUT","ZDATIN","PR_ZDAT_PROB"].indexOf(key) != -1 ) {
