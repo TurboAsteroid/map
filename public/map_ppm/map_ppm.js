@@ -120,11 +120,11 @@ angular.module('map_ppmModule', ['ngRoute', 'ngMaterial', 'directivesModule', 'f
             else
                 var act = "";
             if(act != "" && act != undefined && act != null && (act.length > 2)) {
-                $location.search().timestamp = "1472705824744";
+                var timestamp =  parseInt($location.search().date);
                 $http({
                     method: 'post',
                     url: '/api/search',
-                    data: {search_act: $scope.act, timestamp: parseInt($location.search().timestamp)}
+                    data: {search_act: $scope.act, timestamp: timestamp}
                 }).then(function successCallback(response) {
                     if (response.data.success) {
                         TableData.set(response.data.results);

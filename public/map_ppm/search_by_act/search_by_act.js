@@ -118,7 +118,7 @@ angular.module('search_by_actModule', ['ngRoute'])
                 act = act.toString();
             else
                 act = "";
-            if(act != "" && act != undefined && act != null && (act.length > 2)) {
+            if(act != "" && act != undefined && act != null && (act.length > 2) && act == $scope.act) {
                 $scope.table_data = TableData.get();
                 $scope.table_name = "Результаты поиска";
             }
