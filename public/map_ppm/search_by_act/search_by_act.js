@@ -1,6 +1,6 @@
 'use strict';
-angular.module('tableModule', ['ngRoute'])
-    .controller('tableController', function($scope, $http, $location, User, $routeParams, $mdDialog, localStorageService, $rootScope) {
+angular.module('search_by_actModule', ['ngRoute'])
+    .controller('search_by_actController', function($scope, $http, $location, User, $routeParams, $mdDialog, localStorageService, TableData, $rootScope) {
         $scope.sortType     = false;
         $scope.sortReverse  = false;
         $scope.$on('onRepeatLast', function(scope, element, attrs){
@@ -49,91 +49,6 @@ angular.module('tableModule', ['ngRoute'])
             // ZDATV: "Дата отчета"
             // timestamp: "Дата отчета"
         };
-
-        $scope.$watch(function(){
-            return $rootScope.table + $rootScope.date;
-        }, function(table) {
-            if($routeParams.place || $routeParams.raw) {
-                load_place($routeParams.svg_zone, $routeParams.place, $routeParams.raw, $routeParams.date );
-            }
-        });
-
-        function load_place (zone, place, raw, date) {
-            $scope.search_text = "";
-            $rootScope.load = true;
-            $scope.sortType     = false;
-            $scope.sortReverse  = false;
-            $http({
-                method: 'POST',
-                url: '/api/get_table/',
-                data: {zone: zone, place: place, raw: raw, date: date}
-            }).then(function successCallback(response) {
-
-                if (response.data.success) {
-                    $rootScope.load = false;
-                    $rootScope.table = raw || place;
-                    $rootScope.date = date;
-                    $scope.table_data = response.data.data;
-                    if (response.data.timeline.length) {
-
-                        $("#splineTimeline").highcharts({
-                            chart: {
-                                zoomType: 'x'
-                            },
-                            title: {
-                                text: 'Общее количество «' + $rootScope.raw + '» на складе'
-                            },
-                            xAxis: {
-                                type: 'datetime'
-                            },
-                            yAxis: {
-                                title: {
-                                    text: 'Количество сырья'
-                                }
-                            },
-                            legend: {
-                                enabled: false
-                            },
-                            plotOptions: {
-                                area: {
-                                    fillColor: {
-                                        linearGradient: {x1: 0, y1: 0, x2: 0, y2: 1},
-                                        stops: [
-                                            [0, Highcharts.getOptions().colors[0]],
-                                            [1, Highcharts.Color(Highcharts.getOptions().colors[0]).setOpacity(0).get('rgba')]
-                                        ]
-                                    },
-                                    marker: {
-                                        radius: 2
-                                    },
-                                    lineWidth: 1,
-                                    states: {
-                                        hover: {
-                                            lineWidth: 1
-                                        }
-                                    },
-                                    threshold: null
-                                }
-                            },
-
-                            series: [{
-                                type: 'area',
-                                name: $rootScope.raw,
-                                data: response.data.timeline
-                            }]
-                        });
-                    } else {
-                        $("#splineTimeline").html("");
-                    }
-                }
-            }, function errorCallback(response) {
-                if (!response.data.success) {
-                    $rootScope.load = false;
-                    console.log('table request error');
-                }
-                $location.path('/');
-            });
-        }
 
         $scope.theadClick = function (key) {
             $scope.sortType = key;
@@ -195,4 +110,20 @@ angular.module('tableModule', ['ngRoute'])
                 $mdDialog.hide(answer);
             };
         }
+
+        $scope.$watch(function(){
+            return $rootScope.act;
+        }, function(act) {
+            if(act != undefined || act != null)
+                act = act.toString();
+            else
+                act = "";
+            if(act != "" && act != undefined && act != null && (act.length > 2)) {
+                $scope.table_data = TableData.get();
+                $scope.table_name = "Результаты поиска";
+            }
+            else {
+                $scope.table_name = undefined;
+            }
+        });
     });
