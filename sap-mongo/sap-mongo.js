@@ -29,9 +29,7 @@ var dateConstructor = function (date, dateNow, showOnly) {
 schedule.scheduleJob('0 20 * * * *', function(){
 //schedule.scheduleJob('0-59 * * * * *', function(){
     var date = new Date();
-    console.log(date);
     date = new Date(date.getTime() - date.getTimezoneOffset()*60*1000);
-    console.log(date);
     var timestamp = date.getTime();
 
     MongoClient.connect(url, function(err, db) {
