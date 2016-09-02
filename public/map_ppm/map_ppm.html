@@ -4,7 +4,7 @@
             <span>Интерактивная карта ППМ по состоянию на</span>
         </h1>
 
-        <md-select ng-model="currentDate" ng-change="dateChanged()">
+        <md-select class="md-padding" ng-model="currentDate" ng-change="dateChanged()">
             <md-option ng-repeat="date in dayDayts" ng-value="date.timestamp">
                 {{date.date}}
             </md-option>
