@@ -1,5 +1,5 @@
 'use strict';
-angular.module('appMAP', ['ngRoute', 'ngMaterial', 'authModule', 'map_ppmModule', 'LocalStorageModule'])
+angular.module('appMAP', ['ngRoute', 'ngMaterial', 'authModule', 'map_ppmModule', 'search_by_actModule', 'LocalStorageModule'])
     .config(function($routeProvider, $mdDateLocaleProvider) {
         $routeProvider
             .when('/', {

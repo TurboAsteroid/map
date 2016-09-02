@@ -1,0 +1,54 @@
+<div ng-show="table_name" ng-controller="search_by_actController">
+    <md-toolbar>
+        <div class="md-toolbar-tools">
+            <h3>
+                <span>{{table_name}}</span>
+            </h3>
+            <span flex></span>
+            <md-button class="md-secondary md-raised" ng-click="showPrerenderedDialog($event)">
+                Настройка колонок
+            </md-button>
+        </div>
+    </md-toolbar>
+    <div id="place_datatable">
+        <table autoscroll="place_datatable">
+            <thead>
+            <tr>
+                <th ng-repeat="(key, item) in items" ng-show="checkVisible(key)" ng-click="theadClick(key)">
+                    {{item}}
+                    <span ng-show="sortType != key"></span>
+                    <span ng-show="sortType == key && !sortReverse">▲</span>
+                    <span ng-show="sortType == key && sortReverse">▼</span>
+                </th>
+            </tr>
+            </thead>
+            <thead class="duplicate_thead">
+            <tr>
+                <th ng-repeat="(key, item) in items" ng-show="checkVisible(key)" ng-click="theadClick(key)">
+                    {{item}}
+                    <span ng-show="sortType != key"></span>
+                    <span ng-show="sortType == key && !sortReverse">▲</span>
+                    <span ng-show="sortType == key && sortReverse">▼</span>
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="row in table_data" on-last-repeat>
+                <td ng-repeat="(key, item) in items" ng-show="checkVisible(key)">{{row[key]}}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div style="display: none">
+        <div class="md-dialog-container" id="myDialogColums">
+            <md-dialog layout-padding="20">
+                <div ng-repeat="(key, item) in items">
+                    <md-checkbox ng-checked="checkVisible(key)" ng-click="toggle(key)">
+                        {{ item }}
+                    </md-checkbox>
+                </div>
+            </md-dialog>
+        </div>
+    </div>
+</div>
