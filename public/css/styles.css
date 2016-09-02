@@ -61,39 +61,39 @@ md-card#map_legend md-card-content {padding-top:0;}
     margin: 3px 0 0 10px;
 }
 
-#place_datatable {
+.place_datatable {
     width: 100%;
     overflow: auto;
     text-align: left;
     height: 360px;
 }
-#place_datatable table {
+.place_datatable table {
     border-collapse: collapse;
     position:relative;
     table-layout: fixed;
 }
-#place_datatable thead {
+.place_datatable thead {
     background: #fff;
     border-bottom: 1px solid #ccc;
 }
-#place_datatable .duplicate_thead {
+.place_datatable .duplicate_thead {
     position: absolute;
     top: 0;
     left:0;
     width:100%;
     display:none;
 }
-#place_datatable th {
+.place_datatable th {
     padding: 5px 10px 10px;
     cursor:pointer;
     text-align: left;
     white-space: nowrap;
 }
-#place_datatable th span{
+.place_datatable th span{
     display:inline-block;
     width:20px;
 }
-#place_datatable td {
+.place_datatable td {
     padding: 5px 10px;
     vertical-align: middle;
     border-bottom: 1px solid #ccc;
