@@ -36,7 +36,7 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 
 // Настройка модуля ActiveDirectory
-var groupName = 'GS11002';
+var groupName = 'PpmMap';
 var ad = new ActiveDirectory({
     url: app.get('adServer'),
     baseDN: app.get('adBaseDN'),
