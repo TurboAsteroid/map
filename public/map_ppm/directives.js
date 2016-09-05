@@ -117,7 +117,7 @@ angular.module('directivesModule', [])
             }
         };
     })
-    .directive('ghVisualization', function ($location, Zoom, $http, MapData) {
+    .directive('ghVisualization', function ($location, Zoom, $http, MapData, $routeParams) {
         return {
             restrict: 'E', // the directive can be invoked only by using <my-directive> tag in the template
             link: function (scope, element, attrs) {
@@ -170,6 +170,7 @@ angular.module('directivesModule', [])
                             }
                         })
                         .on("click", function(){
+                            var search = $routeParams;
                             search.svg_zone = $(this).data('zonaid');
                             search.place = null;
                             search.raw = null;
