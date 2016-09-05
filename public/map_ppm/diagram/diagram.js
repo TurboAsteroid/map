@@ -65,7 +65,10 @@ angular.module('diagramModule', ['ngRoute'])
                             // }
                             $('#ppm_diagram').highcharts(
                                 highcharts_opts("Распределение сырья по местам", response.data.places, 'Распределение сырья, тонны', response.data.data, function (event) {
-                                    $location.search({'svg_zone': zone, 'place': event.point.category, 'raw': null});
+                                    var search = $routeParams;
+                                    search.place = event.point.category;
+                                    search.raw = null;
+                                    $location.search(search);
                                     $scope.$apply();
                                 })
                             );
@@ -78,7 +81,10 @@ angular.module('diagramModule', ['ngRoute'])
                             }
                             $('#ppm_diagram_raws').highcharts(
                                 highcharts_opts("Общее количество сырья на складе", response.data.raws, 'Распределение сырья, тонны', response.data.data_raws, function (event) {
-                                    $location.search({'svg_zone': zone, 'raw': event.point.category, 'place': null});
+                                    var search = $routeParams;
+                                    search.place = null;
+                                    search.raw = event.point.category;
+                                    $location.search(search);
                                     $scope.$apply();
                                 })
                             )

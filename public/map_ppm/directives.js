@@ -58,7 +58,12 @@ angular.module('directivesModule', [])
                                 events: {
                                     click: function () {
                                         var tree = this.id.split('|');
-                                        $location.search({'svg_zone': tree[1], 'place': null, 'raw': tree[3]});
+
+                                        var search = $routeParams;
+                                        search.svg_zone = tree[1];
+                                        search.place = null;
+                                        search.raw = null;
+                                        $location.search(search);
                                         scope.$apply();
                                     }
                                 },
@@ -165,7 +170,10 @@ angular.module('directivesModule', [])
                             }
                         })
                         .on("click", function(){
-                            $location.search({'svg_zone': $(this).data('zonaid'), 'place': null, 'raw': null});
+                            search.svg_zone = $(this).data('zonaid');
+                            search.place = null;
+                            search.raw = null;
+                            $location.search(search);
                             scope.$apply();
                         });
                 }, function errorCallback(response) {
