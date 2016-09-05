@@ -1,12 +1,12 @@
 'use strict';
 angular.module('directivesModule', [])
-    .directive('mapVisualization', function ($location, $http, $rootScope, MapData, $q) {
+    .directive('mapVisualization', function ($location, $http, $rootScope, $routeParams, MapData, $q) {
         return {
             restrict: 'E', // the directive can be invoked only by using <my-directive> tag in the template
             link: function (scope, element, attrs) {
                 $q.all([
                     MapData.getData(),
-                    $http({method: 'GET',url: '/api/get_storages'})
+                    $http({method: 'GET',url: '/api/get_storages', data: {date: $routeParams.date}})
                 ]).then(function(value) {
                     var mapData = value[0].data,
                         ppm = value[1].data.data,

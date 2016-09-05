@@ -136,7 +136,7 @@ angular.module('map_ppmModule', ['ngRoute', 'ngMaterial', 'directivesModule', 'f
                 $http({
                     method: 'post',
                     url: '/api/search',
-                    data: {search_act: $scope.act, timestamp: timestamp}
+                    data: {search_act: $scope.act, timestamp: timestamp, date: $routeParams.date}
                 }).then(function successCallback(response) {
                     if (response.data.success) {
                         TableData.set(response.data.results);

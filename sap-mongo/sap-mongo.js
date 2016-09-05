@@ -43,12 +43,6 @@ schedule.scheduleJob('0 20 * * * *', function(){
             "hour": date.getUTCHours(),
             "mins": date.getUTCMinutes()
         });
-        dbCon.collection("variables").update({ "_id": o_id }, {
-            $set: {
-                "lastReportDate": date,
-                "timestamp": timestamp
-            }
-        });
         var url = app.get('sap');
         var url_now;
         for (var i = 1; i < 33; i++) {
