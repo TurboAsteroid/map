@@ -2,7 +2,7 @@ module.exports = {
 	//порты сервера ноды
 	'portHttp': '7070',
 	//сервер  АД
-	'adServer': 'ldap://elem-dc0.elem.ru',
+	'adServer': 'ldap://elem-dc1.elem.ru',
 	//домен
 	'adBaseDN': 'dc=elem,dc=ru',
 	//пользователь АД, имеющий доступ к АД. требуется для простого получения списка пользоватлей АД

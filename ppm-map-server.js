@@ -60,11 +60,11 @@ app.all('*', function(req, res, next){
     async.parallel(
         [
             function(callback){
-                dbCon.collection('variables').findOne({}, {timestamp: 1}, callback);
+                dbCon.collection('dates_list').find({},{timestamp:1}).sort({timestamp: -1}).limit(1).toArray(callback);
             }
         ],
         function(err, results){
-            reportDate = req.body.date ? parseInt(req.body.date) : results[0].timestamp;
+            reportDate = req.body.date ? parseInt(req.body.date) : results[0][0].timestamp;
             next();
         }
     )
