@@ -35,6 +35,7 @@ angular.module('map_ppmModule', ['ngRoute', 'ngMaterial', 'directivesModule', 'f
             url: '/api/get_times/',
             data: {zone: zone, place: place, raw: raw, date: date}
         }).then(function successCallback(response) {
+            $scope.dates = response.data.dates;
             var dates = response.data.dates;
             $scope.myDate = $routeParams.date ? new Date(parseInt($routeParams.date)) : new Date(parseInt(response.data.lastDate));
             var tmp_dates = {};
@@ -43,9 +44,9 @@ angular.module('map_ppmModule', ['ngRoute', 'ngMaterial', 'directivesModule', 'f
                     tmp_dates[dates[d].year+'-'+dates[d].months+'-'+dates[d].day] = dates[d];
 
                     if (
-                        $scope.myDate.getFullYear() == dates[d].year &&
-                        $scope.myDate.getMonth()+1 == dates[d].month &&
-                        $scope.myDate.getDate() == dates[d].day
+                        $scope.myDate.getUTCFullYear() == dates[d].year &&
+                        $scope.myDate.getUTCMonth()+1 == dates[d].month &&
+                        $scope.myDate.getUTCDate() == dates[d].day
                     ) {
                         $scope.currentDate = dates[d].timestamp;
                     }
@@ -57,10 +58,7 @@ angular.module('map_ppmModule', ['ngRoute', 'ngMaterial', 'directivesModule', 'f
             }
 
             $scope.currentTime = $scope.myDate.getTime();
-            $scope.getTimes(dates);
-            $scope.dateChanged = function(){
-                $scope.getTimes(dates);
-            };
+            $scope.getTimes(true);
         }, function errorCallback(response) {
             if (!response.data.success) {
                 $rootScope.load = false;
@@ -69,6 +67,13 @@ angular.module('map_ppmModule', ['ngRoute', 'ngMaterial', 'directivesModule', 'f
             $location.path('/');
         });
 
+        $scope.dateChanged = function(){
+            var search = $routeParams;
+            search.date = $scope.currentDate;
+            $location.search(search);
+            $scope.getTimes(false);
+            $scope.currentTime = $scope.currentDate;
+        };
         $scope.timeChanged = function(notupdate){
             var search = $routeParams;
             if ($routeParams.date || !notupdate) {
@@ -76,21 +81,28 @@ angular.module('map_ppmModule', ['ngRoute', 'ngMaterial', 'directivesModule', 'f
             }
             $location.search(search);
         };
-        $scope.getTimes = function(dates){
+        $scope.getTimes = function(need_upd){
             $scope.dayTimes = [];
-            for (var d in dates) {
+            var current_date = new Date($scope.currentDate);
+            for (var d in $scope.dates) {
+                var tmp = 0;
                 if (
-                    $scope.myDate.getFullYear() == dates[d].year &&
-                    $scope.myDate.getMonth()+1 == dates[d].month &&
-                    $scope.myDate.getDate() == dates[d].day
+                    current_date.getUTCFullYear() == $scope.dates[d].year &&
+                    current_date.getUTCMonth()+1 == $scope.dates[d].month &&
+                    current_date.getUTCDate() == $scope.dates[d].day
                 ) {
                     $scope.dayTimes.push({
-                        time: dates[d].hour + ':' + dates[d].mins,
-                        timestamp: dates[d].timestamp
+                        time: $scope.dates[d].hour + ':' + $scope.dates[d].mins,
+                        timestamp: $scope.dates[d].timestamp
                     });
+                    if (tmp < $scope.dates[d].timestamp) {
+                        tmp = $scope.dates[d].timestamp;
+                    }
                 }
             }
-            $scope.timeChanged(true);
+            if (need_upd) {
+                $scope.timeChanged(true);
+            }
         };
 
         Highcharts.setOptions({
