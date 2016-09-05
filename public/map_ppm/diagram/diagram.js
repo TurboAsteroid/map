@@ -53,7 +53,7 @@ angular.module('diagramModule', ['ngRoute'])
             $http({
                 method: 'POST',
                 url: '/api/get_diagram/',
-                data: {zone: zone}
+                data: {zone: zone, date: $routeParams.date}
             }).then(function successCallback(response) {
                 if (response.data.success) {
                     $rootScope.zone = $routeParams.svg_zone;
