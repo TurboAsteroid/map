@@ -1,10 +1,12 @@
+'use strict';
+
 //зависимости
 var ActiveDirectory = require('activedirectory');
 var fs = require('fs');
 var http = require('http');
 var express = require('express');
 var bodyParser = require('body-parser');
-var config = require('./config');
+var config = require('./ppm-map-config');
 var async = require('async');
 var session = require('express-session');
 var cookieParser = require('cookie-parser');
@@ -13,6 +15,7 @@ var MongoClient = require('mongodb').MongoClient;
 
 var app = express();
 
+app.set('accessGroup', config.accessGroup);
 app.set('portHttp', config.portHttp);
 app.set('adServer', config.adServer);
 app.set('adBaseDN', config.adBaseDN);
@@ -36,7 +39,7 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 
 // Настройка модуля ActiveDirectory
-var groupName = 'PpmMap';
+var groupName = app.get('accessGroup');
 var ad = new ActiveDirectory({
     url: app.get('adServer'),
     baseDN: app.get('adBaseDN'),
