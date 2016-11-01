@@ -3,7 +3,7 @@ angular.module('map_ppmModule', ['ngRoute', 'ngMaterial', 'directivesModule', 'f
     .controller('map_ppmController', function($scope, $location, $routeParams, $rootScope, $http, TableData) {
         $http({
             method: 'GET',
-            url: '/api/is'
+            url: '/api/authenticate'
         }).then(function successCallback(response) {
         }, function errorCallback(response) {
             $location.path('/');

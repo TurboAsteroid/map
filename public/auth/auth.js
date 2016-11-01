@@ -4,7 +4,7 @@ angular.module('authModule', ['ngRoute'])
     .controller('authController', function($scope, $http, $location) {
         $http({
             method: 'GET',
-            url: '/api/is'
+            url: '/api/authenticate'
         }).then(function successCallback(response) {
             $location.path('/map_ppm');
         }, function errorCallback(response) {

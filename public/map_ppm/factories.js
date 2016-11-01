@@ -64,7 +64,7 @@ angular.module('factoriesModule', [])
     .service('MapData', function($http, $rootScope, $location, $routeParams) {
         var mapData;
         this.getData =  function() {
-            if (!this.mapData) {
+            if (!this.mapData || !this.mapData.data) {
                 this.mapData= $http({
                     method: 'GET',
                     url: '/api/map_legend',

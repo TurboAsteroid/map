@@ -45,9 +45,9 @@ var ad = new ActiveDirectory({
 });
 
 // Connection URL
-var url = 'mongodb://'+app.get('dbUser')+':'+app.get('dbPassword')+'@'+app.get('dbHost')+':27017/'+app.get('dbDatabase');
+var url = 'mongodb://' + app.get('dbUser') + ':' + app.get('dbPassword') + '@' + app.get('dbHost') + ':27017/' + app.get('dbDatabase');
 var dbCon;
-MongoClient.connect(url, function(err, db) {
+MongoClient.connect(url, function (err, db) {
     dbCon = db;
     app.listen(app.get('portHttp'));
 });
@@ -56,103 +56,96 @@ app.use(express.static('public')); //папка со статическими ф
 
 var reportDate;
 
-app.all('*', function(req, res, next){
+app.all('*', function (req, res, next) {
     async.parallel(
         [
-            function(callback){
-                dbCon.collection('dates_list').find({},{timestamp:1}).sort({timestamp: -1}).limit(1).toArray(callback);
+            function (callback) {
+                dbCon.collection('dates_list').find({}, {timestamp: 1}).sort({timestamp: -1}).limit(1).toArray(callback);
             }
         ],
-        function(err, results){
+        function (err, results) {
             reportDate = req.body.date ? parseInt(req.body.date) : results[0][0].timestamp;
             next();
         }
     )
 });
 
-//аутентификация пользователя
-function auth(userAndPassword, callback) {
-    var username = userAndPassword.username;
-    var password = userAndPassword.password;
-    ad.authenticate(username, password, function (err, isAuthenticated) {
-        var json;
-        if (!err) {
-            json = {success: true, message: 'Аутентификация прошла успешно'};
-        }
-        else {
-            json = {success: false, message: 'Некорректное имя пользователя или пароль'};
-        }
-        callback(err, json, username);
-    })
-}
-
-//проверка принадлежности к группе
-function checkGroup(authenticated, username, callback) {
-    if (authenticated.success) {
-        //проверяем на членство в группах
-        ad.isUserMemberOf(username, groupName, function (err, isMember) {
-            if (err) {
-                callback(err, {success: false, message: 'Некорректное имя пользователя или пароль'});
-            }
-            if (isMember) {
-                callback(err, {success: true, message: 'Пользователь принадлежит группе'});
-            }
-        });
-    }
-    else {
-        callback(true, { success: false, message: 'Неизвестная ошибка'});
-    }
-}
-
 var apiRoutes = express.Router(); //объявление роутера
 
-var authenticate = function (req, res) {
-    async.waterfall( //последовательно проверяем доступ пользователю
-        [
-            async.apply(auth, { username: req.body.username, password: req.body.password }),//правильный ли пароль
-            checkGroup //входит ли в группу
-        ], function (err, result) { //отправляем результат
-            if(err)
-                res.status(400).send(result);
-            else { //делаем куки
-                req.session.username = req.body.username;
-                req.session.password = req.body.password;
-                res.status(200).json({success: true});
-            }
-        }
-    );
-};
+app.all('*', function (req, res, next) {
+    var username, password;
+    if (!req.session.username && !req.session.password && !req.body.username && !req.body.password) {
+        res.status(401).json({success: false, message: 'Некорректное имя пользователя или пароль'});
+    }
+    else if (req.body.username && req.body.password) {
+        if (req.body.username.indexOf('@elem.ru') == -1 || req.body.username.indexOf('@') == -1)
+            req.body.username += "@elem.ru";
+        username = req.body.username;
+        password = req.body.password;
+        let auth = new Promise((resolve, reject) => {
+            ad.authenticate(username, password, function (err, isAuthenticated) {
+                if (err || !isAuthenticated)
+                    reject({success: false, message: 'Некорректное имя пользователя или пароль'});
+                else
+                    resolve({success: true, message: 'Аутентификация прошла успешно'});
+            });
+        });
+        let checkGroup = new Promise((resolve, reject) => {
+            ad.isUserMemberOf(username, groupName, function (err, isMember) {
+                if (err || !isMember)
+                    reject({success: false, message: 'Некорректное имя пользователя или пароль'});
+                else
+                    resolve({success: true, message: 'Пользователь принадлежит группе'});
+            });
+        });
+        Promise.all([auth, checkGroup])
+            .then(
+                value0 => {
+                    req.session.username = req.body.username;
+                    req.session.password = req.body.password;
+                    res.status(200).json({success: true});
+                },
+                reason0 => {
+                    res.status(400).send(reason0);
+                }
+            );
+    }
+    else {
+        username = req.session.username;
+        password = req.session.password;
+        let auth = new Promise((resolve, reject) => {
+            ad.authenticate(username, password, function (err, isAuthenticated) {
+                if (err || !isAuthenticated)
+                    reject({success: false, message: 'Некорректное имя пользователя или пароль'});
+                else
+                    resolve({success: true, message: 'Аутентификация прошла успешно'});
+            });
+        });
+        let checkGroup = new Promise((resolve, reject) => {
+            ad.isUserMemberOf(username, groupName, function (err, isMember) {
+                if (err || !isMember)
+                    reject({success: false, message: 'Некорректное имя пользователя или пароль'});
+                else
+                    resolve({success: true, message: 'Пользователь принадлежит группе'});
+            });
+        });
+        Promise.all([auth, checkGroup])
+            .then(
+                value0 => {
+                    next();
+                },
+                reason0 => {
+                    res.status(400).send(reason0);
+                }
+            );
+    }
+});
 
-// app.all('*', function(req, res, next){
-//     if(!req.session.username && !req.session.password && !req.body.username && !req.body.password) {
-//         res.status(401).json({success: false, message: 'Некорректное имя пользователя или пароль'});
-//     }
-//     else if(req.body.username && req.body.password) {
-//         if(req.body.username.indexOf('@elem.ru') == -1 || req.body.username.indexOf('@') == -1)
-//             req.body.username += "@elem.ru";
-//         authenticate(req, res);
-//         next();
-//     }
-//     else {
-//         async.waterfall( //последовательно проверяем доступ пользователю
-//             [
-//                 async.apply(auth, { username: req.session.username, password: req.session.password }),//правильный ли пароль
-//                 checkGroup //входит ли в группу
-//             ], function (err, result) { //отправляем результат
-//                 if(err)
-//                     res.status(400).send(result);
-//                 else {
-//                     next();
-//                 }
-//             }
-//         );
-//     }
-// });
-
-apiRoutes.get('/api/is', function (req, res) {
+apiRoutes.get('/api/authenticate', function (req, res) {
     res.status(200).json({success: true, message: 'Ok'});
 });
-apiRoutes.post('/api/authenticate', function (req, res) {});
+apiRoutes.post('/api/authenticate', function (req, res) {
+});
 
 apiRoutes.get('/api/logout', function (req, res) {
     req.session = null;
@@ -171,11 +164,11 @@ apiRoutes.post('/api/get_diagram', function (req, res) {
 
     async.parallel(
         [
-            function(callback){
-                dbCon.collection('sap_data').find(request, {LGORT: 1,MATNR_CPH_PPM: 1,MENGE: 1}).toArray(callback);
+            function (callback) {
+                dbCon.collection('sap_data').find(request, {LGORT: 1, MATNR_CPH_PPM: 1, MENGE: 1}).toArray(callback);
             }
         ],
-        function(err, results){
+        function (err, results) {
             if (err) throw err;
             var places = [];
             var raws = [];
@@ -202,14 +195,14 @@ apiRoutes.post('/api/get_diagram', function (req, res) {
                 for (var p in places) {
                     arr_tmp[p] = tmp_data_r[i][places[p]] || 0;
                 }
-                data_r.push({name: i,data: arr_tmp});
+                data_r.push({name: i, data: arr_tmp});
             }
             for (i in tmp_data_p) {
                 var arr_tmp = Array(raws.length).join('0').split('');
                 for (var r in raws) {
                     arr_tmp[r] = tmp_data_p[i][raws[r]] || 0;
                 }
-                data_p.push({name: i,data: arr_tmp});
+                data_p.push({name: i, data: arr_tmp});
             }
             res.status(200).send({
                 success: true,
@@ -227,11 +220,11 @@ apiRoutes.post('/api/get_diagram', function (req, res) {
 apiRoutes.get('/api/get_storages', function (req, res) {
     async.parallel(
         [
-            function(callback){
+            function (callback) {
                 dbCon.collection('sap_data').find({"timestamp": reportDate}).toArray(callback);
             }
         ],
-        function(err, results){
+        function (err, results) {
             if (err) throw err;
             res.status(200).send({
                 success: true,
@@ -250,7 +243,7 @@ apiRoutes.post('/api/get_table', function (req, res) {
 
     async.parallel(
         [
-            function(callback){
+            function (callback) {
                 var request = {};
                 if (N_KART) request.N_KART = N_KART.toString();
                 if (LGORT) request.LGORT = LGORT.toString();
@@ -260,7 +253,7 @@ apiRoutes.post('/api/get_table', function (req, res) {
                 request.timestamp = reportDate;
                 dbCon.collection('sap_data').find(request, {_id: 0}).toArray(callback);
             },
-            function(callback){
+            function (callback) {
                 var request = {};
                 if (N_KART) request.N_KART = N_KART.toString();
                 if (LGORT) request.LGORT = LGORT.toString();
@@ -269,17 +262,18 @@ apiRoutes.post('/api/get_table', function (req, res) {
                 request.timestamp = {$exists: true};
                 dbCon.collection('sap_data').aggregate([
                     {$match: request},
-                    {$group: {
-                        _id: "$timestamp",
-                        total: { $sum: "$MENGE" }
-                    }
-                }]).sort({_id: 1}).toArray(callback);
+                    {
+                        $group: {
+                            _id: "$timestamp",
+                            total: {$sum: "$MENGE"}
+                        }
+                    }]).sort({_id: 1}).toArray(callback);
             },
-            function(callback){
-                dbCon.collection('storages').findOne({storage_id: parseInt(N_KART)},{name: 1},callback);
+            function (callback) {
+                dbCon.collection('storages').findOne({storage_id: parseInt(N_KART)}, {name: 1}, callback);
             }
         ],
-        function(err, results){
+        function (err, results) {
             if (err) throw err;
             for (var i in results[0]) {
                 results[0][i].PLOSH = results[2].name;
@@ -307,11 +301,11 @@ apiRoutes.post('/api/get_table', function (req, res) {
 apiRoutes.post('/api/get_times', function (req, res) {
     async.parallel(
         [
-            function(callback) {
+            function (callback) {
                 dbCon.collection('dates_list').find().sort({timestamp: -1}).toArray(callback);
             }
         ],
-        function(err, results){
+        function (err, results) {
             if (err) throw err;
 
             res.status(200).send({
@@ -326,14 +320,14 @@ apiRoutes.post('/api/get_times', function (req, res) {
 apiRoutes.get('/api/map_legend', function (req, res) {
     async.parallel(
         [
-            function(callback){
+            function (callback) {
                 dbCon.collection('areas').find().toArray(callback);
             },
-            function(callback){
+            function (callback) {
                 dbCon.collection('storages').find().toArray(callback);
             }
         ],
-        function(err, results){
+        function (err, results) {
             if (err) throw err;
             var areas = {};
             var storages = {};
@@ -361,11 +355,14 @@ apiRoutes.post('/api/search', function (req, res) {
 
     async.waterfall(
         [
-            async.apply(function(callback){
-                dbCon.collection('sap_data').find({PR_NUMBER_ACT: {$regex: '.*'+act+'.*'}, timestamp: parseInt(timestamp) }).toArray(callback);
+            async.apply(function (callback) {
+                dbCon.collection('sap_data').find({
+                    PR_NUMBER_ACT: {$regex: '.*' + act + '.*'},
+                    timestamp: parseInt(timestamp)
+                }).toArray(callback);
             })
         ],
-        function(err, results){
+        function (err, results) {
             if (err) throw err;
             res.status(200).send({
                 success: true,
