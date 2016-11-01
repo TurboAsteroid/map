@@ -4,7 +4,7 @@ var ObjectId = require('mongodb').ObjectId;
 var schedule = require('node-schedule');
 var request = require('request');
 var fs = require('fs');
-var config = require('../config');
+var config = require('../ppm-map-config');
 
 var app = express();
 
