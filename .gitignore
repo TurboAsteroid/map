@@ -1,0 +1,4 @@
+node_modules
+public/node_modules
+sap-mongo/node_modules
+sap-mongo/sap-mongo.log

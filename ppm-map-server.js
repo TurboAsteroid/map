@@ -262,7 +262,7 @@ apiRoutes.post('/api/get_table', function (req, res) {
                 if (LGORT) request.LGORT = LGORT.toString();
                 //TODO: Заменить на код сырья
                 if (MATNR_CPH_PPM) request.MATNR_CPH_PPM = MATNR_CPH_PPM.toString();
-                request.timestamp = {$exists: true};
+//                request.timestamp = {$exists: true};
                 dbCon.collection('sap_data').aggregate([
                     {$match: request},
                     {
