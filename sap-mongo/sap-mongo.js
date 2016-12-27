@@ -1,6 +1,6 @@
 var express = require('express');
 var MongoClient = require('mongodb').MongoClient;
-var ObjectId = require('mongodb').ObjectId;
+//var ObjectId = require('mongodb').ObjectId;
 var schedule = require('node-schedule');
 var request = require('request');
 var fs = require('fs');
@@ -17,7 +17,6 @@ app.set('sap', config.sap);
 request = request.defaults({jar: true});
 
 var url = 'mongodb://'+app.get('dbUser')+':'+app.get('dbPassword')+'@'+app.get('dbHost')+':27017/'+app.get('dbDatabase');
-var dbCon;
 
 var dateConstructor = function (date, dateNow, showOnly) {
     if (date == "00000000")
@@ -33,9 +32,8 @@ schedule.scheduleJob('0 20 * * * *', function(){
     var timestamp = date.getTime();
 
     MongoClient.connect(url, function(err, db) {
-        dbCon = db;
-        var o_id = new ObjectId("57c6c22711b7d8941b3ddf1c");
-        dbCon.collection("dates_list").insert({
+        //var o_id = new ObjectId("57c6c22711b7d8941b3ddf1c");
+        db.collection("dates_list").insert({
             "timestamp": timestamp,
             "day": date.getUTCDate(),
             "month": date.getUTCMonth()+1,
@@ -68,12 +66,13 @@ schedule.scheduleJob('0 20 * * * *', function(){
                         json[j].date = date;
                         json[j].timestamp = timestamp;
                     }
-                    dbCon.collection('sap_data').insert(json);
+                    if (json.length > 0)
+                        db.collection('sap_data').insert(json);
                 }
                 else {
                     var str = new Date() +
                              '\nerror: ' + error +
-                             '\nresponse.statusCode: ' + response.statusCode +
+                             //'\nresponse.statusCode: ' + response.statusCode +
                              '\nbody:\n' + body + '\n\n\n\n\n\n';
                     fs.appendFile('sap-mongo.log', str, function (err) {
                         if (err)
