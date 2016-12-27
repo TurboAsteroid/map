@@ -25,4 +25,5 @@ $ pm2 start ppm-map-server.js && pm2 start sap-mongo.js
 db.sap_data.createIndex({"timestamp" : 1});
 db.sap_data.createIndex({"MATNR_CPH_PPM" : 1, N_KART: 1});
 db.sap_data.createIndex({"N_KART" : 1, LGORT: 1});
+db.sap_data.createIndex({"PR_NUMBER_ACT" : 1});
 ```
