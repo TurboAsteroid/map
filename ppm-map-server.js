@@ -9,9 +9,10 @@ var bodyParser = require('body-parser');
 var config = require('./ppm-map-config');
 var async = require('async');
 var session = require('express-session');
+let MongoDBStore = require('connect-mongodb-session')(session);
 var cookieParser = require('cookie-parser');
 var MongoClient = require('mongodb').MongoClient;
-// require('./sap-mongo');
+var favicon = require('serve-favicon');
 
 var app = express();
 
@@ -26,20 +27,47 @@ app.set('dbHost', config.dbHost);
 app.set('dbDatabase', config.dbDatabase);
 app.set('dbUser', config.dbUser);
 app.set('dbPassword', config.dbPassword);
-
+/*
+app.use(function (req, res, next) {
+    res.setHeader('Access-Control-Allow-Origin', 'http://10.1.100.161:7070');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST');
+    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With, content-type, origin, accept');
+    res.setHeader('Access-Control-Allow-Credentials', true);
+    next();
+});
+*/
+app.use(express.static('public')); //папка со статическими файлами
 app.use(cookieParser());
-
-app.use(session({
-    secret: app.get('cookieSecret'),
-    resave: false,
-    saveUninitialized: false
-}));
-
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
+app.use(favicon(__dirname + '/public/favicon.ico'));
+
+let store = new MongoDBStore(
+    {
+        uri: 'mongodb://' + app.get('dbUser') + ':' + app.get('dbPassword') + '@' + app.get('dbHost') + ':27017/' + app.get('dbDatabase'),
+        collection: 'sessions'
+    },
+    function (error) {
+    });
+
+store.on('error', function(error) {
+    assert.ifError(error);
+    assert.ok(false);
+});
+app.use(
+    session({
+    secret: app.get('cookieSecret'),
+    cookie: {
+        maxAge: 1000 * 60 * 60 * 24 * 7 // 1 week
+    },
+    store: store,
+    resave: true,
+    saveUninitialized: false
+})
+);
+
 
 // Настройка модуля ActiveDirectory
-var groupName = app.get('accessGroup');
 var ad = new ActiveDirectory({
     url: app.get('adServer'),
     baseDN: app.get('adBaseDN'),
@@ -54,8 +82,6 @@ MongoClient.connect(url, function (err, db) {
     dbCon = db;
     app.listen(app.get('portHttp'));
 });
-
-app.use(express.static('public')); //папка со статическими файлами
 
 var reportDate;
 
@@ -76,71 +102,95 @@ app.all('*', function (req, res, next) {
 var apiRoutes = express.Router(); //объявление роутера
 
 app.all('*', function (req, res, next) {
-    var username, password;
-    if (!req.session.username && !req.session.password && !req.body.username && !req.body.password) {
-        res.status(401).json({success: false, message: 'Некорректное имя пользователя или пароль'});
-    }
-    else if (req.body.username && req.body.password) {
-        if (req.body.username.indexOf('@elem.ru') == -1 || req.body.username.indexOf('@') == -1)
-            req.body.username += "@elem.ru";
-        username = req.body.username;
-        password = req.body.password;
-        let auth = new Promise((resolve, reject) => {
-            ad.authenticate(username, password, function (err, isAuthenticated) {
-                if (err || !isAuthenticated)
-                    reject({success: false, message: 'Некорректное имя пользователя или пароль'});
-                else
-                    resolve({success: true, message: 'Аутентификация прошла успешно'});
-            });
-        });
-        let checkGroup = new Promise((resolve, reject) => {
-            ad.isUserMemberOf(username, groupName, function (err, isMember) {
-                if (err || !isMember)
-                    reject({success: false, message: 'Некорректное имя пользователя или пароль'});
-                else
-                    resolve({success: true, message: 'Пользователь принадлежит группе'});
-            });
-        });
-        Promise.all([auth, checkGroup])
-            .then(
-                value0 => {
-                    req.session.username = req.body.username;
-                    req.session.password = req.body.password;
-                    res.status(200).json({success: true});
-                },
-                reason0 => {
-                    res.status(400).send(reason0);
-                }
-            );
-    }
+    if (req.method === 'OPTIONS')
+        next();
     else {
-        username = req.session.username;
-        password = req.session.password;
-        let auth = new Promise((resolve, reject) => {
-            ad.authenticate(username, password, function (err, isAuthenticated) {
-                if (err || !isAuthenticated)
-                    reject({success: false, message: 'Некорректное имя пользователя или пароль'});
-                else
-                    resolve({success: true, message: 'Аутентификация прошла успешно'});
+        let username, password;
+        if (!req.session.username && !req.body.username && !req.body.password) {
+            res.status(401).json({
+                success: false,
+                message: 'Некорректное имя пользователя или пароль'
             });
-        });
-        let checkGroup = new Promise((resolve, reject) => {
-            ad.isUserMemberOf(username, groupName, function (err, isMember) {
-                if (err || !isMember)
-                    reject({success: false, message: 'Некорректное имя пользователя или пароль'});
-                else
-                    resolve({success: true, message: 'Пользователь принадлежит группе'});
+        }
+        else if (req.body.username && req.body.password) {
+            if (req.body.username.indexOf('@elem.ru') == -1 || req.body.username.indexOf('@') == -1)
+                req.body.username += "@elem.ru";
+            username = req.body.username;
+            password = req.body.password;
+            let isAuthenticatedPr = new Promise((resolve, reject) => {
+                ad.authenticate(username, password, function (err, isAuthenticated) {
+                    if (err || !isAuthenticated)
+                        reject({
+                            success: false,
+                            message: 'Некорректное имя пользователя или пароль'
+                        });
+                    else
+                        resolve({
+                            success: true,
+                            message: 'Аутентификация прошла успешно'
+                        });
+                });
             });
-        });
-        Promise.all([auth, checkGroup])
-            .then(
-                value0 => {
-                    next();
-                },
-                reason0 => {
-                    res.status(400).send(reason0);
-                }
-            );
+            let isMemberPr = new Promise((resolve, reject) => {
+                ad.isUserMemberOf(username, app.get('accessGroup'), function (err, isMember) {
+                    if (err || !isMember)
+                        reject({
+                            success: false,
+                            message: 'Пользователь не принадлежит группе'
+                        });
+                    else
+                        resolve({
+                            success: true,
+                            message: 'Пользователь принадлежит группе'
+                        });
+                });
+            });
+            Promise.all([isAuthenticatedPr, isMemberPr])
+                .then(
+                    result => {
+                        req.session.username = req.body.username;
+                        res.status(200).json({
+                            success: true,
+                            result : result
+                        });
+                    },
+                    reason => {
+                        res.status(400).send(reason);
+                    }
+                );
+        }
+        else if (req.session.username && req.session.id) {
+            let username = req.session.username;
+            let isMemberPr = new Promise((resolve, reject) => {
+                ad.isUserMemberOf(username, app.get('accessGroup'), function (err, isMember) {
+                    if (err || !isMember)
+                        reject({
+                            success: false,
+                            message: 'Пользователь не принадлежит группе'
+                        });
+                    else
+                        resolve({
+                            success: true,
+                            message: 'Пользователь принадлежит группе'
+                        });
+                });
+            });
+            Promise.all([isMemberPr])
+                .then(
+                    result => {
+                        next();
+                    },
+                    reason => {
+                        res.status(400).send(reason);
+                    }
+                );
+        }
+        else {
+            res.status(401).json({
+                success: false,
+                message: 'Некорректное имя пользователя или пароль'
+            });
+        }
     }
 });
 
