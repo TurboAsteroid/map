@@ -25,15 +25,20 @@ var dateConstructor = function (date, dateNow, showOnly) {
         date = date.slice(6, 8) + '.' + date.slice(4, 6) + '.' + date.slice(0, 4);
     return date;
 };
+
+let mongoConnection;
+MongoClient.connect(url, function(err, db) {
+        mongoConnection = db;
+});
+
 schedule.scheduleJob('0 20 * * * *', function(){
 //schedule.scheduleJob('0-59 * * * * *', function(){
     var date = new Date();
     date = new Date(date.getTime() - date.getTimezoneOffset()*60*1000);
     var timestamp = date.getTime();
 
-    MongoClient.connect(url, function(err, db) {
         //var o_id = new ObjectId("57c6c22711b7d8941b3ddf1c");
-        db.collection("dates_list").insert({
+        mongoConnection.collection("dates_list").insert({
             "timestamp": timestamp,
             "day": date.getUTCDate(),
             "month": date.getUTCMonth()+1,
@@ -67,7 +72,7 @@ schedule.scheduleJob('0 20 * * * *', function(){
                         json[j].timestamp = timestamp;
                     }
                     if (json.length > 0)
-                        db.collection('sap_data').insert(json);
+                        mongoConnection.collection('sap_data').insert(json);
                 }
                 else {
                     var str = new Date() +
@@ -81,5 +86,4 @@ schedule.scheduleJob('0 20 * * * *', function(){
                 }
             });
         }
-    });
 });
